@@ -1,9 +1,18 @@
 const express = require('express');
-const app = express();
-const PORT = 3000;
 const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const indexRouter=require('./routes');
+const newLocal = require('custom-env')  
+newLocal.env(process.env.NODE_ENV,'./config');
 
+mongoose.connect(process.env.CONNECTION_STRING,{useNewUrlParser:true,useUnifiedTopology:true});
+const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, './client')));
-app.get('/',(req,res)=>res.send("Making sure express installed went well. Nodemon is working also."));
+app.use('/api',indexRouter);
 
-app.listen(PORT,()=>console.log(`Listening on port: ${PORT}`));
+app.listen(process.env.PORT);

@@ -6,18 +6,17 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 20vw);
+    grid-template-columns: repeat(auto-fill, 40vw);
     padding: 1vw;
     justify-content: center;
     gap: 1vw;
-    background: rgb(0,0,0);
-    background: linear-gradient(60deg, rgba(0,0,0,1) 0%, rgba(88,216,255,1) 100%); 
+    background-color: white; 
   }
   
   .grid-item {
     background-color: rgba(241, 111, 11, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: .5vh;
+
     font-size: 30px;
     text-align: center;
     height: max-content;
@@ -33,6 +32,7 @@
     background-color: white;
     border: 1px solid black;
     border-top: none;
+    padding: .5vh;
   }
   .border-bottom{
     border-bottom: 1px solid black;
