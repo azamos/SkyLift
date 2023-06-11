@@ -21,10 +21,6 @@ in your folder of choise, open a terminal and:
 3.npm i
 4.npm run start
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [NodeJs](https://nodejs.org/en) - for our backend
@@ -38,8 +34,8 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 * **Amos Zohar** - *Team member* - [azamos](https://github.com/azamos)
-* **Omer LastName** - *Team member* - [omerone](https://github.com/omerone)
+* **Omer Maoz** - *Team member* - [omerone](https://github.com/omerone)
 * **Omri Finegold** - *Team member* - [omrifinegold11](https://github.com/omrifinegold11)
-* **Shir LastName** - *Team member*
+* **Shir Michaelis** - *Team member* - [shirmichaelis](https://github.com/shirmichaelis)
 
 See also the list of [contributors](https://github.com/azamos/SkyLift/contributors) who participated in this project.
