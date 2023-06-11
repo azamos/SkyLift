@@ -6,7 +6,7 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 40vw);
+    grid-template-columns: repeat(auto-fill, 30vw);
     padding: 1vw;
     justify-content: center;
     gap: 1vw;
@@ -14,12 +14,12 @@
   }
   
   .grid-item {
-    background-color: rgba(241, 111, 11, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-
+    border: 1px solid black;
+    border-radius: 20px;
+    overflow: hidden;
     font-size: 30px;
     text-align: center;
-    height: max-content;
+
   }
 
   .flight-title{
@@ -30,8 +30,6 @@
 
   .content{
     background-color: white;
-    border: 1px solid black;
-    border-top: none;
     padding: .5vh;
   }
   .border-bottom{
@@ -48,4 +46,7 @@
   }
   .shiny{
     background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 20%, rgb(231, 182, 19) 50%,rgba(0, 0, 0, 0.9) 100%);
+  }
+  .themeColor{
+    background-color: #0D67B5;
   }
