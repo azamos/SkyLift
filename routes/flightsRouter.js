@@ -9,7 +9,7 @@ const {
  } = require('../controllers/flightsController');
 
 //flightsRouter.post('/',createFlight);
-flightsRouter.get('/',(req,res)=>res.send("blabla"));
+flightsRouter.get('/',getFlights);
 //flightsRouter.route('/:id')
 //    .get(getFlightById)
 //    .put(updateFlightData)

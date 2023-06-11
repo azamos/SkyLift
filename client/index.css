@@ -50,3 +50,7 @@
   .themeColor{
     background-color: #0D67B5;
   }
+  .hidden{
+    display: none;
+  }
+  

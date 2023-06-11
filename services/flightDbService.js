@@ -6,7 +6,7 @@ const createFlight = async data => {//TODO: make sure only a privileged user is 
     return await newFlight.save();
 };
 
-const getFlights = async numOfFlights => await Flight.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfFlights
+const getFlights = async () => await Flight.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfFlights
 
 
 /**

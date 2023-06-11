@@ -34,6 +34,7 @@ const createFlight = async (req,res) => {
 };
 
 const getFlights = async (req,res) => {
+    console.log("asfasfasfsaf");
     const flightsArr = await flightDbService.getFlights();
     res.json(flightsArr);
 };

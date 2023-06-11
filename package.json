@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/azamos/SkyLift#readme",
   "dependencies": {
-    "boostrap": "^2.0.0",
+    "bootstrap": "^5.3.0",
     "cors": "^2.8.5",
     "custom-env": "^2.0.2",
     "ejs": "^3.1.9",

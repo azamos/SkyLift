@@ -3,6 +3,8 @@
 
 <head>
     <link rel="stylesheet" href="index.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 </head>
 
 <body>
@@ -14,8 +16,22 @@
         background-position: center;">
         </div>
     </div>
-    <div class="flex-center"><h1>FEATURED DEALS:</h1></div>
-    <div class="grid-container">
+    <!--TODO: Move this "form to another file, and send it only for an authorized user"-->
+    <div id="add-flight-form" class="flex-center">
+        <input type="text" placeholder="title">
+        <input type="text" placeholder="price">
+        <input type="text" placeholder="company">
+        <input type="text" placeholder="origin">
+        <input type="text" placeholder="destination">
+        <input type="date" placeholder="departTime">
+        <input type="date" placeholder="estimatedTimeOfArrival">
+        <button id="add-flight-btn">ADD FLIGHT</button>
+    </div>
+    <!--END OF HTML FRAGMENT TO BE EXTRACTED FROM HERE TO EXTERNAL HTML FILE-->
+    <div class="flex-center">
+        <h1>FEATURED DEALS:</h1>
+    </div>
+    <div id="featuredDeals" class="grid-container">
         <div class="grid-item flight-template;">
             <div
                 style="height:40vh;background-image: url('./images/destination/newYorkCity.jpeg');background-size:cover;">
@@ -45,8 +61,7 @@
             </div>
         </div>
         <div class="grid-item flight-template;">
-            <div
-                style="height:40vh;background-image: url('./images/destination/crete.jpg');background-size:cover;">
+            <div style="height:40vh;background-image: url('./images/destination/crete.jpg');background-size:cover;">
             </div>
             <div class="flight-title">Tel Aviv TO New York flight 107</div>
             <div class="price">Price: 100$</div>
@@ -59,8 +74,7 @@
             </div>
         </div>
         <div class="grid-item flight-template;">
-            <div
-                style="height:40vh;background-image: url('./images/destination/paris.jpg');background-size:cover;">
+            <div style="height:40vh;background-image: url('./images/destination/paris.jpg');background-size:cover;">
             </div>
             <div class="flight-title">Tel Aviv TO New York flight 107</div>
             <div class="price">Price: 100$</div>
@@ -73,8 +87,7 @@
             </div>
         </div>
         <div class="grid-item flight-template;">
-            <div
-                style="height:40vh;background-image: url('./images/destination/rome.jpg');background-size:cover;">
+            <div style="height:40vh;background-image: url('./images/destination/rome.jpg');background-size:cover;">
             </div>
             <div class="flight-title">Tel Aviv TO New York flight 107</div>
             <div class="price">Price: 100$</div>
@@ -87,8 +100,7 @@
             </div>
         </div>
         <div class="grid-item flight-template;">
-            <div
-                style="height:40vh;background-image: url('./images/destination/telAviv.jpg');background-size:cover;">
+            <div style="height:40vh;background-image: url('./images/destination/telAviv.jpg');background-size:cover;">
             </div>
             <div class="flight-title">Tel Aviv TO New York flight 107</div>
             <div class="price">Price: 100$</div>
@@ -101,18 +113,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById("bulshit").addEventListener('click', () => {
-            fetch("https://api.pexels.com/curated", {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "sZUQkDoK1eroYGSM4gcNPhpGSUnFSnLyQKmcUCnCbzau4XN3jDBBJWHT",
-                    "Access-Control-Allow-Origin": "*"
-                },
-            }).then(res => console.log(res))
-        });
-    </script>
 
 </body>
 
