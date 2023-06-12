@@ -11,6 +11,7 @@ const addFlightState={};
 const url = `http://localhost:3000/api`;
 
 //Equivalet to document.onload, Here we set the different states, and add eventListeners as needed.
+//TODO: is this supposed to be async?
 $(function () {
     const addFlightForm = document.getElementById("add-flight-form");
     //addFlightForm.toggleClass("hidden");
@@ -23,14 +24,28 @@ $(function () {
     //featuredDealsState['deals'] = [];//Will be filled with deals from the database
 
     /**
-     * the bellow function is self activated, it will bring the relevant deaels from the server and then generate html for each flight.
+     * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
-    // (async ()=>{
-    //     const res = (await fetch('localhost:3000/api/flights')).json()
-    //     console.log(res);
-    //     featuredDealsState['deals'] = res;
-    //     //TODO: add code to generate flight's html, with the relevant data, and append it to featuredDealsState['htmlREF'].
-    // })()
+    (async ()=>{
+        let res = await fetch(`${url}/flights`);
+        res = await res.json();
+        console.log(res);
+        res.forEach((flightModelInstance,i)=>{
+            let htmlRef = $("#flight-template").clone();
+            htmlRef.removeClass('hidden');
+            htmlRef.attr('id',`FLIGHT #${i+1}`);
+            htmlRef.children('.price').text(`${flightModelInstance.price}`)
+            htmlRef.children('.flight-title').text(`${flightModelInstance.title}`)
+            let content = htmlRef.children('.content');
+            console.log(content.children('.origin'));
+            content.children('.origin').text(`${flightModelInstance.origin}`)
+            content.children('.destination').text(`${flightModelInstance.destination}`)
+            content.children('.departure').text(`${flightModelInstance.departTime}`)
+            content.children('.arrival').text(`${flightModelInstance.estimatedTimeOfArrival}`)
+            //content.children('.connection').text(`${flightModelInstance.departure}`)
+            $("#featuredDeals").append(htmlRef);
+        });
+    })()
 
     const newFlightTitleHTMLRef=document.getElementById("newFlightTitle");
     const newFlightPriceHTMLRef=document.getElementById("newFlightPrice");
@@ -69,12 +84,8 @@ $(function () {
             departTime : newFlightdepartTimeHTMLRef.value,
             estimatedTimeOfArrival : newFlightEstimatedTimeOfArrivalHTMLRef.value
         };
-        console.log("data to be sent");
-        console.log(data);
         const b = JSON.stringify(data);
-        console.log("data.json() below: ")
-        console.log(b);
-        const newlyAddedFlight = await fetch('http://localhost:3000/api/flights',{
+        const newlyAddedFlight = await fetch(`${url}/flights`,{
             method:'POST',
             headers: {
                 "Content-Type": "application/json",

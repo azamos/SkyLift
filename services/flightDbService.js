@@ -1,7 +1,6 @@
 const Flight = require("../models/flightModel");
 
 const createFlight = async data => {//TODO: make sure only a privileged user is able to create a flight.
-    console.log("inside createFlight in flightDbService");
     const {title,price,company,origin,destination,departTime,estimatedTimeOfArrival} = data;
     const newFlight = new Flight({title,price,company,origin,destination,departTime,estimatedTimeOfArrival});
     return await newFlight.save();

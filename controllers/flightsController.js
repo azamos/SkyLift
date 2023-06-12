@@ -2,8 +2,6 @@ const flightDbService = require('../services/flightDbService');
 
 
 const createFlight = async (req,res) => {
-    console.log("inside createFlight in flightsController.req,body is: ");
-    console.log(req.body);
     const newFlight = await flightDbService.createFlight(req.body);
     res.json(newFlight);
 };
