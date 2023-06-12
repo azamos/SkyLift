@@ -12,16 +12,15 @@ const url = `http://localhost:3000/api`;
 
 //Equivalet to document.onload, Here we set the different states, and add eventListeners as needed.
 $(function () {
-    console.log("loaded index.js");
-    const addFlightForm = $("#add-flight-form");
-    addFlightForm.toggleClass("hidden");
+    const addFlightForm = document.getElementById("add-flight-form");
+    //addFlightForm.toggleClass("hidden");
 
     /**
      * State definition and data fetching
      */
 
-    featuredDealsState['htmlREF']=$("#featuredDeals");
-    featuredDealsState['deals'] = [];//Will be filled with deals from the database
+    //featuredDealsState['htmlREF']=$("#featuredDeals");
+    //featuredDealsState['deals'] = [];//Will be filled with deals from the database
 
     /**
      * the bellow function is self activated, it will bring the relevant deaels from the server and then generate html for each flight.
@@ -33,28 +32,26 @@ $(function () {
     //     //TODO: add code to generate flight's html, with the relevant data, and append it to featuredDealsState['htmlREF'].
     // })()
 
-    addFlightState['newFlightTitle']=$("#newFlightTitle");
-    addFlightState['newFlightPrice']=$("newFlightPrice");
-    addFlightState['newFlightCompany'] = $('#newFlightCompany');
-    addFlightState['newFlightOrigin']= $("#newFlightOrigin");
-    addFlightState['newFlightDestination']=$("#newFlightDestination");
-    addFlightState['newFlightdepartTime']=$("#departTime");
-    addFlightState['newFlightEstimatedTimeOfArrival']=$("#newFlightEstimatedTimeOfArrival");
-    addFlightState['addFlightBtn']=$("#add-flight-btn");
-    addFlightState['submitable'] = false;
+    const newFlightTitleHTMLRef=document.getElementById("newFlightTitle");
+    const newFlightPriceHTMLRef=document.getElementById("newFlightPrice");
+    const newFlightCompanyHTMLRef = document.getElementById('newFlightCompany');
+    const newFlightOriginHTMLRef= document.getElementById("newFlightOrigin");
+    const newFlightDestinationHTMLRef=document.getElementById("newFlightDestination");
+    const newFlightdepartTimeHTMLRef=document.getElementById("departTime");
+    const newFlightEstimatedTimeOfArrivalHTMLRef=document.getElementById("newFlightEstimatedTimeOfArrival");
+    const addFlightBtnHTMLRef=document.getElementById("add-flight-btn");
 
-    regLogState['login'] = true;//if we want to register, it will be false
-    regLogState['emailInput'] = $('#emailInput');
-    regLogState['passwordInput'] = $('#passwordInput');
-    regLogState['regLogSubmitBtn'] = $('#regLogSubmitBtn');
+    const emailInputHTMLRef = document.getElementById('emailInput');
+    const passwordInputHTMLRef = document.getElementById('passwordInput');
+    const regLogSubmitBtnHTMLRef = document.getElementById('regLogSubmitBtn');
 
-    searchState['destinationInput'] = $('#destinationInput');
-    searchState['originInput'] = $('#originInput');
-    searchState['departDateInput'] = $('#departDateInput') ;
-    searchState['estimatedTimeOfArrivalInput'] = $('#estimatedTimeOfArrivalInput');
-    searchState['priceInput'] = $('#priceInput');
-    searchState['companyInput'] = $('#companyInput');
-    searchState['searchSubmitBtn'] = $('#searchSubmitBtn');
+    const destinationInputHTMLRef = document.getElementById('destinationInput');
+    const originInputHTMLRef = document.getElementById('originInput');
+    const departDateInputHTMLRef = document.getElementById('departDateInput') ;
+    const estimatedTimeOfArrivalInputHTMLRef = document.getElementById('estimatedTimeOfArrivalInput');
+    const priceInputHTMLRef = document.getElementById('priceInput');
+    const companyInputHTMLRef =document.getElementById('companyInput');
+    const searchSubmitBtnHTMLRef = document.getElementById('searchSubmitBtn');
     /**
      * END of state definition
      */
@@ -62,37 +59,31 @@ $(function () {
     /**
      * Attaching handlers to submit buttons
      */
-    // regLogState['regLogSubmitBtn'].on('click' ,async ()=>{//TODO: logicaly, button should only be made un-disabled if all the fields are not empty.DO THIS.
-    //     const data = {
-    //         login:regLogState['login'],
-    //         email: regLogState['emailInput'].val,
-    //         password: regLogState['passwordInput'].val
-    //     }
-    //     const res = await fetch(`${url}/users`,{
-    //         method:'POST',
-    //         body: JSON.stringify(data)
-    //     })
-    //     //The request is sent as POST both for user login and user register, since I get shows password in URL.
-    //     //In addition, the POST will infact update in the database the property: lastLogin.
-    // })
-    addFlightState['addFlightBtn'].on('click',async ()=>{//TODO: logicaly, button should only be made un-disabled if all the fields are not empty.DO THIS.
+    addFlightBtnHTMLRef.addEventListener('click',async ()=>{//TODO: logicaly, button should only be made un-disabled if all the fields are not empty.DO THIS.
         const data = {
-            title : addFlightState['newFlightTitle'],
-            price : addFlightState['newFlightPrice'],
-            company : addFlightState['newFlightCompany'],
-            origin : addFlightState['newFlightOrigin'],
-            destination : addFlightState['newFlightDestination'],
-            departTime : addFlightState['newFlightdepartTime'],
-            estimatedTimeOfArrival : addFlightState['newFlightEstimatedTimeOfArrival']
+            title : newFlightTitleHTMLRef.value,
+            price : newFlightPriceHTMLRef.value,
+            company : newFlightCompanyHTMLRef.value,
+            origin : newFlightOriginHTMLRef.value,
+            destination : newFlightDestinationHTMLRef.value,
+            departTime : newFlightdepartTimeHTMLRef.value,
+            estimatedTimeOfArrival : newFlightEstimatedTimeOfArrivalHTMLRef.value
         };
+        console.log("data to be sent");
+        console.log(data);
+        const b = JSON.stringify(data);
+        console.log("data.json() below: ")
+        console.log(b);
         const newlyAddedFlight = await fetch('http://localhost:3000/api/flights',{
             method:'POST',
-            body:JSON.stringify({
-                ...data
-            })
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body:b
         })
         if(newlyAddedFlight){
-            featuredDealsState['deals'].push(newlyAddedFlight);
+            console.log("added new flight. details below");
+            console.log(newlyAddedFlight);
             //TODO: ADD code to generate html for new flight, and attach it to the html at the relevant point.
         }
         else{

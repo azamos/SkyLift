@@ -7,7 +7,7 @@
     <script src="index.js"></script>
 </head>
 
-<body>
+<body onload>
     <div class="flex-center themeColor" style="height: 250px;border-radius: 20px;border: 1px solid black;">
         <div class="flex-center" style="width: 100%;height: 100%;
         background-image: url('./images/icon/Skylift.jpeg');
@@ -18,14 +18,14 @@
     </div>
     <!--TODO: Move this "form to another file, and send it only for an authorized user"-->
     <div id="add-flight-form" class="flex-center">
-        <input type="text" placeholder="title">
-        <input type="text" placeholder="price">
-        <input type="text" placeholder="company">
-        <input type="text" placeholder="origin">
-        <input type="text" placeholder="destination">
-        <input type="date" placeholder="departTime">
-        <input type="date" placeholder="estimatedTimeOfArrival">
-        <button id="add-flight-btn" disabled>ADD FLIGHT</button>
+        <input type="text" placeholder="title" id="newFlightTitle">
+        <input type="text" placeholder="price" id="newFlightPrice">
+        <input type="text" placeholder="company" id="newFlightCompany">
+        <input type="text" placeholder="origin" id="newFlightOrigin">
+        <input type="text" placeholder="destination" id="newFlightDestination">
+        <input type="date" placeholder="departTime" id="departTime">
+        <input type="date" placeholder="estimatedTimeOfArrival" id="newFlightEstimatedTimeOfArrival">
+        <button id="add-flight-btn" >ADD FLIGHT</button>
     </div>
     <!--END OF HTML FRAGMENT TO BE EXTRACTED FROM HERE TO EXTERNAL HTML FILE-->
     <div class="flex-center">
