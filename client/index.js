@@ -1,19 +1,25 @@
 const featuredDeals = [];
 
 const url = `http://localhost:3000/api`;
+function camelize(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    }).replace(/\s+/g, '');
+  }
 
 const generateFlightHTML = (flightModelInstance,i) => {
     let htmlRef = $("#flight-template").clone();
-    htmlRef.removeClass('hidden');
+    htmlRef.removeAttr('style');
+    htmlRef.children('.destination-photo').attr('src',`./images/destination/${camelize(flightModelInstance.destination)}.jpg`)
     htmlRef.attr('id',`FLIGHT #${i+1}`);
-    htmlRef.children('.backgroundDiv')
-    htmlRef.children('.price').text(`${flightModelInstance.price}`)
-    htmlRef.children('.flight-title').text(`${flightModelInstance.title}`)
+    let flightHeader = htmlRef.children('.flight-header');
+    flightHeader.children('.price').text(`PRICE: ${flightModelInstance.price}$`)
+    flightHeader.children('.flight-title').text(`FLIGHT NUMBER:  ${flightModelInstance.title}`)
     let content = htmlRef.children('.content');
-    content.children('.origin').text(`${flightModelInstance.origin}`)
-    content.children('.destination').text(`${flightModelInstance.destination}`)
-    content.children('.departure').text(`${flightModelInstance.departTime}`)
-    content.children('.arrival').text(`${flightModelInstance.estimatedTimeOfArrival}`)
+    content.children('.origin').text(`From: ${flightModelInstance.origin}`)
+    content.children('.destination').text(`To: ${flightModelInstance.destination}`)
+    content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
+    content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     //content.children('.connection').text(`${flightModelInstance.<replaceWithModelPropertyName>}`)
     $("#featuredDeals").append(htmlRef);
 }
