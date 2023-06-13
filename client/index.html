@@ -22,7 +22,15 @@
         <input type="text" placeholder="price" id="newFlightPrice">
         <input type="text" placeholder="company" id="newFlightCompany">
         <input type="text" placeholder="origin" id="newFlightOrigin">
-        <input type="text" placeholder="destination" id="newFlightDestination">
+        <label>choose destination</label>
+        <select id="newFlightDestination" type="text" placeholder="destination" id="newFlightDestination2">
+            <option value="newYorkCity">New York</option>
+            <option value="amsterdam">Amsterdam</option>
+            <option value="crete">Crete</option>
+            <option value="paris">Paris</option>
+            <option value="rome">Rome</option>
+            <option value="telAviv">Tel Aviv</option>
+        </select>
         <input type="date" placeholder="departTime" id="departTime">
         <input type="date" placeholder="estimatedTimeOfArrival" id="newFlightEstimatedTimeOfArrival">
         <button id="add-flight-btn" >ADD FLIGHT</button>
@@ -34,7 +42,8 @@
     <div id="featuredDeals" class="grid-container">
         <div id="flight-template" class="grid-item hidden">
             <div
-                style="height:40vh;background-image: url('./images/destination/newYorkCity.jpeg');background-size:cover;">
+                class="backgroundDiv"
+                style="height:40vh;background-image: url('./images/destination/newYorkCity.jpg');background-size:cover;">
             </div>
             <div class="flight-title"></div>
             <div class="price"></div>

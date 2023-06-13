@@ -6,6 +6,7 @@ const generateFlightHTML = (flightModelInstance,i) => {
     let htmlRef = $("#flight-template").clone();
     htmlRef.removeClass('hidden');
     htmlRef.attr('id',`FLIGHT #${i+1}`);
+    htmlRef.children('.backgroundDiv')
     htmlRef.children('.price').text(`${flightModelInstance.price}`)
     htmlRef.children('.flight-title').text(`${flightModelInstance.title}`)
     let content = htmlRef.children('.content');
