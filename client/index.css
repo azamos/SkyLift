@@ -4,12 +4,18 @@
   align-items: center;
   justify-content: center;
 }
+.flex-row-center{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 100px;
+}
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 30vw);
+    grid-template-columns: repeat(auto-fill, 20vw);
     padding: 1vw;
     justify-content: center;
-    gap: 1vw;
+    gap: 1vw; width: 50w;
   }
   
   .grid-item {
@@ -20,9 +26,6 @@
     text-align: center;
 
   }
-
-
-
 
   .border-bottom{
     border-bottom: 1px solid black;
@@ -37,7 +40,8 @@
   .themeColor{
     background-color: #0D67B5;
   }
-  .dontshow{
+  .disappear{
     display: none;
   }
+
   

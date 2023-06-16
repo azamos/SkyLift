@@ -3,7 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const indexRouter=require('./routes');
+const indexRouter = require('./routes');
+const formsRouter = require('./routes/formsRouter')
 //const newLocal = require('custom-env')  
 //newLocal.env(process.env.NODE_ENV,'./config');
 const PORT=3000;
@@ -16,5 +17,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './client')));
 app.use('/api',indexRouter);
+app.use('/forms',formsRouter);
 
 app.listen(PORT,()=>console.log('server online'));

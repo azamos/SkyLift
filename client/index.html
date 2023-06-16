@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 
-<body onload>
+<body>
     <div class="flex-center themeColor" style="height: 250px;border-radius: 20px;border: 1px solid black;">
         <div class="flex-center" style="width: 100%;height: 100%;
         background-image: url('./images/icon/Skylift.jpeg');
@@ -17,11 +17,45 @@
         background-repeat: no-repeat;
         background-position: center;">
         </div>
+  
+        <div id="searchMenu" class="flex-row-center" style="color: white;border-top: 1px solid white;margin: 10px;padding: 10px;">
+            <h1 style="color: white;">find a flight</h1>
+            <div>
+                <label for="originSearch">From?</label>
+                <select id="originSearch">
+                    <option value="newYork">New York</option>
+                    <option value="amsterdam">Amsterdam</option>
+                    <option value="crete">Crete</option>
+                    <option value="paris">Paris</option>
+                    <option value="rome">Rome</option>
+                    <option selected value="telAviv">Tel Aviv</option>
+                </select>
+            </div>
+            <div>
+                <label for="destinationSearch">Where to?</label>
+                <select id="destinationSearch">
+                    <option value="newYork">New York</option>
+                    <option value="amsterdam">Amsterdam</option>
+                    <option value="crete">Crete</option>
+                    <option value="paris">Paris</option>
+                    <option value="rome">Rome</option>
+                    <option value="telAviv">Tel Aviv</option>
+                </select>
+            </div>
+            <div>
+                <label for="departSearch">from date: </label>
+            <input type="date" id="departSearch">
+            </div>
+            <div>
+                <label for="arrivalSearch">arrive at date: </label>
+                <input type="date" id="arrivalSearch">
+            </div>
+        </div>
     </div>
     <!--TODO: Move this "form to another file, and send it only for an authorized user"-->
     <div id="add-flight-form" class="flex-center">
         <input type="text" placeholder="title" id="newFlightTitle">
-        <input type="text" placeholder="price" id="newFlightPrice">
+        <input type="number" placeholder="price" id="newFlightPrice">
         <input type="text" placeholder="company" id="newFlightCompany">
         <input type="text" placeholder="origin" id="newFlightOrigin">
         <label>choose destination</label>
@@ -42,7 +76,7 @@
         <h1>FEATURED DEALS:</h1>
     </div>
     <div id="featuredDeals" class="grid-container">
-        <div id="flight-template" class="card" style="width: 20vw;display: none;">
+        <div id="flight-template" class="card" style="width: 15vw;display: none;">
             <img src="./images/destination/crete.jpg" class="card-img-top destination-photo" alt="..." height="400px">
             <div class="flight-header card-body">
                 <div class="flight-title"></div>
@@ -61,7 +95,6 @@
             </div>
           </div>
     </div>
-
 </body>
 
 </html>
