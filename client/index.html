@@ -17,84 +17,23 @@
         background-repeat: no-repeat;
         background-position: center;">
         </div>
-  
-        <div id="searchMenu" class="flex-row-center" style="color: white;border-top: 1px solid white;margin: 10px;padding: 10px;">
-            <h1 style="color: white;">find a flight</h1>
-            <div>
-                <label for="originSearch">From?</label>
-                <select id="originSearch">
-                    <option value="newYork">New York</option>
-                    <option value="amsterdam">Amsterdam</option>
-                    <option value="crete">Crete</option>
-                    <option value="paris">Paris</option>
-                    <option value="rome">Rome</option>
-                    <option selected value="telAviv">Tel Aviv</option>
-                </select>
-            </div>
-            <div>
-                <label for="destinationSearch">Where to?</label>
-                <select id="destinationSearch">
-                    <option value="newYork">New York</option>
-                    <option value="amsterdam">Amsterdam</option>
-                    <option value="crete">Crete</option>
-                    <option value="paris">Paris</option>
-                    <option value="rome">Rome</option>
-                    <option value="telAviv">Tel Aviv</option>
-                </select>
-            </div>
-            <div>
-                <label for="departSearch">from date: </label>
-            <input type="date" id="departSearch">
-            </div>
-            <div>
-                <label for="arrivalSearch">arrive at date: </label>
-                <input type="date" id="arrivalSearch">
-            </div>
-        </div>
+    <div id="searchbarContainer"></div>
     </div>
-    <!--TODO: Move this "form to another file, and send it only for an authorized user"-->
-    <div id="add-flight-form" class="flex-center">
-        <input type="text" placeholder="title" id="newFlightTitle">
-        <input type="number" placeholder="price" id="newFlightPrice">
-        <input type="text" placeholder="company" id="newFlightCompany">
-        <input type="text" placeholder="origin" id="newFlightOrigin">
-        <label>choose destination</label>
-        <select id="newFlightDestination" type="text" placeholder="destination" id="newFlightDestination2">
-            <option value="newYork">New York</option>
-            <option value="amsterdam">Amsterdam</option>
-            <option value="crete">Crete</option>
-            <option value="paris">Paris</option>
-            <option value="rome">Rome</option>
-            <option value="telAviv">Tel Aviv</option>
-        </select>
-        <input type="date" placeholder="departTime" id="departTime">
-        <input type="date" placeholder="estimatedTimeOfArrival" id="newFlightEstimatedTimeOfArrival">
-        <button id="add-flight-btn" >ADD FLIGHT</button>
+    <div id="addFlightContainer">
+
     </div>
-    <!--END OF HTML FRAGMENT TO BE EXTRACTED FROM HERE TO EXTERNAL HTML FILE-->
     <div class="flex-center">
         <h1>FEATURED DEALS:</h1>
     </div>
     <div id="featuredDeals" class="grid-container">
-        <div id="flight-template" class="card" style="width: 15vw;display: none;">
-            <img src="./images/destination/crete.jpg" class="card-img-top destination-photo" alt="..." height="400px">
-            <div class="flight-header card-body">
-                <div class="flight-title"></div>
-                <div class="price"></div>
-            </div>
-            <ul class="content list-group list-group-flush">
-                <div class="origin border-bottom"></div>
-                <div class="destination border-bottom"></div>
-                <div class="departure border-bottom"></div>
-                <div class="arrival border-bottom"></div>
-                <div class="connection"></div>
-            </ul>
-            <div class="card-body">
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
+
     </div>
+    <script>
+        //only for admins, and only after click "add flight button"
+        //$("#addFlightContainer").load("./views/addFlightForm.html");
+        $("#searchbarContainer").load("./components/searchbar.html");
+        $("#featuredDeals").load("./views/flight.html");
+    </script>
 </body>
 
 </html>
