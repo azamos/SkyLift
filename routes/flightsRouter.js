@@ -5,7 +5,7 @@ const {
     getFlightById,//Read
     getFlightsByParamaters,//Read
     updateFlightData,//Update
-    deleteFlight//Delete
+    deleteFlight//Delete,
  } = require('../controllers/flightsController');
 
 flightsRouter.post('/',createFlight);

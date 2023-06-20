@@ -40,6 +40,12 @@ const updateFlightData = async(req,res) => {//will reach here with a get request
 
 const deleteFlight = async (req,res) => await flightDbService.deleteFlight(req.params.id);
 
+const findFlightFrom_a_to_b = async (Location_a,Location_b,desiredDepartTime=null,desiredArriveTime = null) => {
+    const departing_from_a = await flightDbService.getFlightsByFilter({origin:Location_a._id});
+    const arriving_to_b = await flightDbService.getFlightsByFilter({destination:Location_a.b._id})
+}
+
+
 module.exports = {
     createFlight,//Create
     getFlights,//Read

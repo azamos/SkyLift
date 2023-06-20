@@ -90,3 +90,5 @@ $(function () {
     })
 
 });
+
+const deleteAll = async () => await fetch('http://localhost:3000/api/flights/deleteall') 

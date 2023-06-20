@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -29,7 +30,15 @@ const Flight = new Schema({
     estimatedTimeOfArrival: {
         type: Date,
         required: true
-    }
+    },
+    // availableSeats: {
+    //     type: Array,
+    //     required: True
+    // },
+    // status:{
+    //     type:String,
+    //     default: "FUTURE"//FUTURE,PAST,BOARDING,MID-FLIGHT,LANDING,LATE,ARRIVING,BAGGAGE-CHECKOUT
+    // }
 });
 
 

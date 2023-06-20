@@ -1,8 +1,9 @@
+const flightModel = require("../models/flightModel");
 const Flight = require("../models/flightModel");
 
 const createFlight = async data => {//TODO: make sure only a privileged user is able to create a flight.
-    const {title,price,company,origin,destination,departTime,estimatedTimeOfArrival} = data;
-    const newFlight = new Flight({title,price,company,origin,destination,departTime,estimatedTimeOfArrival});
+    const { title, price, company, origin, destination, departTime, estimatedTimeOfArrival } = data;
+    const newFlight = new Flight({ title, price, company, origin, destination, departTime, estimatedTimeOfArrival });
     return await newFlight.save();
 };
 
@@ -23,7 +24,19 @@ const getFlightById = async dbId => await Flight.findById(dbId);
  * @returns array of Flights with matching key-val pairs from filterOBj.
  * filter obj need to have key-val pairs as specified in ../models/flightModel.js, otherwise will not work.
  */
-const getFlightsByFilter = async (filterOBj={}) => await Flight.find({...filterOBj});
+const getFlightsByFilter = async (filterOBj = {},) => await Flight.find({ ...filterOBj });
+
+const tommorow =86400*1000;
+const get_flights_from_a_to_b = async (origin, destination,
+     desired_depart_time = new Date(Date.now()), desired_arrive_time = (new Date(Date.now()+tommorow))) => {
+    const directFlight = await Flight.aggregate([{ $match: 
+        { origin: a._id, destination: b._id,
+            departTime: { $gte: desired_depart_time},estimatedTimeOfArrival: { $lte: new Date(desired_depart_time+tommorow)} } }]);
+    const departing_from_a = await Flight.aggregate([{ $match: { origin: a._id } },
+    { $match: { departTime: { $gte: desired_depart_time} } }])
+    const arriving_to_b = await Flight.aggregate([{ $match: { destination: b._id } },
+    { $match: { departure: { $gte: desired_depart_time ? desired_depart_time : Date.now() } } }])
+}
 
 
 
@@ -35,17 +48,17 @@ const getFlightsByFilter = async (filterOBj={}) => await Flight.find({...filterO
  */
 const updateFlightData = async (dbIdentifier, newData) => {
     const flightToBeUpdated = await getFlightById(dbIdentifier);
-    if(!flightToBeUpdated){
+    if (!flightToBeUpdated) {
         return null;//Maybe throwing an error is better?
     }
-    Object.keys(newData).forEach(propertyName=>flightToBeUpdated[propertyName]=newData[propertyName]);
+    Object.keys(newData).forEach(propertyName => flightToBeUpdated[propertyName] = newData[propertyName]);
     await flightToBeUpdated.save();
     return flightToBeUpdated;
 };
 
 const deleteFlight = async flightId => {
     const flightToDeleted = await Flight.findById(flightId);
-    if(!flightId){
+    if (!flightId) {
         return null;//Maybe throwing an error is better?
     }
     await flightToDeleted.deleteOne();
@@ -58,5 +71,5 @@ module.exports = {
     getFlightById,//Read
     getFlightsByFilter,//Read
     updateFlightData,//Update
-    deleteFlight//Delete
+    deleteFlight,//Delete
 };
