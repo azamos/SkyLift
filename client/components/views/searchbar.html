@@ -1,0 +1,36 @@
+<nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid justify-content-evenly">
+        <form class="d-flex align-items-center " role="search">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="destinationInput">
+                <label for="destinationInput">Destination</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="originInput">
+                <label for="originInput">Origin</label>
+            </div>
+            <div class="form-floating">
+                <input type="date" class="form-control" id="departureDate">
+                <label for="departureDate">Depart:</label>
+            </div>
+            <div class="form-floating">
+                <input type="date" class="form-control" id="arrivalDate">
+                <label for="arrivalDate">Arrival:</label>
+            </div>
+            <div class="form-floating">
+                <button class="btn btn-lg btn-outline-info" id="navSubmit">Search</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const handler = e => {
+            e.preventDefault();//DO NOT REMOVE, OTHERWISE WILL REFRESH
+            const dest = $("#destinationInput").val();
+            const orig = $("#originInput").val();
+            const dept = $("#departureDate").val();
+            const arrv = $("#arrivalDate").val();
+            console.log(dest+" "+orig+" "+dept+" "+arrv);
+        }
+        $("#navSubmit").on('click',e=>handler(e));
+    </script>
+</nav>

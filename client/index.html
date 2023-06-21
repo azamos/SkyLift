@@ -11,80 +11,40 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="#">
 </head>
 
 <body>
-    <div class="flex-center themeColor" style="height: 250px;border-radius: 20px;border: 1px solid black;">
+    <!--TOP-->
+    <div class="flex-center themeColor" style="height: 150px;border: 1px solid black;">
         <div class="flex-center" style="width: 100%;height: 100%;
         background-image: url('./images/icon/Skylift.jpeg');
         background-size:contain;
         background-repeat: no-repeat;
         background-position: center;">
         </div>
-        <div id="searchbarContainer"></div>
     </div>
-    <div class="flex-center">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-            Sign In
-        </button>
+    <div id="searchbarContainer"></div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="loginModalLabel">Login Or Register</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="formContainer">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
+    <div class="flex-center">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary">HOT DEALS &#x1F525;</button>
+            <button type="button" class="btn btn-outline-primary">SHOPPING CART &#x1F6D2;</button>
+            <button type="button" class="btn btn-outline-primary">HISTORY</button>
+        </div>
+    </div>
+    <div id="addFlightFormContainer"></div>
+    <div id="main-component">
+        <div class="flex-center">
+            <div class="flex-center">
+                <h1>FEATURED DEALS:</h1>
+            </div>
+            <div id="featuredDeals" class="grid-container" style="width: 80%;">
             </div>
         </div>
     </div>
-    <div id="addFlightContainer" class="flex-center">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addFlightModal">
-                            ADMIN INTERFACE
-                        </button>
-                
-                        <!-- Modal -->
-                        <div class="modal fade" id="addFlightModal" tabindex="-1" aria-labelledby="addFlightModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="addFlightModalLabel">ADMIN INTERFACE</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" id="addFlightFormContainer">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    </div>
-    <div class="flex-center">
-        <h1>FEATURED DEALS:</h1>
-    </div>
-    <div id="featuredDeals" class="grid-container">
-
-    </div>
-    <script>
-        $("#searchbarContainer").load("./components/searchbar.html");
-        $("#featuredDeals").load("./views/flight.html");
-        $("#formContainer").load('./views/loginform.html');
-        $("#addFlightFormContainer").load('./views/addFlightForm.html');
-    </script>
+    <div id="abc"></div>
+    <script src="./components/scripts/flight.js"></script>
 </body>
 
 </html>

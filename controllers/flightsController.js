@@ -12,7 +12,7 @@ const getFlights = async (req,res) => {
 };
 
 const getFlightsByParamaters = async (req,res) => {
-    const {filterOBj} = req.params;
+    const {destination,origin,depart,arrive} = req.params;
     const filteredFlights = await flightDbService.getFlightsByFilter(filterOBj);
     if(!filteredFlights || filteredFlights == {}){
         res.send("No flights matching the search paramaters.")
