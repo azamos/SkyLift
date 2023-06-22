@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Modal</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="./index.js" async defer></script>
+  
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .modal-title {
+      color: #333;
+    }
+
+    .modal-footer {
+      justify-content: space-between;
+    }
+
+    #logo {
+      display: block;
+      margin: 0 auto 20px; /* Adjust margin as desired */
+    }
+
+    .btn-secondary,
+    .btn-primary {
+      width: 100px;
+    }
+    
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .square-box {
+      width: fit-content;
+      border: 2px solid rgb(228, 226, 226);
+      padding: 20px;
+    }
+
+    button img {
+    position: relative;
+    max-width: 10%;
+    max-height: 100%;
+    margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<!-- Button to trigger the modals -->
+<div class="square-box">
+    <div class="text-center">
+        <div class="d-inline-block">
+          <img id="logo" src="./images/icon/Skylift.jpeg" width="30%"> 
+          <button class="btn btn-primary" data-toggle="modal" data-target="#signInModal" type="button">Login</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal" type="button">Register</button>
+          <!-- Google and Apple signing -->
+          <div class="signin-options" style="margin-top: 5px;">
+            <button id="google-signin-button">
+              <img src="images/icon/google-logo.png" alt="Google Logo">
+              Sign in with Google
+            </button>
+          </div>
+        </div>
+      </div>
+</div>
+
+<!-- Sign In Modal -->
+<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Enter your password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+          </div>
+          <div class="form-group">
+            <label for="password">Phone Number</label>
+            <input type="text" class="form-control" id="register-password" placeholder="Enter new password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+  function handleGoogleSignin() {
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+        client_id: '659736518444-lmin4gcdkpvrheuooc8eem5bfgmeq792.apps.googleusercontent.com'
+      }).then(function(auth2) {
+        auth2.attachClickHandler('google-signin-button', {}, function(user) {
+          console.log(user.getBasicProfile());
+        }, function(error) {
+          console.error(error);
+        });
+      });
+    });
+  }
+  // Add event listeners for Google and Apple buttons
+document.getElementById('google-signin-button').addEventListener('click', handleGoogleSignin);
+</script>
+</body>
+</html>
