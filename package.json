@@ -4,8 +4,8 @@
   "description": "An online flight purchase shop.",
   "main": "app.js",
   "scripts": {
-    "test": "SET NODE_ENV=test&& nodemon app.js",
-    "start": "SET NODE_ENV=local&& nodemon app.js"
+    "test": "node app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
