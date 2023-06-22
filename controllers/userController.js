@@ -1,5 +1,12 @@
 const userDbService = require('../services/userDbService');
 
+const getUser = async (req,res) =>{
+    const {email,password} = req.params;
+    console.log("inside userController's getUser");
+    console.log("email: "+email+",password: "+password);
+    const user = await userDbService.getUser()
+}    
+
 const createUser = async (req,res) => {
     const newUser = await userDbService.createUser(req.body.data);
     res.json(newUser);
@@ -29,6 +36,8 @@ const updateUserData = async(req,res) => {//will reach here with a get request, 
 };
 
 const deleteUser = async (req,res) => await userDbService.deleteUser(req.params.id);
+
+module.exports = {getUser};
 
 
 

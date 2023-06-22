@@ -1,18 +1,8 @@
 const usersRouter = require('express').Router();
 const {
-    creatUser,
-    getUsers,
-    getUserByEmail,   
-    updateUserData, 
-    deleteUser
+    getUser
  } = require('../controllers/userController');
 
-usersRouter.post('/',createUsers);
-usersRouter.get('/',getUsers);
-usersRouter.route('/:id')
-    .get(getUserById)
-    .put(updateUserData)
-usersRouter.get('/:filterOBj',getUserByParamaters);
-usersRouter.delete('/:id',deleteUser);
-
+usersRouter.route('/:email/:password')
+    .get(getUser)
 module.exports = usersRouter;

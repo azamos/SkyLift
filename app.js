@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
-//const newLocal = require('custom-env')  
-//newLocal.env(process.env.NODE_ENV,'./config');
 const PORT=3000;
 const CONNECTION_STRING='mongodb://127.0.0.1:27017/SkyLift';
 

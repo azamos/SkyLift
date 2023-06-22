@@ -11,10 +11,11 @@ const scripts_path = "./components/scripts";
 
 //Equivalet to document.onload, Here we set the different states, and add eventListeners as needed.
 //TODO: is this supposed to be async?
-$(function () {
+$(async function () {
     $("#searchbarContainer").load(`${views_path}/searchbar.html`);
     $("#featuredDeals").load(`${views_path}/flight.html`);
-    $("#formContainer").load(`${views_path}/loginform.html`);
+    $("#formContainer").load(`${views_path}/loginform.html`,x=> $("#login-submit").on('click',login));
+
     //$("#addFlightFormContainer").load('./views/addFlightForm.html');
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
