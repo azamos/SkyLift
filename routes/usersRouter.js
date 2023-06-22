@@ -3,6 +3,5 @@ const {
     getUser
  } = require('../controllers/userController');
 
-usersRouter.route('/:email/:password')
-    .get(getUser)
+usersRouter.get('/:email/:password',getUser)
 module.exports = usersRouter;

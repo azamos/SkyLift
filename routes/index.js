@@ -4,6 +4,6 @@ const usersRouter = require('./usersRouter');
 
 router.get('/',(req,res)=>res.send("reached api router"));
 router.use('/flights',flightsRouter);
-router.use('/users',flightsRouter);
+router.use('/users',usersRouter);
 
 module.exports = router;
