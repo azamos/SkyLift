@@ -7,17 +7,32 @@ function camelize(str) {
     }).replace(/\s+/g, '');
 }
 const views_path = "./components/views";
-const scripts_path = "./components/scripts";
+/**
+ *Equivalet to document.onload, Here we:
+  1.load the HTML components("views") into the main HTML file,
+  into "container divs", which are <div> elements meant to contain the components.
+  
+  2.request the following from the server:
+    2.1. hot deals
+    2.2. if user login was saved on cookie, we ask the server to bring the user's data,
+         such as purchase history, and if he has any admin privileges.
+         2.2.1. Of course, if admin credentials exits, show the admin interface.
+        NOTE: if cookie exists, the cart data should be on it. Otherwise, we will also bring it from the server.
+ */
 
-//Equivalet to document.onload, Here we set the different states, and add eventListeners as needed.
-//TODO: is this supposed to be async?
 $(async function () {
+    //LOADING VIEW COMPONENTS INTO index.html
     $("#searchbarContainer").load(`${views_path}/searchbar.html`);
     $("#featuredDeals").load(`${views_path}/flight.html`);
-    $("#formContainer").load(`${views_path}/loginform.html`,x=> $("#login-submit").on('click',login));
-    $("#registerContainer").load(`${views_path}/registerform.html`,x=>$("#register-submit").on('click',register));
-
-    $("#addFlightFormContainer").load('./views/addFlightForm.html');
+    $("#formContainer").load(`${views_path}/loginform.html`,x=> {
+        $("#login-submit").on('click',login);
+        $("#login-email-input").on('input',login_email_input_changed)
+    });
+    $("#registerContainer").load(`${views_path}/registerform.html`,x=>{
+        $("#register-submit").on('click',register);
+        $("#register-email-input").on('input',register_email_input_changed);
+    });
+    $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>$("#add-flight-btn").on('click',addFlight));
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
@@ -29,44 +44,5 @@ $(async function () {
             featuredDeals.push(flightModelInstance);
         });
     })()
-
-    const newFlightTitleHTMLRef = $("#newFlightTitle");
-    const newFlightPriceHTMLRef = $("#newFlightPrice");
-    const newFlightCompanyHTMLRef = $('#newFlightCompany');
-    const newFlightOriginHTMLRef = $("#newFlightOrigin");
-    const newFlightDestinationHTMLRef = $("#newFlightDestination");
-    const newFlightdepartTimeHTMLRef = $("#departTime");
-    const newFlightEstimatedTimeOfArrivalHTMLRef = $("#newFlightEstimatedTimeOfArrival");
-    const addFlightBtnHTMLRef = $("#add-flight-btn");
-    /**
-     * Attaching handlers to submit buttons
-     */
-    addFlightBtnHTMLRef.on('click', async () => {//TODO: logicaly, button should only be made un-disabled if all the fields are not empty.DO THIS.
-        const data = {
-            title: newFlightTitleHTMLRef.val(),
-            price: newFlightPriceHTMLRef.val(),
-            company: newFlightCompanyHTMLRef.val(),
-            origin: newFlightOriginHTMLRef.val(),
-            destination: newFlightDestinationHTMLRef.val(),
-            departTime: newFlightdepartTimeHTMLRef.val(),
-            estimatedTimeOfArrival: newFlightEstimatedTimeOfArrivalHTMLRef.val()
-        };
-        const b = JSON.stringify(data);
-        let newlyAddedFlight = await fetch(`${url}/flights`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: b
-        })
-        newlyAddedFlight = await newlyAddedFlight.json();
-        if (newlyAddedFlight) {
-            generateFlightHTML(newlyAddedFlight, featuredDeals.length);
-            featuredDeals.push(newlyAddedFlight);
-        }
-        else {
-            console.log(`failed to add class. reason: ${newlyAddedFlight}`);
-        }
-    })
 
 });

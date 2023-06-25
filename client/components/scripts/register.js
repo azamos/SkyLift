@@ -20,3 +20,13 @@ const register = e => {
     .then(res=>console.log(res))
     .catch(err=>console.log(err));
 }
+
+const register_email_input_changed = e => {
+    const current_value = $("#register-email-input").val();
+    if(emailSyntaxIsValid(current_value)){
+        $("#register-submit").removeAttr('disabled');
+    }
+    else{
+        $("#register-submit").attr('disabled',true);
+    }
+}

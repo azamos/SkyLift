@@ -13,3 +13,13 @@ const login = e => {
     .then(res=>console.log(res))
     .catch(err=>console.log(err));
 }
+
+const login_email_input_changed = e => {
+    const current_value = $("#login-email-input").val();
+    if(emailSyntaxIsValid(current_value)){
+        $("#login-submit").removeAttr('disabled');
+    }
+    else{
+        $("#login-submit").attr('disabled',true);
+    }
+}
