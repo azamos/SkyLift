@@ -32,7 +32,10 @@ $(async function () {
         $("#register-submit").on('click',register);
         $("#register-email-input").on('input',register_email_input_changed);
     });
-    $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>$("#add-flight-btn").on('click',addFlight));
+    $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>{
+        $("#add-flight-btn").on('click',addFlight);
+        addFlightInitiaizeFormFields();
+    });
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
