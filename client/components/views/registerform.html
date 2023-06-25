@@ -1,23 +1,19 @@
 <html>
 
-<head>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+
 
 <body>
   <div class="flex-center">
-    <div id="manual-register" class="flex-center" style="width: 15%;border: 1px solid #0D67B5;border-radius: 20px;">
+    <div id="manual-register" class="flex-center" style="border: 1px solid #0D67B5;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
       <img src="./images/icon/Skylift.jpeg" width="100%">
       <h1>REGISTER</h1>
       <label for="email">Enter your email address:</label>
-      <input type="email">
+      <input type="email" id="register-email-input">
       <label for="password">enter a password:</label>
-      <input type="password">
+      <input type="password" id="register-password-input">
       <label for="password">confirm password:</label>
-      <input type="password">
-      <button type="submit" class="btn btn-primary">Done</button>
+      <input type="password" id="confirm-register-password-input">
+      <button id="register-submit" class="btn btn-primary">Done</button>
     </div>
   </div>
   <script>

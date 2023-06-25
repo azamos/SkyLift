@@ -15,8 +15,9 @@ $(async function () {
     $("#searchbarContainer").load(`${views_path}/searchbar.html`);
     $("#featuredDeals").load(`${views_path}/flight.html`);
     $("#formContainer").load(`${views_path}/loginform.html`,x=> $("#login-submit").on('click',login));
+    $("#registerContainer").load(`${views_path}/registerform.html`,x=>$("#register-submit").on('click',register));
 
-    //$("#addFlightFormContainer").load('./views/addFlightForm.html');
+    $("#addFlightFormContainer").load('./views/addFlightForm.html');
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */

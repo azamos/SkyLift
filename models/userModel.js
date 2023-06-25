@@ -2,14 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-    _id:{
-        type:String,
-        required: true
-    },
-    name: {
-        type: String,
-        required:true
-    },
     email: {
         type: String,
         required:true
@@ -17,6 +9,12 @@ const User = new Schema({
     password: {
         type: String,
         required: true
+    },
+    display_name: {
+        type: String,
+        default: function(){
+            return this.email
+        }
     },
     cart: {//Flights currently in cart. For example: if traveling to thailand via russia:
         // 1.flight from TLV to THAILAND

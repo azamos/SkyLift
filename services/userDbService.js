@@ -1,14 +1,14 @@
 const User = require("../models/userModel");
 
 
-const createUser = async data => {//TODO: make sure only a privileged user is able to create a flight.
-    const {name , email , password} = data;
-    const newUser = new User({name , email , password});
+const createUser = async (email , password) => {//TODO: make sure only a privileged user is able to create a flight.
+    const newUser = new User({email , password});
     return await newUser.save();
 };
 
+
 const getUsers = async numOfUsers => await User.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfUsers
-const getUser = async (email,password) => await User.findOne({email,password});
+const getUser = async (email,password) => await User.find({email,password});
 
 const getUserByEmail = async dbEmail => await User.getUserByEmail(dbEmail);
 
