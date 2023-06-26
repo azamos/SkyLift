@@ -22,7 +22,10 @@ const views_path = "./components/views";
 
 $(async function () {
     //LOADING VIEW COMPONENTS INTO index.html
-    $("#searchbarContainer").load(`${views_path}/searchbar.html`);
+    $("#searchbarContainer").load(`${views_path}/searchbar.html`,x=>{
+        $("#navSubmit").on('click',searchFlight);
+        $("#originInput").on('input',auto_complete_origin);
+    });
     $("#featuredDeals").load(`${views_path}/flight.html`);
     $("#formContainer").load(`${views_path}/loginform.html`,x=> {
         $("#login-submit").on('click',login);
@@ -35,6 +38,9 @@ $(async function () {
     $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>{
         $("#add-flight-btn").on('click',addFlight);
         addFlightInitiaizeFormFields();
+    });
+    $("#addLocationFormContainer").load(`${views_path}/addLocationForm.html`,x=>{
+        $("#add-location-submit").on('click',addLocation);
     });
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.

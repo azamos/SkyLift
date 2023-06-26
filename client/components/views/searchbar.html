@@ -22,15 +22,4 @@
             </div>
         </form>
     </div>
-    <script>
-        const handler = e => {
-            e.preventDefault();//DO NOT REMOVE, OTHERWISE WILL REFRESH
-            const dest = $("#destinationInput").val();
-            const orig = $("#originInput").val();
-            const dept = $("#departureDate").val();
-            const arrv = $("#arrivalDate").val();
-            console.log(dest+" "+orig+" "+dept+" "+arrv);
-        }
-        $("#navSubmit").on('click',e=>handler(e));
-    </script>
 </nav>

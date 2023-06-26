@@ -48,6 +48,8 @@ const addFlight = async e => {
     else {
         console.log(`failed to add class. reason: ${newlyAddedFlight}`);
     }
+    //Lastly, reseting the form fields
+    Object.values(add_flight_form_fields).forEach(jQueryObj=>jQueryObj.val(""));
 }
 
 const validate_add_flight_form = () => {

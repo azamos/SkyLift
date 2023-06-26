@@ -4,7 +4,7 @@ const register = e => {
     let register_email = $("#register-email-input").val();
     let register_password = $("#register-password-input").val();
     //confirm-register-password-input
-    let register_confirmed_password = $("#register-password-input").val();
+    let register_confirmed_password = $("#confirm-register-password-input").val();
     if(register_password!=register_confirmed_password){
         alert("Passwords are a mismatch");
         return;
@@ -18,7 +18,12 @@ const register = e => {
     })
     .then(res=>res.json())
     .then(res=>console.log(res))
-    .catch(err=>console.log(err));
+    .catch(err=>console.log(err))
+    .finally(()=>{
+        $("#register-email-input").val("");
+        $("#register-password-input").val("");
+        $("#confirm-register-password-input").val("");
+    });
 }
 
 const register_email_input_changed = e => {

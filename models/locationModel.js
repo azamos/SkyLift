@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { schema } = require('./flightModel');
 const Schema = mongoose.Schema;
 
 
@@ -7,23 +8,21 @@ const Schema = mongoose.Schema;
  * cityName = "Tel Aviv",country = "Israel",international=true)
  */
 const Location = new Schema({
-    _id: {
-        type:String,
-        require:true
-    },
     cityName:{
         type:String,
-        require: true
+        required: true
     },
     country:{
         type:String,
-        require: true
+        required: true
     },
     international: {
         type: Boolean,
         default:true
     }
 });
+schema.index({cityName:1})
+Location.index({cityName:'text'});
 
 
 
