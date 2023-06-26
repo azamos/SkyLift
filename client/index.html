@@ -30,7 +30,7 @@
     </div>
     <!--Here we load the searchbar component, via index.js-->
     <div id="searchbarContainer"></div>
-
+    
     <!--
         TODO: export to external menu html component,
         and add <script> with JS file functionality at the bottom of the body tag,
@@ -48,12 +48,15 @@
         Such options are: Hot Deals, Cart, and History.
     -->
     <div id="main-component">
-        <div class="flex-center">
+        <div id="main-component-container" class="flex-center" style=""><!--We need to load the MAIN component here-->
+            <!--TODO: Extract the segment below to an external HTML file-->
+            <!--START-->
             <div class="flex-center">
                 <h1>FEATURED DEALS:</h1>
             </div>
-            <div id="featuredDeals" class="grid-container" style="width: 80%;">
+            <div id="featuredDeals" class="grid-container" style="width: 80%;border: 1px solid #0D67B5;border-radius: 20px;background-color: #2b3035;">
             </div>
+            <!--END-->
         </div>
     </div>
     <!--Here we load the addLocationForm, for administators only-->
@@ -64,7 +67,7 @@
     <div id="addFlightFormContainer" class="flex-center"></div>
 
     <!--
-        Here we load the login and register forms
+        Here we load the login and register forms, for EVERYBODY
     -->
     <div class="flex-row-center">
         <div id="formContainer" style="width: 25vw;"></div>

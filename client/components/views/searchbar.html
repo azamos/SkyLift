@@ -1,14 +1,23 @@
 <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid justify-content-evenly">
         <form class="d-flex align-items-center " role="search">
-            <div class="form-floating">
-                <input type="text" class="form-control" id="destinationInput">
+
+            <div class="form-floating dropdown">
+                <input type="text" class="form-control" id="destinationInput" data-bs-toggle="dropdown"
+                    aria-expanded="false" autocomplete="off">
                 <label for="destinationInput">Destination</label>
+                <ul class="dropdown-menu" id="destination-dropdown">
+                </ul>
             </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="originInput">
+
+            <div class="form-floating dropdown">
+                <input type="text" class="form-control" id="originInput" data-bs-toggle="dropdown"
+                    aria-expanded="false" autocomplete="off">
                 <label for="originInput">Origin</label>
+                <ul class="dropdown-menu" id="origin-dropdown">
+                </ul>
             </div>
+
             <div class="form-floating">
                 <input type="date" class="form-control" id="departureDate">
                 <label for="departureDate">Depart:</label>

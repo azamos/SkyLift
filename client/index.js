@@ -24,7 +24,10 @@ $(async function () {
     //LOADING VIEW COMPONENTS INTO index.html
     $("#searchbarContainer").load(`${views_path}/searchbar.html`,x=>{
         $("#navSubmit").on('click',searchFlight);
-        $("#originInput").on('input',auto_complete_origin);
+        $("#destination-dropdown").hide();//hide dropdown
+        $("#origin-dropdown").hide();//hide dropdown
+        $("#originInput").on('input',auto_complete);
+        $("#destinationInput").on('input',auto_complete);
     });
     $("#featuredDeals").load(`${views_path}/flight.html`);
     $("#formContainer").load(`${views_path}/loginform.html`,x=> {
