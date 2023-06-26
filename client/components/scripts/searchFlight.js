@@ -32,6 +32,8 @@ const auto_complete= e => {
     }
     autocomplete_timer = setTimeout(()=>fetch_autocomplete_suggestions(e.target.value,e.target.id),1000);
 }
+const set_destinationInput = str => $("#destinationInput").val(str);
+const set_originInput = str => $("#originInput").val(str);
 
 function fetch_autocomplete_suggestions(partial_string,id){
     fetch(`${url}/locations/${partial_string}`)
@@ -42,7 +44,8 @@ function fetch_autocomplete_suggestions(partial_string,id){
             $("#destination-dropdown").html("");
             res.forEach(x=>
             $("#destination-dropdown")
-            .append(`<li><a class="dropdown-item" href="#">${x.cityName}</a></li>`));
+            .append($(`<li><a class="dropdown-item">${x.cityName}</a></li>`)
+            .on('click',()=>set_destinationInput(x.cityName))));
             $("#destination-dropdown").show();
         }
         if(id=="originInput"){
@@ -50,7 +53,8 @@ function fetch_autocomplete_suggestions(partial_string,id){
             $("#origin-dropdown").html("");
             res.forEach(x=>
                 $("#origin-dropdown")
-                .append(`<li><a class="dropdown-item" href="#">${x.cityName}</a></li>`));
+                .append($(`<li><a class="dropdown-item">${x.cityName}</a></li>`)
+                .on('click',()=>set_originInput(x.cityName))));
                 $("#origin-dropdown").show();
         }
     })
