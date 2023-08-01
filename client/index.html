@@ -32,7 +32,7 @@
     <div id="searchbarContainer"></div>
     
     <!--
-        TODO: export to external menu html component,
+        TODO: consider exporting this html segment to an external menu html component,
         and add <script> with JS file functionality at the bottom of the body tag,
         as can be seen all the way at the bottom-->
     <div class="flex-center">
@@ -48,13 +48,14 @@
         Such options are: Hot Deals, Cart, and History.
     -->
     <div id="main-component">
-        <div id="main-component-container" class="flex-center" style=""><!--We need to load the MAIN component here-->
+        <div id="main-component-container" class="flex-center"><!--We need to load the MAIN component here-->
             <!--TODO: Extract the segment below to an external HTML file-->
             <!--START-->
             <div class="flex-center">
                 <h1>FEATURED DEALS:</h1>
             </div>
-            <div id="featuredDeals" class="grid-container" style="width: 80%;border: 1px solid #0D67B5;border-radius: 20px;background-color: #2b3035;">
+            <div id="featuredDeals" class="grid-container"
+            style="width: 65%;box-shadow: 1px 1px 1px 1px #0D67B5;border-radius: 20px;">
             </div>
             <!--END-->
         </div>
@@ -73,6 +74,9 @@
         <div id="formContainer" style="width: 25vw;"></div>
         <div id="registerContainer" style="width: 25vw;"></div>
     </div>
+
+    <div id="carousel-container"></div>
+
     <!--Here, we load the HTML component's functionalities-->
     <script src="./components/scripts/flight.js"></script>
     <script src="./components/scripts/login.js"></script>

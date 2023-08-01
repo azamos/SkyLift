@@ -7,8 +7,11 @@ function camelize(str) {
     }).replace(/\s+/g, '');
 }
 const views_path = "./components/views";
+
+
+
 /**
- *Equivalet to document.onload, Here we:
+ Equivalet to document.onload, Here we:
   1.load the HTML components("views") into the main HTML file,
   into "container divs", which are <div> elements meant to contain the components.
   
@@ -21,7 +24,7 @@ const views_path = "./components/views";
  */
 
 $(async function () {
-    //LOADING VIEW COMPONENTS INTO index.html
+    //LOADING VIEW COMPONENTS INTO index.html, and attaching their relevant event handlers, defined in components/scripts
     $("#searchbarContainer").load(`${views_path}/searchbar.html`,x=>{
         $("#navSubmit").on('click',searchFlight);
         $("#destination-dropdown").hide();//hide dropdown
@@ -45,6 +48,7 @@ $(async function () {
     $("#addLocationFormContainer").load(`${views_path}/addLocationForm.html`,x=>{
         $("#add-location-submit").on('click',addLocation);
     });
+    $("#carousel-container").load(`${views_path}/cart.html`);
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */

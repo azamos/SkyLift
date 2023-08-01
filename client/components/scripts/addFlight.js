@@ -12,6 +12,7 @@ function addFlightInitiaizeFormFields() {
         newFlightOriginJqueryObj, newFlightDestinationJqueryObj, newFlightdepartTimeJqueryObj,
         newFlightEstimatedTimeOfArrivalJqueryObj
     }
+    /* adding change-event-listeners to all of the form fields */
     Object.values(add_flight_form_fields).forEach(jQueryObj => jQueryObj.on('change', validate_add_flight_form));
 }
 
@@ -41,12 +42,14 @@ const addFlight = async e => {
         body: b
     })
     newlyAddedFlight = await newlyAddedFlight.json();
-    if (newlyAddedFlight) {
+    if (newlyAddedFlight) {//if flight was succesfuly added to the database:
+        /* first, generate the html component for the new flight */
         generateFlightHTML(newlyAddedFlight, featuredDeals.length);
+        /* next, add it to the list of flights */
         featuredDeals.push(newlyAddedFlight);
     }
     else {
-        console.log(`failed to add class. reason: ${newlyAddedFlight}`);
+        console.log(`failed to add flight. reason: ${newlyAddedFlight}`);
     }
     //Lastly, reseting the form fields
     Object.values(add_flight_form_fields).forEach(jQueryObj=>jQueryObj.val(""));
@@ -61,12 +64,14 @@ const validate_add_flight_form = () => {
         newFlightdepartTimeJqueryObj,
         newFlightEstimatedTimeOfArrivalJqueryObj } = add_flight_form_fields;
     const add_flight_button = $("#add-flight-btn");
+    /* make sure all fields are filled and valid, and if so, allow to submit new flight */
     if (newFlightTitleJqueryObj.val() != "" && newFlightPriceJqueryObj.val() != "" && newFlightCompanyJqueryObj.val() != ""
         && newFlightOriginJqueryObj.val() != newFlightDestinationJqueryObj.val()
         && newFlightdepartTimeJqueryObj.val() && newFlightEstimatedTimeOfArrivalJqueryObj.val() &&
         new Date(newFlightdepartTimeJqueryObj.val())<new Date(newFlightEstimatedTimeOfArrivalJqueryObj.val())) {
             add_flight_button.removeAttr('disabled')
     }
+    /* if one of the fields is not valid, disable the option to submit */
     else {
         add_flight_button.attr('disabled',true);
     }

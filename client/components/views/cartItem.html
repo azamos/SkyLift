@@ -1,0 +1,24 @@
+<li id="cart-item-template" style="margin: 5px;display: none;">
+    <div style="border: 1px solid black; background-color: rgb(224, 224, 217);display: flex;flex-direction: row;">
+        <span class="title" style="border-right: 1px solid black;padding: 20px;"><h2></h2></span>
+        <span class="departureDate" style="border-right: 1px solid black;padding: 20px;"><h2></h2></span>
+        <span class="eta" style="border-right: 1px solid black;padding: 20px;"><h2></h2></span>
+        <span class="airline" style="border-right: 1px solid black;padding: 20px;"><h2></h2></span>
+        <span class="price" style="border-right: 1px solid black;padding: 20px;"><h2></h2></span>
+        <span class="removeFromCart" style="padding: 20px;"><h2>&#10060 </h2></span>
+    </div>
+</li>
+
+<script>
+    function generateCartItemHTML(title,departureDate,eta,airline,price){
+        let newCartItem = $("#cart-item-template").clone();
+        newCartItem.setAttribue('style',"margin: 5px;");
+        newCartItem.children('.title').text(title);
+        newCartItem.children('.departureDate').text(`Leaving: ${departureDate}`);
+        newCartItem.children('.eta').text(`ETA: ${eta}`);
+        newCartItem.children('.airline').text(`Airline: ${airline}`);
+        newCartItem.children('.price').text(`Airline: ${price}`);
+        return newCartItem;
+        /*TODO: whomever calls this function, must add this jQuery element to list of LOCAL cart items, but only after writing to DB*/
+    }
+</script>

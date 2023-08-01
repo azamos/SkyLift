@@ -1,6 +1,6 @@
 const generateFlightHTML = (flightModelInstance,i) => {
     let htmlRef = $("#flight-template").clone();
-    htmlRef.removeAttr('style');
+    htmlRef.attr('style',"background-color: rgb(224, 224, 217)");
     htmlRef.children('.destination-photo').attr('src',`./images/destination/${camelize(flightModelInstance.destination)}.jpg`)
     htmlRef.attr('id',`FLIGHT #${i+1}`);
     let flightHeader = htmlRef.children('.flight-header');

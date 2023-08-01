@@ -1,6 +1,5 @@
 
 const register = e => {
-    console.log("asfasfasfasf")
     let register_email = $("#register-email-input").val();
     let register_password = $("#register-password-input").val();
     //confirm-register-password-input
