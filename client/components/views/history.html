@@ -1,0 +1,12 @@
+<div class="flex-center">
+    <ol id="orderedHistory"></ol>
+</div>
+
+<script>
+    function populateHistory(pastFlightsArray){
+        pastFlightsArray.forEach(pastFlight => {
+            const sumFlight = generateCartItemHTML(pastFlight);
+            $("#orderedHistory").append(sumFlight);
+        });
+    }
+</script>

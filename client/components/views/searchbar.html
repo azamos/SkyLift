@@ -31,4 +31,33 @@
             </div>
         </form>
     </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <div style="display: inline-block;
+            cursor: pointer;">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="loadMainComponent('popularDeals')">Hot Deals</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" onclick="loadMainComponent('register')">Register</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" onclick="loadMainComponent('login')">Login</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" onclick="loadMainComponent('cart')">Cart</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item">History</a></li>
+        </ul>
+    </div>
 </nav>

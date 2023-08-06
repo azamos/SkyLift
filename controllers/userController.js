@@ -1,4 +1,5 @@
 const userDbService = require('../services/userDbService');
+const tokenDbService = require('../services/tokenDbService');
 const bcrypt = require('bcrypt');
 const salt_rounds = 12;
 
@@ -14,8 +15,11 @@ const getUser = async (req,res) =>{
     if(raw_user!=null){
         let cmp_res = await bcrypt.compare(password,raw_user.password);
         if(cmp_res){
-            const sanitized_user = filtered_user(raw_user);
-            res.json(sanitized_user);
+        //     const sanitized_user = filtered_user(raw_user);
+        //     res.json(sanitized_user);
+            let token = await bcrypt.hash(`${password}${Date.now}`);
+            await tokenDbService.createToken(token,raw_user.isAdmin ? 'admin':'user',email);
+            res.json(token);
             return;
         }
         else{

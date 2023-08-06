@@ -23,6 +23,29 @@ const views_path = "./components/views";
         NOTE: if cookie exists, the cart data should be on it. Otherwise, we will also bring it from the server.
  */
 
+const loadMainComponent = componentStr => {
+    if(componentStr=='login'){
+        $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
+            $("#login-submit").on('click',login);
+            $("#login-email-input").on('input',login_email_input_changed)
+        });
+    }
+    if(componentStr=='register'){
+        $('#main-component-container').load(`${views_path}/registerform.html`,x=> {
+            $("#register-submit").on('click',register);
+            $("#register-email-input").on('input',register_email_input_changed);
+        });
+    }
+    if(componentStr=="popularDeals"){
+        $('#main-component-container').html('');
+    }
+    if(componentStr=="cart"){
+        $('#main-component-container').load(`${views_path}/cart.html`,x=>{
+            
+        })
+    }
+}
+
 $(async function () {
     //LOADING VIEW COMPONENTS INTO index.html, and attaching their relevant event handlers, defined in components/scripts
     $("#searchbarContainer").load(`${views_path}/searchbar.html`,x=>{

@@ -2,10 +2,8 @@
 <html>
 
 <head>
-    <!--
-        Here we load our main CSS file and our main JS file.
-        Also, Jquery's JS file, as well as Bootstrap's CSS file and JS file.
-    -->
+    <!--Here we load our main CSS file and our main JS file.
+    Also, Jquery's JS file, as well as Bootstrap's CSS file and JS file.-->
     <link rel="stylesheet" href="index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -28,54 +26,33 @@
         background-position: center;">
         </div>
     </div>
+
     <!--Here we load the searchbar component, via index.js-->
     <div id="searchbarContainer"></div>
-    
-    <!--
-        TODO: consider exporting this html segment to an external menu html component,
-        and add <script> with JS file functionality at the bottom of the body tag,
-        as can be seen all the way at the bottom-->
-    <div class="flex-center">
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-primary">HOT DEALS &#x1F525;</button>
-            <button type="button" class="btn btn-outline-primary">SHOPPING CART &#x1F6D2;</button>
-            <button type="button" class="btn btn-outline-primary">HISTORY</button>
-        </div>
-    </div>
 
-    <!--
-        Here we will load the main component, according to the choises made in the MENU component
-        Such options are: Hot Deals, Cart, and History.
-    -->
+    <!--Here we will load the main component, according to the choises made in the MENU component
+    Such options are: Hot Deals, Cart, and History.-->
     <div id="main-component">
         <div id="main-component-container" class="flex-center"><!--We need to load the MAIN component here-->
-            <!--TODO: Extract the segment below to an external HTML file-->
-            <!--START-->
-            <div class="flex-center">
-                <h1>FEATURED DEALS:</h1>
-            </div>
-            <div id="featuredDeals" class="grid-container"
-            style="width: 65%;box-shadow: 1px 1px 1px 1px #0D67B5;border-radius: 20px;">
-            </div>
-            <!--END-->
         </div>
     </div>
-    <!--Here we load the addLocationForm, for administators only-->
-    <div id="addLocationFormContainer" class="flex-center"></div>
-    <!--
-        Here we load the addFlight Form, for administators only
-    -->
-    <div id="addFlightFormContainer" class="flex-center"></div>
 
-    <!--
-        Here we load the login and register forms, for EVERYBODY
-    -->
-    <div class="flex-row-center">
-        <div id="formContainer" style="width: 25vw;"></div>
-        <div id="registerContainer" style="width: 25vw;"></div>
+    <div class="flex-center">
+        <h1>Popular Deals</h1>
+        <div id="featuredDeals" class="grid-container"
+            style="width: 65%;box-shadow: 1px 1px 1px 1px #0D67B5;border-radius: 20px;"></div>
     </div>
-
-    <div id="carousel-container"></div>
+    <style>
+        .bar1,
+        .bar2,
+        .bar3 {
+            width: 35px;
+            height: 5px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+    </style>
 
     <!--Here, we load the HTML component's functionalities-->
     <script src="./components/scripts/flight.js"></script>

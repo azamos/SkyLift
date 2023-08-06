@@ -31,6 +31,26 @@ const Flight = new Schema({
         type: Date,
         required: true
     },
+    economyCapacity: {
+        type: Number,
+        required:true
+    },
+    bussinessCapacity: {
+        type: Number,
+        required: true
+    },
+    availableEcoSeats: {
+        type: Number,
+        default: function(){return this.economyCapacity;}
+    },
+    availableBusnSeats: {
+        type: Number,
+        default: function(){return this.bussinessCapacity;}
+    },
+    international: {
+        type: Boolean,
+        default: function(){return this.origin == this.destination;}
+    }
 });
 
 

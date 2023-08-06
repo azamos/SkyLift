@@ -10,7 +10,8 @@
 </li>
 
 <script>
-    function generateCartItemHTML(title,departureDate,eta,airline,price){
+    function generateCartItemHTML(flightData){
+        const {title,departureDate,eta,airline,price} = flightData;
         let newCartItem = $("#cart-item-template").clone();
         newCartItem.setAttribue('style',"margin: 5px;");
         newCartItem.children('.title').text(title);
@@ -19,6 +20,5 @@
         newCartItem.children('.airline').text(`Airline: ${airline}`);
         newCartItem.children('.price').text(`Airline: ${price}`);
         return newCartItem;
-        /*TODO: whomever calls this function, must add this jQuery element to list of LOCAL cart items, but only after writing to DB*/
     }
 </script>

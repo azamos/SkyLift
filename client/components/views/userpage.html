@@ -1,0 +1,27 @@
+<div class="flex-center">
+    <div class="dry-data-and-statistics">
+        <span class="user-name"></span>
+        <span class="user-email"></span>
+        <span class="total-miles"></span>
+        <span class="statistics"></span>
+    </div>
+    <div class="future-flights"></div>
+    <div class="summarized-cart"></div>
+    <div class="past-flights"></div>
+</div>
+
+<script>
+    function populateUserPage(userData){
+        const {
+            display_name,email, total_miles,future_flights,cart,past_flights
+        } = userData;
+        $(".user-name").text(display_name);
+        $(".user-email").text(email);
+        $(".total-miles").text(total_miles);
+        $(".future-flights").text(future_flights);
+        cart.forEach(cartItem => {
+            $(".summarized-cart").append(generateCartItemHTML(cartItem)); 
+        });
+        past_flights.forEach(p_f=> $("past-flights").append(p_f.title));
+    }
+</script>
