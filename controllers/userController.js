@@ -9,6 +9,18 @@ const filtered_user = raw_user =>{
     return sanitized_user;
 }
 
+const searchUser = async(req,res) =>{
+    let {email} = req.params;
+    const user = await userDbService.getUser(email);
+    console.log(user);
+    if(user != null){
+        res.json(user);
+    }
+    else{
+        console.log("didnt get email back ! ");
+    }
+}
+
 const getUser = async (req,res) =>{
     let {email,password} = req.body;
     const raw_user = await userDbService.getUser(email);
@@ -78,7 +90,7 @@ const updateUserData = async(req,res) => {//will reach here with a get request, 
 
 const deleteUser = async (req,res) => await userDbService.deleteUser(req.params.id);
 
-module.exports = {getUser,createUser};
+module.exports = {getUser,createUser,searchUser};
 
 
 

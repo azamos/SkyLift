@@ -44,6 +44,11 @@ const loadMainComponent = componentStr => {
             
         })
     }
+    if(componentStr=="searchUsers"){
+        $('#main-component-container').load(`${views_path}/searchUser.html`,x=>{
+            
+        })
+    }
 }
 
 $(async function () {
@@ -55,6 +60,9 @@ $(async function () {
         $("#originInput").on('input',auto_complete);
         $("#destinationInput").on('input',auto_complete);
     });
+
+    $("#searchUserContainer").load(`${views_path}/searchUsers.html`);
+
     $("#featuredDeals").load(`${views_path}/flight.html`);
     $("#formContainer").load(`${views_path}/loginform.html`,x=> {
         $("#login-submit").on('click',login);
