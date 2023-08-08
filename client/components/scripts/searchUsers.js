@@ -1,29 +1,28 @@
-async function searchUsers() {
-    let searchUserInput = $('#searchUser').val();
-    
-    if(searchUserInput.trim() != ""){
-        // const response = await fetch(`${url}/users/searchUser/?` + new URLSearchParams({
-        // email:searchUserInput
-        // }))
-        // const results = await response.json();
-         
-        fetch(`${url}/users/searchUser/?`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'Application/json',
-            },
-            body: JSON.stringify({ email })
+const search = e => {
+    let email = $("#searchUser").val();
+    fetch(`${url}/users/searchUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({email})
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            if (!res.error) {
+                $("#searchUser").val("");
+            }
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                if (!res.error) {
-                    $("#searchUserInput").val("");
-                }
-            })
-            .catch(err => console.log(err));
+        .catch(err => console.log(err));
+}
+
+const search_user_input_changed = e => {
+    const current_value = $("#searchUser").val();
+    if (emailSyntaxIsValid(current_value)) {
+        $("#searchButton").removeAttr('disabled');
     }
-    else{
-        console.log("not valid input");
+    else {
+        $("#searchButton").attr('disabled', true);
     }
 }

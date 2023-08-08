@@ -36,6 +36,13 @@ const loadMainComponent = componentStr => {
             $("#register-email-input").on('input',register_email_input_changed);
         });
     }
+    //user search
+    if(componentStr=="searchUsers"){
+        $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+            $("#searchButton").on('click',search);
+            $("#searchUser").on('input',search_user_input_changed);
+        })
+    }
     if(componentStr=="popularDeals"){
         $('#main-component-container').html('');
     }
@@ -44,11 +51,7 @@ const loadMainComponent = componentStr => {
             
         })
     }
-    if(componentStr=="searchUsers"){
-        $('#main-component-container').load(`${views_path}/searchUser.html`,x=>{
-            
-        })
-    }
+
 }
 
 $(async function () {
@@ -61,17 +64,29 @@ $(async function () {
         $("#destinationInput").on('input',auto_complete);
     });
 
-    $("#searchUserContainer").load(`${views_path}/searchUsers.html`);
+    //$("#searchUserContainer").load(`${views_path}/searchUsers.html`);
 
     $("#featuredDeals").load(`${views_path}/flight.html`);
+    
+    //login form
     $("#formContainer").load(`${views_path}/loginform.html`,x=> {
         $("#login-submit").on('click',login);
         $("#login-email-input").on('input',login_email_input_changed)
     });
+
+    //register form
     $("#registerContainer").load(`${views_path}/registerform.html`,x=>{
         $("#register-submit").on('click',register);
         $("#register-email-input").on('input',register_email_input_changed);
     });
+
+    //search user form
+    $("#searchUserContainer").load(`${views_path}/searchUsers.html`,x=>{
+        $("#searchButton").on('click',search);
+        $("#searchUser").on('input',search_user_input_changed);
+    });
+
+
     $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>{
         $("#add-flight-btn").on('click',addFlight);
         addFlightInitiaizeFormFields();
