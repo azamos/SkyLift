@@ -37,17 +37,13 @@ const User = new Schema({
     },
     total_miles:{
         type: Number,
-        required: false
+        default:0
     },
     last_login:{
         type: Date,
         default: Date.now()
     },
     logins: {
-        type: Array,
-        default: []
-    },
-    access_tokens: {
         type: Array,
         default: []
     },

@@ -8,9 +8,9 @@ const createUser = async (email , password) => {//TODO: make sure only a privile
 
 
 const getUsers = async numOfUsers => await User.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfUsers
-const getUser = async email => await User.findOne({email});
+const findUserByMail = async email => await User.findOne({email});
 
-const getUserByEmail = async dbEmail => await User.getUserByEmail(dbEmail);
+const userLoginByEmail = async dbEmail => await User.userLoginByEmail(dbEmail);
 
 
 const deleteUser = async userEmail => {
@@ -25,7 +25,7 @@ const deleteUser = async userEmail => {
 module.exports = {
     createUser,
     getUsers,
-    getUser,
-    getUserByEmail,
+    findUserByMail,
+    userLoginByEmail,
     deleteUser
 };

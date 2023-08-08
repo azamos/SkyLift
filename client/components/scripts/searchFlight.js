@@ -45,6 +45,7 @@ const set_destinationInput = str => $("#destinationInput").val(str);
 const set_originInput = str => $("#originInput").val(str);
 
 function fetch_autocomplete_suggestions(partial_string,id){
+    /* no need for authorization here */
     fetch(`${url}/locations/${partial_string}`)
     .then(res=>res.json())
     .then(res=>{

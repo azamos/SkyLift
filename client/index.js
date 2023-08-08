@@ -1,4 +1,8 @@
 const featuredDeals = [];
+const headers = new Headers({
+    'Authorization': 'Guest',
+    'Content-Type': 'application/json'
+});
 
 const url = `http://localhost:3000/api`;
 function camelize(str) {
@@ -56,26 +60,27 @@ $(async function () {
         $("#destinationInput").on('input',auto_complete);
     });
     $("#featuredDeals").load(`${views_path}/flight.html`);
-    $("#formContainer").load(`${views_path}/loginform.html`,x=> {
-        $("#login-submit").on('click',login);
-        $("#login-email-input").on('input',login_email_input_changed)
-    });
-    $("#registerContainer").load(`${views_path}/registerform.html`,x=>{
-        $("#register-submit").on('click',register);
-        $("#register-email-input").on('input',register_email_input_changed);
-    });
-    $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>{
-        $("#add-flight-btn").on('click',addFlight);
-        addFlightInitiaizeFormFields();
-    });
-    $("#addLocationFormContainer").load(`${views_path}/addLocationForm.html`,x=>{
-        $("#add-location-submit").on('click',addLocation);
-    });
-    $("#carousel-container").load(`${views_path}/cart.html`);
+    // $("#formContainer").load(`${views_path}/loginform.html`,x=> {
+    //     $("#login-submit").on('click',login);
+    //     $("#login-email-input").on('input',login_email_input_changed)
+    // });
+    // $("#registerContainer").load(`${views_path}/registerform.html`,x=>{
+    //     $("#register-submit").on('click',register);
+    //     $("#register-email-input").on('input',register_email_input_changed);
+    // });
+    // $("#addFlightFormContainer").load(`${views_path}/addFlightForm.html`,x=>{
+    //     $("#add-flight-btn").on('click',addFlight);
+    //     addFlightInitiaizeFormFields();
+    // });
+    // $("#addLocationFormContainer").load(`${views_path}/addLocationForm.html`,x=>{
+    //     $("#add-location-submit").on('click',addLocation);
+    // });
+    // $("#carousel-container").load(`${views_path}/cart.html`);
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
     (async () => {
+        /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
         let res = await fetch(`${url}/flights`);
         res = await res.json();
         res.forEach((flightModelInstance, i) => {

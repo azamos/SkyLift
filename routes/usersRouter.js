@@ -1,9 +1,11 @@
 const usersRouter = require('express').Router();
 const {
-    getUser,
-    createUser
+    userLogin,
+    createUser,
+    getUserData
  } = require('../controllers/userController');
 
-usersRouter.post('/checkuser',getUser);
+usersRouter.post('/checkuser',userLogin);
+usersRouter.post('/getUserData',getUserData);
 usersRouter.post('/',createUser);
 module.exports = usersRouter;

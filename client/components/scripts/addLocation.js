@@ -4,9 +4,7 @@ const addLocation = async e => {
     const country_input = $("#country-input");
     fetch(`${url}/locations`,{
         method:'POST',
-        headers:{
-            'Content-Type':'Application/json',
-        },
+        headers,
         body:JSON.stringify({'cityName':cityName_input.val(),'country':country_input.val()})
     }).then(res=>res.json()).then(res=>console.log(res))
 }

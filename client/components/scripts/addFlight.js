@@ -36,9 +36,7 @@ const addFlight = async e => {
     const b = JSON.stringify(data);
     let newlyAddedFlight = await fetch(`${url}/flights`, {
         method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers,
         body: b
     })
     newlyAddedFlight = await newlyAddedFlight.json();

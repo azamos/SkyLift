@@ -1,9 +1,14 @@
 const locationDbService = require('../services/locationDbService');
 
+/* Creating locations: only admins are allowed */
 const createLocation = async (req, res) => {
-    const { cityName, country } = req.body;
-    const new_location = await locationDbService.createLocation(cityName, country);
-    res.json(new_location);
+    if(req.headers.authorization && req.headers.authorization == 'Admin'){
+        const { cityName, country } = req.body;
+        const new_location = await locationDbService.createLocation(cityName, country);
+        res.json(new_location);
+        return;
+    }
+    res.send("error: unauthorized users");
 };
 
 const getPartialMatch = async (req, res) => {

@@ -6,14 +6,13 @@ const Token = new Schema({
         type: String,
         required: true
     },
-    authorization:{
-        type: String,
-        enum: ['user','admin'],
-        default: 'user'
-    },
     user:{
         type:String,
         required: true
+    },
+    authorization:{
+        type: String,
+        default: 'user'
     }
 });
 

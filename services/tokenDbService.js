@@ -10,8 +10,8 @@ and to manualy add/delete stuff from the database. */
 
 /* this method is called by the server after the server authenticates a user, and produces a token for him.
 the controller provides this method with the generated token(a string) and the authorization type('admin' or 'user')*/
-const createToken = async (_id,authorization,email) => {
-    const new_token = new Token({ _id, authorization, email });
+const createToken = async (_id,user,authorization) => {
+    const new_token = new Token({ _id,user,authorization });
     return await new_token.save();
 }
 
@@ -20,12 +20,12 @@ this method must be called, in order to allow the server to commit the desired a
 or return a authorization error as a  response.
 For example, if a user wishes to see another user's info, he must have admin authorization.
 And if a user wishes to view its own info, there is no problem with that. */
-const getAuthorization = async _id => {
+const getToken = async _id => {
     let token_entry = await Token.findOne({_id});
     if(token_entry){
-        return token_entry.authorization;
+        return token_entry;
     }
-    return "TOKEN_NOT_FOUND";
+    return null;
 }
 
-module.exports = { createToken, getAuthorization };
+module.exports = { createToken, getToken };

@@ -10,13 +10,14 @@ const register = e => {
     }
     fetch(`${url}/users`,{
         method:'POST',
-        headers:{
-            'Content-Type':'Application/json',
-        },
+        headers,
         body:JSON.stringify({'email':register_email,'password':register_confirmed_password})
     })
     .then(res=>res.json())
-    .then(res=>console.log(res))
+    .then(res=>{
+        headers.set('Authorization',res.token);
+        $("#userIdentitySpan").text(`User: ${res.email}`);
+    })
     .catch(err=>console.log(err))
     .finally(()=>{
         $("#register-email-input").val("");
