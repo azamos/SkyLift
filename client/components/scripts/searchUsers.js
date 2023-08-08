@@ -1,5 +1,5 @@
 const search = e => {
-    let email = $("#searchUser").val();
+    let email = $("#searchUser-input").val();
     fetch(`${url}/users/searchUser`, {
         method: 'POST',
         headers: {
@@ -11,14 +11,14 @@ const search = e => {
         .then(res => {
             console.log(res);
             if (!res.error) {
-                $("#searchUser").val("");
+                $("#searchUser-input").val("");
             }
         })
         .catch(err => console.log(err));
 }
 
 const search_user_input_changed = e => {
-    const current_value = $("#searchUser").val();
+    const current_value = $("#searchUser-input").val();
     if (emailSyntaxIsValid(current_value)) {
         $("#searchButton").removeAttr('disabled');
     }

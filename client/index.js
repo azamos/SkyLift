@@ -67,7 +67,7 @@ $(async function () {
     //$("#searchUserContainer").load(`${views_path}/searchUsers.html`);
 
     $("#featuredDeals").load(`${views_path}/flight.html`);
-    
+
     //login form
     $("#formContainer").load(`${views_path}/loginform.html`,x=> {
         $("#login-submit").on('click',login);
@@ -83,7 +83,7 @@ $(async function () {
     //search user form
     $("#searchUserContainer").load(`${views_path}/searchUsers.html`,x=>{
         $("#searchButton").on('click',search);
-        $("#searchUser").on('input',search_user_input_changed);
+        $("#searchUser-input").on('input',search_user_input_changed);
     });
 
 
