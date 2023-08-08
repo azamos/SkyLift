@@ -1,22 +1,35 @@
+<!DOCTYPE html>
 <html>
 
-
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .green-button {
+      background-color: green !important;
+    }
+  </style>
+</head>
 
 <body>
-  <div class="flex-center">
-    <div id="manual-register" class="flex-center" style="border: 1px solid #0D67B5;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div id="manual-register" class="flex-center p-4" style="border: 1px solid #0D67B5; border-radius: 20px; position: absolute; top: 50%; transform: translateY(-50%); background-color: white;">
       <img src="./images/icon/Skylift.jpeg" height="300px">
       <h1>REGISTER</h1>
       <label for="email">Enter your email address:</label>
-      <input type="email" id="register-email-input">
-      <label for="password">enter a password:</label>
-      <input type="password" id="register-password-input">
-      <label for="password">confirm password:</label>
-      <input type="password" id="confirm-register-password-input">
-      <button id="register-submit" disabled class="btn btn-primary">Done</button>
+      <input type="email" id="register-email-input" class="form-control">
+      <label for="password">Enter a password:</label>
+      <input type="password" id="register-password-input" class="form-control">
+      <label for="password">Confirm password:</label>
+      <input type="password" id="confirm-register-password-input" class="form-control">
+      <button id="register-submit" class="btn btn-primary" style="margin-top: 5px;">Sign Up</button>
     </div>
   </div>
   <script>
+    const registerButton = document.getElementById("register-submit");
+
+    registerButton.addEventListener("click", function() {
+      registerButton.classList.add("green-button");
+    });
   </script>
 </body>
 

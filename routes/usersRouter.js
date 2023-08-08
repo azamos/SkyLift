@@ -8,4 +8,5 @@ const {
 usersRouter.post('/checkuser',userLogin);
 usersRouter.post('/getUserData',getUserData);
 usersRouter.post('/',createUser);
+usersRouter.get('/searchUser/:email',getUserData);
 module.exports = usersRouter;

@@ -1,6 +1,7 @@
 <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid justify-content-evenly">
         <form class="d-flex align-items-center " role="search">
+
             <div class="form-floating dropdown">
                 <input type="text" class="form-control" id="destinationInput" data-bs-toggle="dropdown"
                     aria-expanded="false" autocomplete="off">
@@ -32,7 +33,7 @@
     </div>
     <div class="btn-group">
         <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <div style="display: inline-block; 
+            <div style="display: inline-block;
             cursor: pointer;">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -41,23 +42,13 @@
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" onclick="loadMainComponent('popularDeals')">Hot Deals</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" onclick="loadMainComponent('register')">Register</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" onclick="loadMainComponent('login')">Login</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+            <hr class="dropdown-divider">
             <li><a class="dropdown-item" onclick="loadMainComponent('cart')">Cart</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" onclick="loadMainComponent('searchUsers')">Search User</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item">History</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" onclick="loadMainComponent('popularDeals')">Search Users</a></li>
+            
         </ul>
     </div>
-    <span id="userIdentitySpan" style="color: white;">user: Guest</span>
 </nav>
