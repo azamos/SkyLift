@@ -58,25 +58,40 @@ const loadMainComponent = componentStr => {
             
         })
     }
+
     if(componentStr=="addFlight"){
         $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
             $("#add-flight-btn").on('click',addFlight);
             addFlightInitiaizeFormFields();
         })
     }
+
     if(componentStr == "addLocation"){
         $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
             $("#add-location-submit").on('click',addLocation);
         });
     }
+
     if(componentStr == "welcomeMsg"){
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
-            $('#user-welcome-span').text('welcome back ' + state.user)
-
+            $('#user-welcome-span').text('welcome back ' + state.user);
         });
     }
+
+
+    //TODO (fix)!!!!!
     if(componentStr == "userpage"){
-        $('#main-component-container').load(`${views_path}/userpage.html`);
+        $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
+            if(state.user != 'Guest'){
+                $('#userName').text(state.user);
+                $('#userEmail').text(state.user);
+                $('#totalMiles').text("1");
+                $('#futureDealsSum').text("1");
+                $('#pastFlights').text("1");
+                $('#cartSum').text("1");  
+            }
+            
+        });
     }
 }
 
