@@ -71,8 +71,12 @@ const loadMainComponent = componentStr => {
     }
     if(componentStr == "welcomeMsg"){
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
-            $('#user-welcome-span').text('welcome back '+state.user)
+            $('#user-welcome-span').text('welcome back ' + state.user)
+
         });
+    }
+    if(componentStr == "userpage"){
+        $('#main-component-container').load(`${views_path}/userpage.html`);
     }
 }
 
