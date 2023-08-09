@@ -90,39 +90,39 @@
     <div class="flex-center">
         <div class="user-container">
             <div class="user-header">
-                <div class="user-name">John Doe</div>
-                <div class="user-email">john@example.com</div>
+                <div class="user-name" id="userName">Guest</div>
+                <div class="user-email" id="userEmail">Guest</div>
             </div>
             <div class="user-stats">
                 <div class="stat-box">
                     <div class="stat-label">Total Miles </div>
-                    <div class="stat-value">1500</div>
+                    <div class="stat-value" id="totalMiles">0</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-label">Future Flights</div>
-                    <div class="stat-value">3</div>
+                    <div class="stat-label">All Future Flights</div>
+                    <div class="stat-value" id="futureDealsSum">0</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-label">Past Flights</div>
-                    <div class="stat-value">5</div>
+                    <div class="stat-label">All Past Flights</div>
+                    <div class="stat-value"id="pastFlights">0</div>
                 </div>
             </div>
 
             <div class="stat-box" style="margin-top: 7px;">
                 <div class="stat-label">cart &#128722</div>
-                <div class="stat-value">5</div>
+                <div class="stat-value" id="cartSum">0</div>
             </div>
             
             <div class="flight-container">
-                <h2>Future Flights</h2>
+                <h3>Last 3 Future Flights</h3>
                 <ul class="flight-list">
                     <li class="flight-item">Flight 1</li>
                     <li class="flight-item">Flight 2</li>
                     <li class="flight-item">Flight 3</li>
                 </ul>
             </div>
-            <div class="flight-container">
-                <h2>Past Flights</h2>
+            <div class="flight-container"> 
+                <h3>Last 3 Past Flights</h3>
                 <ul class="flight-list">
                     <li class="flight-item">Past Flight 1</li>
                     <li class="flight-item">Past Flight 2</li>
