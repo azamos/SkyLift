@@ -5,7 +5,7 @@ const login = e => {
     let email = $("#login-email-input").val();
     let password = $("#login-password-input").val();
     if(email == state.user){
-        alert("YOU ARE ALREADY LOGGED IN");
+        alert("You Are Already Signed In !");
         return;
     }
     fetch(`${url}/users/checkuser`, {
