@@ -40,6 +40,10 @@ const addFlight = async e => {
         body: b
     })
     newlyAddedFlight = await newlyAddedFlight.json();
+    if(newlyAddedFlight.error){
+        console.log(newlyAddedFlight.error);
+        return;
+    }
     if (newlyAddedFlight) {//if flight was succesfuly added to the database:
         /* first, generate the html component for the new flight */
         generateFlightHTML(newlyAddedFlight, featuredDeals.length);

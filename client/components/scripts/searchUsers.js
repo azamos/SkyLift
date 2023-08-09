@@ -1,10 +1,8 @@
 const search = e => {
     let email = $("#searchUser-input").val();
-    fetch(`${url}/users/searchUser`, {
+    fetch(`${url}/users/getUserData`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'Application/json',
-        },
+        headers,
         body: JSON.stringify({email})
     })
         .then(res => res.json())

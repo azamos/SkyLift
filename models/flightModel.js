@@ -33,11 +33,11 @@ const Flight = new Schema({
     },
     economyCapacity: {
         type: Number,
-        required:true
+        default: 199
     },
     bussinessCapacity: {
         type: Number,
-        required: true
+        default:49
     },
     availableEcoSeats: {
         type: Number,

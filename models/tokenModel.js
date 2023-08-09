@@ -13,6 +13,10 @@ const Token = new Schema({
     authorization:{
         type: String,
         default: 'user'
+    },
+    expired:{
+        type: Boolean,
+        default: false
     }
 });
 

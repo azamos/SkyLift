@@ -45,7 +45,7 @@ const User = new Schema({
     },
     logins: {
         type: Array,
-        default: []
+        default: function(){return [this.last_login]}
     },
     isAdmin: {
         type: Boolean,

@@ -1,15 +1,20 @@
 const flightDbService = require('../services/flightDbService');
+const utils = require('../services/utils');
+const { is_authorized } = utils;
 
 /* Authorozation checks belong in the controller. */
 
 /* only admins should be able to create new flights */
 const createFlight = async (req,res) => {
-    if(req.headers.authorization && req.headers.authorization == 'Admin'){
-        const newFlight = await flightDbService.createFlight(req.body);
-        res.json(newFlight);
-        return;
+    if(req.headers.authorization){
+        const authorizedFlag = await is_authorized(req.headers.authorization);
+        if(authorizedFlag){
+            const newFlight = await flightDbService.createFlight(req.body);
+            res.json(newFlight);
+            return;
+        }
     }
-    res.send("error:unauthorized user");
+    res.send({error:'unauthorized request'})
 };
 
 /* everyone should get access to view any flight they wish, though only users should be able to place an order,
@@ -54,9 +59,12 @@ const updateFlightData = async(req,res) => {//will reach here with a get request
 
 /* NO BRAINER: Admins only! */
 const deleteFlight = async (req,res) => {
-    if(req.headers.authorization && req.headers.authorization == 'Admin'){
-        await flightDbService.deleteFlight(req.params.id);
-        return;
+    if(req.headers && req.headers.authorization){
+        const authorizedFlag = await is_authorized(req.headers.authorization);
+        if(authorizedFlag){
+            await flightDbService.deleteFlight(req.params.id);
+            return;
+        }
     }
     res.send("error: unauthorized user");
 }

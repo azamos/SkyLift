@@ -28,4 +28,16 @@ const getToken = async _id => {
     return null;
 }
 
-module.exports = { createToken, getToken };
+/* say a user logged in, and now wishes to log on to another account of his.
+The current token attached to authorization header must now become expired, since the previous account is now singed-out */
+const expireToken = async _id => {
+    const tokenToExpire = await Token.findOne({_id});
+    if(!tokenToExpire){
+        res.send({error:'no such token'});
+        return;
+    }
+    await tokenToExpire.updateOne({expired:true});
+    res.send({notification:'old token has expired.'})
+}
+
+module.exports = { createToken, getToken, expireToken };

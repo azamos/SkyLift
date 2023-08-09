@@ -17,6 +17,7 @@ const register = e => {
     .then(res=>{
         headers.set('Authorization',res.token);
         $("#userIdentitySpan").text(`User: ${res.email}`);
+        state.user = res.email;
     })
     .catch(err=>console.log(err))
     .finally(()=>{

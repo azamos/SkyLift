@@ -1,5 +1,7 @@
 const userDbService = require('../services/userDbService');
 const tokenDbService = require('../services/tokenDbService');
+const utils = require('../services/utils');
+const { is_authorized } = utils;
 const bcrypt = require('bcrypt');
 const salt_rounds = 12;
 
@@ -12,27 +14,41 @@ const filtered_user = raw_user =>{
 
 /* for authorized users only: either the user himself, or an admin. */
 const getUserData = async (req,res) => {
-    if(!(req.headers && req.headers.authorization)){
-        res.send("error: unauthorized user");
-        return;        
-    }
-    let id = req.headers.authorization;
-    const token = await tokenDbService.getToken(id);
-    let {email} = req.body;
-    if(token.user == email ||token.authorization == 'Admin'){
-        const user_data = await userDbService.findUserByMail(email);
-        if(user){
-            delete user.password;
-            res.json(user);
+    if(req.headers && req.headers.authorization){
+        let {email} = req.body;
+        const authorizedFlag = await is_authorized(req.headers.authorization,email);
+        if(authorizedFlag){
+            const user_data = await userDbService.findUserByMail(email);
+            if(user_data){
+                delete user_data.password;
+                res.json(user_data);
+                return;
+            }
+            res.send({error:'user not found'});
             return;
         }
-        res.send('user not found');
-        return;
     }
+    res.send({error:'unauthorized user'});
 }
-
+//TODO: continue
 const userLogin = async (req,res) =>{
     let {email,password} = req.body;
+    /* if there is an authorization header attached, it means that a user
+    is already logged in, or have an expired token, in the browser.
+    Thus I must invalidate the previous token if it is valid, otherwise, nothing? */
+    if(req.headers && req.headers.authorization){
+        let token_id = req.headers.authorization;
+        const token = await tokenDbService.getToken(token_id);
+        if(token){
+            if(token.user != email){
+                await tokenDbService.expireToken(token_id);
+            }
+            else{
+                res.send({error:'user is already logged in'});
+                return;
+            }
+        }
+    }
     const raw_user = await userDbService.findUserByMail(email);
     if(raw_user!=null){
         let cmp_res = await bcrypt.compare(password,raw_user.password);
@@ -53,7 +69,17 @@ const userLogin = async (req,res) =>{
     }
 }    
 
+const logOff = async(req,res)=>{
+    if(req.headers && req.headers.authorization){
+        const token = await tokenDbService.getToken(req.headers.authorization);
+        if(token && token.expired==false){
+            tokenDbService.expireToken(token._id);
+        }
+    }
+}
+
 const createUser = async (req,res) => {
+    await logOff(req,res);//await?
     let {email,password} = req.body;
     const userExist = await userDbService.findUserByMail(email);
     if(userExist){
