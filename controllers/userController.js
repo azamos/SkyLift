@@ -79,13 +79,13 @@ const logOff = async(req,res)=>{
 }
 
 const createUser = async (req,res) => {
-    await logOff(req,res);//await?
     let {email,password} = req.body;
     const userExist = await userDbService.findUserByMail(email);
     if(userExist){
         res.send({error:"a User with this email already exist. Send a recovery email?"});
         return;
     }
+    await logOff(req,res);//await?
     let hashed_pass = await bcrypt.hash(password,salt_rounds);
     if(hashed_pass==null){
         res.send({error:"bcrypt hash failed"});

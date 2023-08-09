@@ -37,7 +37,6 @@ const expireToken = async _id => {
         return;
     }
     await tokenToExpire.updateOne({expired:true});
-    res.send({notification:'old token has expired.'})
 }
 
 module.exports = { createToken, getToken, expireToken };

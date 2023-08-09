@@ -18,6 +18,7 @@ const register = e => {
         headers.set('Authorization',res.token);
         $("#userIdentitySpan").text(`User: ${res.email}`);
         state.user = res.email;
+        loadMainComponent('welcomeMsg');
     })
     .catch(err=>console.log(err))
     .finally(()=>{
