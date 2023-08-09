@@ -2,12 +2,12 @@
     loginform and login should only be available in the case that the token generated after registering is expired
  */
 const login = e => {
+    let email = $("#login-email-input").val();
+    let password = $("#login-password-input").val();
     if(email == state.user){
         alert("YOU ARE ALREADY LOGGED IN");
         return;
     }
-    let email = $("#login-email-input").val();
-    let password = $("#login-password-input").val();
     fetch(`${url}/users/checkuser`, {
         method: 'POST',
         headers,
@@ -21,6 +21,7 @@ const login = e => {
                 headers.set('Authorization',res.token);
                 $("#userIdentitySpan").text(`User: ${res.email}`);
                 state.user = res.email;
+                loadMainComponent('welcomeMsg');
             }
         })
         .catch(err => console.log(err));

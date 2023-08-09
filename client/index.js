@@ -69,6 +69,11 @@ const loadMainComponent = componentStr => {
             $("#add-location-submit").on('click',addLocation);
         });
     }
+    if(componentStr == "welcomeMsg"){
+        $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
+            $('#user-welcome-span').text('welcome back '+state.user)
+        });
+    }
 }
 
 $(async function () {
