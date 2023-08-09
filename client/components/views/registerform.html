@@ -2,8 +2,55 @@
 <html>
 
 <head>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
+    .green-button {
+      background-color: green !important;
+    }
+
+    .register-container {
+      margin: 20px auto; /* Added margin to the top and bottom */
+      border: 1px solid #0D67B5;
+      border-radius: 20px; /* Rounded corners */
+      background-color: white;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .register-logo {
+      max-height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .register-input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .register-button {
+      background-color: #0D67B5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .register-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .register-button:hover {
+      background-color: #095094;
+    }
+
     .green-button {
       background-color: green !important;
     }
@@ -11,19 +58,28 @@
 </head>
 
 <body>
-  <div class="d-flex justify-content-center align-items-center vh-100">
-    <div id="manual-register" class="flex-center p-4" style="border: 1px solid #0D67B5; border-radius: 20px; position: absolute; top: 50%; transform: translateY(-50%); background-color: white;">
-      <img src="./images/icon/Skylift.jpeg" height="300px">
-      <h1>REGISTER</h1>
-      <label for="email">Enter your email address:</label>
-      <input type="email" id="register-email-input" class="form-control">
-      <label for="password">Enter a password:</label>
-      <input type="password" id="register-password-input" class="form-control">
-      <label for="password">Confirm password:</label>
-      <input type="password" id="confirm-register-password-input" class="form-control">
-      <button id="register-submit" class="btn btn-primary" style="margin-top: 5px;">Sign Up</button>
-    </div>
+  <div class="register-container">
+    <img class="register-logo" src="./images/icon/Skylift.jpeg" alt="Skylift Logo">
+    <h1>REGISTER</h1>
+    <label for="register-email-input">Enter your email address:</label>
+    <input class="register-input" type="email" id="register-email-input">
+    <label for="register-password-input">Enter a password:</label>
+    <input class="register-input" type="password" id="register-password-input">
+    <label for="confirm-register-password-input">Confirm password:</label>
+    <input class="register-input" type="password" id="confirm-register-password-input">
+    <button class="register-button" id="register-submit" disabled>Sign Up</button>
   </div>
+<<<<<<< HEAD
+=======
+
+  <script>
+    const registerButton = document.getElementById("register-submit");
+
+    registerButton.addEventListener("click", function() {
+      registerButton.classList.add("green-button");
+    });
+  </script>
+>>>>>>> bb937ff0bb7f20f9e2e337a1f95b73cf7ef69d4a
 </body>
 
 </html>
