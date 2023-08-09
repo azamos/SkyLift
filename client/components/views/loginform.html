@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .green-button {
       background-color: green !important;
@@ -9,23 +11,23 @@
 </head>
 
 <body>
-  <div class="d-flex justify-content-center align-items-center vh-100">
-    <div id="manual-register" class="flex-center p-4" style="border: 1px solid #0D67B5; border-radius: 20px; position: absolute; top: 50%; transform: translateY(-50%); background-color: white;">
+  <div class="flex-center">
+    <div id="manual-register" class="flex-center" style="border: 1px solid #0D67B5;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
       <img src="./images/icon/Skylift.jpeg" height="300px">
       <h1>LOGIN</h1>
       <label for="email">Enter your email address:</label>
-      <input type="email" id="login-email-input" class="form-control">
-      <label for="password">Enter your password:</label>
-      <input type="password" id="login-password-input" class="form-control">
-      <button id="login-submit" class="btn btn-primary" style="margin-top: 5px;">Login</button>
+      <input type="email" id="login-email-input">
+      <label for="password">enter your password:</label>
+      <input type="password" id="login-password-input">
+      <button id="login-submit" disabled class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;">Login</button>
     </div>
   </div>
   <script>
     const loginButton = document.getElementById("login-submit");
+
     loginButton.addEventListener("click", function() {
       loginButton.classList.add("green-button");
     });
   </script>
 </body>
-
 </html>
