@@ -83,14 +83,8 @@ const loadMainComponent = componentStr => {
     if(componentStr == "userpage"){
         $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
             if(state.user != 'Guest'){
-                $('#userName').text(state.user);
-                $('#userEmail').text(state.user);
-                $('#totalMiles').text("1");
-                $('#futureDealsSum').text("1");
-                $('#pastFlights').text("1");
-                $('#cartSum').text("1");  
+                $.getScript('accountPage.js', loadUserData(state.user));
             }
-            
         });
     }
     if(componentStr == "errorMsg"){

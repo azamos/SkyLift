@@ -1,5 +1,5 @@
-const search = e => {
-    let email = $("#searchUser-input").val();
+function loadUserData (email_in) {
+    let email = state.user;
     fetch(`${url}/users/getUserData`, {
         method: 'POST',
         headers,
@@ -14,21 +14,11 @@ const search = e => {
                     $('#userName').text(res.email);
                     $('#userEmail').text(state.display_name);
                     $('#totalMiles').text(res.total_miles);
-                    $('#futureDealsSum').text(res);
-                    $('#pastFlights').text("1");
-                    $('#cartSum').text("1");  
+                    $('#futureDealsSum').text(res.future_flights.length);
+                    $('#pastFlights').text(res.past_flights.length);
+                    $('#cartSum').text(res.cart.length);  
                 })
             }
         })
         .catch(err => console.log(err));
-}
-
-const search_user_input_changed = e => {
-    const current_value = $("#searchUser-input").val();
-    if (emailSyntaxIsValid(current_value)) {
-        $("#searchButton").removeAttr('disabled');
-    }
-    else {
-        $("#searchButton").attr('disabled', true);
-    }
 }
