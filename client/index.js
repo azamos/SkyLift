@@ -74,6 +74,11 @@ const loadMainComponent = componentStr => {
             $('#user-welcome-span').text('welcome back '+state.user)
         });
     }
+    if(componentStr == "errorMsg"){
+        $('#main-component-container').load(`${views_path}/errorMsg.html`,()=>{
+            $('#error-span').text('An Error Occoured');
+        })
+    }
 }
 
 $(async function () {

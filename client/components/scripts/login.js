@@ -6,6 +6,7 @@ const login = e => {
     let password = $("#login-password-input").val();
     if(email == state.user){
         alert("YOU ARE ALREADY LOGGED IN");
+        loadMainComponent('popularDeals');
         return;
     }
     fetch(`${url}/users/checkuser`, {

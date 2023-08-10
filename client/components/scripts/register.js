@@ -5,7 +5,7 @@ const register = e => {
     //confirm-register-password-input
     let register_confirmed_password = $("#confirm-register-password-input").val();
     if(register_password!=register_confirmed_password){
-        alert("Passwords are a mismatch");
+        alert("Passwords do not match!");
         return;
     }
     fetch(`${url}/users`,{
@@ -15,6 +15,10 @@ const register = e => {
     })
     .then(res=>res.json())
     .then(res=>{
+        if(res.error){
+            loadMainComponent('errorMsg');
+            return;
+        }
         headers.set('Authorization',res.token);
         $("#userIdentitySpan").text(`User: ${res.email}`);
         state.user = res.email;

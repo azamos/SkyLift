@@ -20,7 +20,7 @@ const getUserData = async (req,res) => {
         if(authorizedFlag){
             const user_data = await userDbService.findUserByMail(email);
             if(user_data){
-                delete user_data.password;
+                user_data.password = null;
                 res.json(user_data);
                 return;
             }
@@ -85,7 +85,7 @@ const createUser = async (req,res) => {
         res.send({error:"a User with this email already exist. Send a recovery email?"});
         return;
     }
-    await logOff(req,res);//await?
+    await logOff(req,res);
     let hashed_pass = await bcrypt.hash(password,salt_rounds);
     if(hashed_pass==null){
         res.send({error:"bcrypt hash failed"});
