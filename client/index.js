@@ -50,12 +50,14 @@ const loadMainComponent = componentStr => {
             $("#searchUser").on('input',search_user_input_changed);
         })
     }
+
     if(componentStr=="popularDeals"){
         $('#main-component-container').html('');
     }
+
     if(componentStr=="cart"){
         $('#main-component-container').load(`${views_path}/cart.html`,x=>{
-            
+            $("#purchaseButton").on('click',checkout_flights);
         })
     }
 
@@ -77,9 +79,7 @@ const loadMainComponent = componentStr => {
             $('#user-welcome-span').text('welcome back ' + state.user);
         });
     }
-
-
-    //TODO (fix)!!!!!
+    
     if(componentStr == "userpage"){
         $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
             if(state.user != 'Guest'){
@@ -87,11 +87,14 @@ const loadMainComponent = componentStr => {
             }
         });
     }
+
     if(componentStr == "errorMsg"){
         $('#main-component-container').load(`${views_path}/errorMsg.html`,()=>{
             $('#error-span').text('An Error Occoured');
         })
     }
+
+
 }
 
 $(async function () {
