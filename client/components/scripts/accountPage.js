@@ -12,7 +12,7 @@ function loadUserData (email_in) {
                 $("#searchUser-input").val("");
                 $('#main-component-container').load(`${views_path}/userpage.html`,()=>{
                     $('#userName').text(res.email);
-                    $('#userEmail').text(state.display_name);
+                    $('#userEmail').text(res.display_name);
                     $('#totalMiles').text(res.total_miles);
                     $('#futureDealsSum').text(res.future_flights.length);
                     $('#pastFlights').text(res.past_flights.length);

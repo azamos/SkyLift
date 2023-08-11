@@ -57,7 +57,15 @@ const loadMainComponent = componentStr => {
 
     if(componentStr=="cart"){
         $('#main-component-container').load(`${views_path}/cart.html`,x=>{
-            $("#purchaseButton").on('click',checkout_flights);
+            if(state.user != 'Guest'){
+                $("#purchaseButton").on('click',checkout_flights);
+            }
+            else {
+                $("#purchaseButton").on('click',()=>{
+                    alert('You must be logged in to purchase flights');
+                    $('#main-component-container').load(`${views_path}/loginform.html`);
+                });
+            }
         })
     }
 
@@ -91,6 +99,11 @@ const loadMainComponent = componentStr => {
     if(componentStr == "errorMsg"){
         $('#main-component-container').load(`${views_path}/errorMsg.html`,()=>{
             $('#error-span').text('An Error Occoured');
+        })
+    }
+    if(componentStr == "whishlist"){
+        $('#main-component-container').load(`${views_path}/whishlist.html`,()=>{
+
         })
     }
 

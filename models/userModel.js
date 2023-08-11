@@ -39,6 +39,10 @@ const User = new Schema({
         type: Number,
         default:0
     },
+    wishlist:{
+        type: Array,
+        default:[]
+    },
     last_login:{
         type: Date,
         default: Date.now()
