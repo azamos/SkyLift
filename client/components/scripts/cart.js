@@ -1,4 +1,6 @@
 const checkout_flights = e => {
-        loadMainComponent('checkout');
+    $('#main-component-container').load(`${views_path}/checkoutPage.html`,x=>{
+    
+    })  
 }
 
