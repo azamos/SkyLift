@@ -102,8 +102,12 @@ const loadMainComponent = componentStr => {
         })
     }
     if(componentStr == "whishlist"){
-        $('#main-component-container').load(`${views_path}/whishlist.html`,()=>{
-
+        $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
+            addFlightWishlistInitiaizeFormFields(state.user);
+            addWishlistFlight();
+            $('#removeWishlistX').click(function() {
+                $('#WishlistToRemove').remove();
+            });
         })
     }
 
