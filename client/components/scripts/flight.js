@@ -13,11 +13,10 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
     //TODO
-    $('.delete-flight-btn').on('click', function() {
-        //const flight_id = $(this).parent().parent().attr('id');
-        fetch(`${url}/flights/:${flightModelInstance._id["$oid"]}`, {
+    $('.delete-flight-btn').attr('id',flightModelInstance._id).on('click',function(){;
+        fetch(`${url}/flights/${flightModelInstance._id}`, {
             method: 'DELETE',
-            headers: state.token
+            headers: headers
         }
         ).catch(err => {
             console.log(err);
