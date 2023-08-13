@@ -12,7 +12,7 @@ const login = e => {
     fetch(`${url}/users/checkuser`, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password})
     })
         .then(res => res.json())
         .then(res => {
@@ -20,8 +20,9 @@ const login = e => {
                 $("#login-email-input").val("");
                 $("#login-password-input").val("");
                 headers.set('Authorization',res.token);
-                $("#userIdentitySpan").text(`User: ${res.email}`);
+                $("#userIdentitySpan").text(`User: ${res.name}`);
                 state.user = res.email;
+                state.name = res.name;
                 loadMainComponent('welcomeMsg');
             }
         })

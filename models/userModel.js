@@ -2,9 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
+    full_name: {
+        type: String,
+        required: false
+    },
     email: {
         type: String,
         required:true
+    },
+    phone_number:{
+        type: Number,
+        required: false
     },
     password: {
         type: String,
@@ -38,6 +46,10 @@ const User = new Schema({
     total_miles:{
         type: Number,
         default:0
+    },
+    wishlist:{
+        type: Array,
+        default:[]
     },
     last_login:{
         type: Date,

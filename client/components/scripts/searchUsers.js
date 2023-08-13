@@ -1,5 +1,9 @@
 const search = e => {
     let email = $("#searchUser-input").val();
+    if(!isValidEmail(email)){
+        alert("Please enter a valid email address.");
+        return;
+    }
     fetch(`${url}/users/getUserData`, {
         method: 'POST',
         headers,
@@ -31,4 +35,10 @@ const search_user_input_changed = e => {
     else {
         $("#searchButton").attr('disabled', true);
     }
+}
+
+function isValidEmail(email) {
+    // Basic email validation using a regular expression
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
 }

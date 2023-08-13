@@ -4,7 +4,8 @@ const headers = new Headers({
     'Content-Type': 'application/json'
 });
 const state = {
-    user: 'Guest'
+    user: 'Guest',
+    name: 'Guest'
 }
 
 const url = `http://localhost:3000/api`;
@@ -50,12 +51,22 @@ const loadMainComponent = componentStr => {
             $("#searchUser").on('input',search_user_input_changed);
         })
     }
+
     if(componentStr=="popularDeals"){
         $('#main-component-container').html('');
     }
+
     if(componentStr=="cart"){
         $('#main-component-container').load(`${views_path}/cart.html`,x=>{
-            
+            if(state.user != 'Guest'){
+                $("#purchaseButton").on('click',checkout_flights);
+            }
+            else {
+                $("#purchaseButton").on('click',()=>{
+                    alert('You must be logged in to purchase flights');
+                    $('#main-component-container').load(`${views_path}/loginform.html`);
+                });
+            }
         })
     }
 
@@ -74,12 +85,19 @@ const loadMainComponent = componentStr => {
 
     if(componentStr == "welcomeMsg"){
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
-            $('#user-welcome-span').text('welcome back ' + state.user);
+            $('#user-welcome-span').text('welcome back ' + state.name);
         });
     }
 
-
-    //TODO (fix)!!!!!
+    if(componentStr == "welcomeMsgForRegister"){
+        $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
+            if(state.name == 'Guest'){
+                $('#user-welcome-span').text('welcome ' + state.user);
+            }
+            $('#user-welcome-span').text('welcome ' + state.name);
+        });
+    }
+    
     if(componentStr == "userpage"){
         $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
             if(state.user != 'Guest'){
@@ -87,11 +105,23 @@ const loadMainComponent = componentStr => {
             }
         });
     }
+
     if(componentStr == "errorMsg"){
         $('#main-component-container').load(`${views_path}/errorMsg.html`,()=>{
             $('#error-span').text('An Error Occoured');
         })
     }
+    if(componentStr == "whishlist"){
+        $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
+            addFlightWishlistInitiaizeFormFields(state.user);
+            addWishlistFlight();
+            $('#removeWishlistX').click(function() {
+                $('#WishlistToRemove').remove();
+            });
+        })
+    }
+
+
 }
 
 $(async function () {

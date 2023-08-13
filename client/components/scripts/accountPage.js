@@ -11,12 +11,12 @@ function loadUserData (email_in) {
             if (!res.error) {
                 $("#searchUser-input").val("");
                 $('#main-component-container').load(`${views_path}/userpage.html`,()=>{
-                    $('#userName').text(res.email);
-                    $('#userEmail').text(state.display_name);
+                    $('#userName').text(res.full_name);
+                    $('#userEmail').text(res.email);
                     $('#totalMiles').text(res.total_miles);
                     $('#futureDealsSum').text(res.future_flights.length);
                     $('#pastFlights').text(res.past_flights.length);
-                    $('#cartSum').text(res.cart.length);  
+                    $('#cartSum').text(res.cart.length);
                 })
             }
         })
