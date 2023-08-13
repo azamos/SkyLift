@@ -46,9 +46,9 @@ const addFlight = async e => {
     }
     if (newlyAddedFlight) {//if flight was succesfuly added to the database:
         /* first, generate the html component for the new flight */
-        generateFlightHTML(newlyAddedFlight, featuredDeals.length);
+        generateFlightHTML(newlyAddedFlight, allDeals.length);
         /* next, add it to the list of flights */
-        featuredDeals.push(newlyAddedFlight);
+        allDeals.push(newlyAddedFlight);
     }
     else {
         console.log(`failed to add flight. reason: ${newlyAddedFlight}`);
@@ -56,7 +56,7 @@ const addFlight = async e => {
     //Lastly, reseting the form fields
     Object.values(add_flight_form_fields).forEach(jQueryObj=>jQueryObj.val(""));
     /* maybe above line un-needed */
-    loadMainComponent('popularDeals');
+    loadMainComponent('allFlights');
 }
 
 const validate_add_flight_form = () => {

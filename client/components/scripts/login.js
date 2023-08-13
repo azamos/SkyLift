@@ -23,6 +23,7 @@ const login = e => {
                 $("#userIdentitySpan").text(`User: ${res.name}`);
                 state.user = res.email;
                 state.name = res.name;
+                state.token = res.token;
                 loadMainComponent('welcomeMsg');
             }
         })
