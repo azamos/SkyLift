@@ -1,4 +1,6 @@
+const tokenModel = require('../models/tokenModel');
 const flightDbService = require('../services/flightDbService');
+const userModel = require('../services/userDbService');
 const utils = require('../services/utils');
 const { is_authorized } = utils;
 
@@ -67,6 +69,60 @@ const deleteFlight = async (req,res) => {
         }
     }
     res.send("error: unauthorized user");
+}
+
+const purchaseFlightSeat = async (req,res) => {
+    if((req.headers && req.headers.authorization)==false){
+        res.send({error:'missing authorization'});
+        return;
+    }
+    const token_entry = await tokenModel.find({_id:req.headers.authorization});
+    let userId = token_entry.user;
+    const user = await userModel.findUserByMail(userId);
+    if(!user){
+        res.send({error:'Error: user no longer exists'});
+        return;
+    }
+    const { flight_id, seatType } = req.body;
+    const flight = flightDbService.getFlightById(flight_id);
+    let seatAmount = 1;//later, change it
+    /* FIRST, CHECK IF USER NOT IN PASSENGER LIST AND IF THERE ARE ENOUGH AVAILABLE SEATS */
+    if(seatType=='bussiness' && !(flight.bussinessPassengers.includes(userId) ) && flight.bussinessCapacity - (seatAmount-1) > 0){
+        const {bussinessPassengers,bussinessCapacity} = flight;
+        bussinessPassengers.push(user);
+        bussinessCapacity-=seatAmount;
+        flightDbService.updateFlightData(flight_id,{bussinessCapacity,bussinessPassengers});
+        /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
+        on this specific flight, we also need to add this flight to future_flights in his database entry
+        under the Users collection. And only after that succecds, we let him know it succeeded.
+        If, However, the action failed, we must release the space he took on the plane, and then let him know
+        something has failed, and thus he can try again. */
+        const { future_flights } = user;
+        future_flights.push(flight_id);
+        if(await userModel.updateUser(user.email,future_flights)){
+            res.send({msg:'flight added succesfuly'})
+            return;
+        }
+    }
+    if(seatType=='economy' && !(flight.economyPassengers.includes(userId) ) && flight.economyCapacity - (seatAmount-1) > 0){
+        const {economyPassengers,economyCapacity} = flight;
+        economyPassengers.push(user);
+        economyCapacity-=seatAmount;
+        flightDbService.updateFlightData(flight_id,{bussinessCapacity,bussinessPassengers});
+        /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
+        on this specific flight, we also need to add this flight to future_flights in his database entry
+        under the Users collection. And only after that succecds, we let him know it succeeded.
+        If, However, the action failed, we must release the space he took on the plane, and then let him know
+        something has failed, and thus he can try again. */
+        const { future_flights } = user;
+        future_flights.push(flight_id);
+        if(await userModel.updateUser(user.email,future_flights)){
+            res.send({msg:'flight added succesfuly'})
+            return;
+        }
+    }
+    res.send({error:'something went wrong, flight not purchased. Please try again'});
+    return;
 }
 
 const findFlightFrom_a_to_b = async (Location_a,Location_b,desiredDepartTime=null,desiredArriveTime = null) => {

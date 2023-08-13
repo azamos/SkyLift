@@ -1,22 +1,25 @@
-const flightModel = require("../models/flightModel");
 const Flight = require("../models/flightModel");
 
-const createFlight = async data => {//TODO: make sure only a privileged user is able to create a flight.
+/* CREATE */
+const createFlight = async data => {
     const { title, price, company, origin, destination, departTime, estimatedTimeOfArrival } = data;
     const newFlight = new Flight({ title, price, company, origin, destination, departTime, estimatedTimeOfArrival });
     return await newFlight.save();
 };
 
+/* READ - List */
 const getFlights = async () => await Flight.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfFlights
 
+/* READ - popular Deals */
+const getPopularFlights = async () => await Flight.find({isPopular:true})
 
-/**
+/**READ- 1 entry
  * 
  * @param {*} dbId 
  * @returns db.collection==Flight 's entry with id==dbId.
  * To be used mainly by updateFlightData
  */
-const getFlightById = async dbId => await Flight.findById(dbId);
+const getFlightById = async dbId => await Flight.findById({_id:dbId});
 
 /**
  * 
@@ -40,7 +43,7 @@ const get_flights_from_a_to_b = async (origin, destination,
 
 
 
-/**
+/**UPDATE
  * 
  * @param {*} dbIdentifier 
  * @param {*} newData 
@@ -56,6 +59,7 @@ const updateFlightData = async (dbIdentifier, newData) => {
     return flightToBeUpdated;
 };
 
+/* DELETE */
 const deleteFlight = async flightId => {
     const flightToDeleted = await Flight.findById(flightId);
     if (!flightId) {
@@ -69,6 +73,7 @@ module.exports = {
     createFlight,//Create
     getFlights,//Read
     getFlightById,//Read
+    getPopularFlights,//READ
     getFlightsByFilter,//Read
     updateFlightData,//Update
     deleteFlight,//Delete

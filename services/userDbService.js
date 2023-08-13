@@ -6,13 +6,24 @@ const createUser = async (email , password , full_name , phone_number) => {//TOD
     return await newUser.save();
 };
 
-
+/* READ - LIST */
 const getUsers = async numOfUsers => await User.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfUsers
+ /* READ - single entry */
 const findUserByMail = async email => await User.findOne({email});
 
-const userLoginByEmail = async dbEmail => await User.userLoginByEmail(dbEmail);
+/* UPDATE */
+const updateUser = async (email,data) => {
+    const x= await User.findOne({email});
+    if(!x){
+        res.send({error:'user not found'});
+    }
+    let successQmark = await x.updateOne({...data});
+    res.send({msg:successQmark.n});
+}
 
 
+
+/* DELETE */
 const deleteUser = async userEmail => {
     const userToDeleted = await User.findByEmail(userEmail);
     if(!userEmail){
@@ -26,6 +37,6 @@ module.exports = {
     createUser,
     getUsers,
     findUserByMail,
-    userLoginByEmail,
-    deleteUser
+    deleteUser,
+    updateUser
 };

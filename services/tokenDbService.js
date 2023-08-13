@@ -13,7 +13,7 @@ the controller provides this method with the generated token(a string) and the a
 const createToken = async (_id,user,authorization) => {
     const new_token = new Token({ _id,user,authorization });
     return await new_token.save();
-}
+}/* CREATE */
 
 /* whenever an http request that requires AUTHORIZATION is made(such as viewing user's information),
 this method must be called, in order to allow the server to commit the desired action if,
@@ -26,7 +26,10 @@ const getToken = async _id => {
         return token_entry;
     }
     return null;
-}
+}/* READ */
+
+/*READ - LIST */
+const tokenList = async ()=> await Token.find({});
 
 /* say a user logged in, and now wishes to log on to another account of his.
 The current token attached to authorization header must now become expired, since the previous account is now singed-out */
@@ -37,6 +40,15 @@ const expireToken = async _id => {
         return;
     }
     await tokenToExpire.updateOne({expired:true});
-}
+}/* UPDATE */
+
+const deleteToken =  async _id => {
+    const tokenToDelete = await Token.findOne({_id});
+    if(!tokenToDelete){
+        res.send({error:'no such token'});
+        return;
+    }
+    await tokenToDelete.deleteOne({});
+}/* DELETE */
 
 module.exports = { createToken, getToken, expireToken };
