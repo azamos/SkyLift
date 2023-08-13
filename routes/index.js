@@ -8,4 +8,5 @@ router.use('/flights',flightsRouter);
 router.use('/users',usersRouter);
 router.use('/locations',locationRouter);
 
+
 module.exports = router;

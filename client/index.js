@@ -32,37 +32,37 @@ const views_path = "./components/views";
  */
 
 const loadMainComponent = componentStr => {
-    if(componentStr=='login'){
-        $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
-            $("#login-submit").on('click',login);
-            $("#login-email-input").on('input',login_email_input_changed)
+    if (componentStr == 'login') {
+        $('#main-component-container').load(`${views_path}/loginform.html`, x => {
+            $("#login-submit").on('click', login);
+            $("#login-email-input").on('input', login_email_input_changed)
         });
     }
-    if(componentStr=='register'){
-        $('#main-component-container').load(`${views_path}/registerform.html`,x=> {
-            $("#register-submit").on('click',register);
-            $("#register-email-input").on('input',register_email_input_changed);
+    if (componentStr == 'register') {
+        $('#main-component-container').load(`${views_path}/registerform.html`, x => {
+            $("#register-submit").on('click', register);
+            $("#register-email-input").on('input', register_email_input_changed);
         });
     }
     //user search
-    if(componentStr=="searchUsers"){
-        $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
-            $("#searchButton").on('click',search);
-            $("#searchUser").on('input',search_user_input_changed);
+    if (componentStr == "searchUsers") {
+        $('#main-component-container').load(`${views_path}/searchUsers.html`, x => {
+            $("#searchButton").on('click', search);
+            $("#searchUser").on('input', search_user_input_changed);
         })
     }
 
-    if(componentStr=="popularDeals"){
+    if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
     }
 
-    if(componentStr=="cart"){
-        $('#main-component-container').load(`${views_path}/cart.html`,x=>{
-            if(state.user != 'Guest'){
-                $("#purchaseButton").on('click',checkout_flights);
+    if (componentStr == "cart") {
+        $('#main-component-container').load(`${views_path}/cart.html`, x => {
+            if (state.user != 'Guest') {
+                $("#purchaseButton").on('click', checkout_flights);
             }
             else {
-                $("#purchaseButton").on('click',()=>{
+                $("#purchaseButton").on('click', () => {
                     alert('You must be logged in to purchase flights');
                     $('#main-component-container').load(`${views_path}/loginform.html`);
                 });
@@ -70,52 +70,52 @@ const loadMainComponent = componentStr => {
         })
     }
 
-    if(componentStr=="addFlight"){
-        $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
-            $("#add-flight-btn").on('click',addFlight);
+    if (componentStr == "addFlight") {
+        $('#main-component-container').load(`${views_path}/addFlightForm.html`, x => {
+            $("#add-flight-btn").on('click', addFlight);
             addFlightInitiaizeFormFields();
         })
     }
 
-    if(componentStr == "addLocation"){
-        $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
-            $("#add-location-submit").on('click',addLocation);
+    if (componentStr == "addLocation") {
+        $('#main-component-container').load(`${views_path}/addLocationForm.html`, x => {
+            $("#add-location-submit").on('click', addLocation);
         });
     }
 
-    if(componentStr == "welcomeMsg"){
-        $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
+    if (componentStr == "welcomeMsg") {
+        $('#main-component-container').load(`${views_path}/welcomeMsg.html`, x => {
             $('#user-welcome-span').text('welcome back ' + state.name);
         });
     }
 
-    if(componentStr == "welcomeMsgForRegister"){
-        $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
-            if(state.name == 'Guest'){
+    if (componentStr == "welcomeMsgForRegister") {
+        $('#main-component-container').load(`${views_path}/welcomeMsg.html`, x => {
+            if (state.name == 'Guest') {
                 $('#user-welcome-span').text('welcome ' + state.user);
             }
             $('#user-welcome-span').text('welcome ' + state.name);
         });
     }
-    
-    if(componentStr == "userpage"){
-        $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
-            if(state.user != 'Guest'){
+
+    if (componentStr == "userpage") {
+        $('#main-component-container').load(`${views_path}/userpage.html`, x => {
+            if (state.user != 'Guest') {
                 $.getScript('accountPage.js', loadUserData(state.user));
             }
         });
     }
 
-    if(componentStr == "errorMsg"){
-        $('#main-component-container').load(`${views_path}/errorMsg.html`,()=>{
+    if (componentStr == "errorMsg") {
+        $('#main-component-container').load(`${views_path}/errorMsg.html`, () => {
             $('#error-span').text('An Error Occoured');
         })
     }
-    if(componentStr == "whishlist"){
-        $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
+    if (componentStr == "whishlist") {
+        $('#main-component-container').load(`${views_path}/wishlist.html`, () => {
             addFlightWishlistInitiaizeFormFields(state.user);
             addWishlistFlight();
-            $('#removeWishlistX').click(function() {
+            $('#removeWishlistX').click(function () {
                 $('#WishlistToRemove').remove();
             });
         })
@@ -126,12 +126,12 @@ const loadMainComponent = componentStr => {
 
 $(async function () {
     //LOADING VIEW COMPONENTS INTO index.html, and attaching their relevant event handlers, defined in components/scripts
-    $("#searchbarContainer").load(`${views_path}/searchbar.html`,x=>{
-        $("#navSubmit").on('click',searchFlight);
+    $("#searchbarContainer").load(`${views_path}/searchbar.html`, x => {
+        $("#navSubmit").on('click', searchFlight);
         $("#destination-dropdown").hide();//hide dropdown
         $("#origin-dropdown").hide();//hide dropdown
-        $("#originInput").on('input',auto_complete);
-        $("#destinationInput").on('input',auto_complete);
+        $("#originInput").on('input', auto_complete);
+        $("#destinationInput").on('input', auto_complete);
     });
     $("#featuredDeals").load(`${views_path}/flight.html`);
     /**
@@ -145,6 +145,14 @@ $(async function () {
             generateFlightHTML(flightModelInstance, i)
             featuredDeals.push(flightModelInstance);
         });
+        var socket = io()
+        socket.emit('chat message', 'hello')
+        socket.on('chat message',msg=>{
+            console.log('server response: '+msg);
+            let d = $('<div>');
+            d.text(msg);
+            featuredDeals.forEach(fd=>fd.append(d));
+          })
     })()
 
 });
