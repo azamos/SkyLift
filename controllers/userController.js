@@ -50,6 +50,7 @@ const userLogin = async (req,res) =>{
         }
     }
     const raw_user = await userDbService.findUserByMail(email);
+    let name = raw_user.full_name;
     if(raw_user!=null){
         let cmp_res = await bcrypt.compare(password,raw_user.password);
         if(cmp_res){
@@ -57,7 +58,7 @@ const userLogin = async (req,res) =>{
         //     res.json(sanitized_user);
             let token = await bcrypt.hash(`${password}${Date.now}`,salt_rounds);
             await tokenDbService.createToken(token,email,raw_user.isAdmin ? 'admin':'user');
-            res.json({token,email});
+            res.json({token,email,name});
             return;
         }
         else{
@@ -79,7 +80,7 @@ const logOff = async(req,res)=>{
 }
 
 const createUser = async (req,res) => {
-    let {email,password} = req.body;
+    let {email,password,full_name,phone_number} = req.body;
     const userExist = await userDbService.findUserByMail(email);
     if(userExist){
         res.send({error:"a User with this email already exist. Send a recovery email?"});
@@ -91,7 +92,7 @@ const createUser = async (req,res) => {
         res.send({error:"bcrypt hash failed"});
         return;
     }
-    const newUser = await userDbService.createUser(email,hashed_pass);
+    const newUser = await userDbService.createUser(email , hashed_pass , full_name , phone_number);
     if(newUser != {}){
         let token = await bcrypt.hash(`${password}${Date.now}`,salt_rounds);
         await tokenDbService.createToken(token,email);

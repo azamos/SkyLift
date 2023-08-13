@@ -4,7 +4,8 @@ const headers = new Headers({
     'Content-Type': 'application/json'
 });
 const state = {
-    user: 'Guest'
+    user: 'Guest',
+    name: 'Guest'
 }
 
 const url = `http://localhost:3000/api`;
@@ -84,7 +85,13 @@ const loadMainComponent = componentStr => {
 
     if(componentStr == "welcomeMsg"){
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
-            $('#user-welcome-span').text('welcome back ' + state.user);
+            $('#user-welcome-span').text('welcome back ' + state.name);
+        });
+    }
+
+    if(componentStr == "welcomeMsgForRegister"){
+        $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
+            $('#user-welcome-span').text('welcome ' + state.name);
         });
     }
     

@@ -8,9 +8,9 @@
     }
 
     .register-container {
-      margin: 20px auto; /* Added margin to the top and bottom */
+      margin: 20px auto;
       border: 1px solid #0D67B5;
-      border-radius: 20px; /* Rounded corners */
+      border-radius: 20px;
       background-color: white;
       text-align: center;
       padding: 20px;
@@ -61,15 +61,18 @@
   <div class="register-container">
     <img class="register-logo" src="./images/icon/Skylift.jpeg" alt="Skylift Logo">
     <h1>REGISTER</h1>
-    <label for="register-email-input">Enter your email address:</label>
+    <label for="register-full-name-input">Full Name:</label>
+    <input class="register-input" type="text" id="register-full-name-input">
+    <label for="register-phone-number-input">Phone Number:</label>
+    <input class="register-input" type="text" id="register-phone-number-input">
+    <label for="register-email-input">Email Address:</label>
     <input class="register-input" type="email" id="register-email-input">
-    <label for="register-password-input">Enter a password:</label>
+    <label for="register-password-input">Password:</label>
     <input class="register-input" type="password" id="register-password-input">
-    <label for="confirm-register-password-input">Confirm password:</label>
+    <label for="confirm-register-password-input">Confirm Password:</label>
     <input class="register-input" type="password" id="confirm-register-password-input">
     <button class="register-button" id="register-submit" disabled>Sign Up</button>
   </div>
-
 </body>
 
 </html>
