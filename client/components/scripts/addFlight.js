@@ -55,6 +55,8 @@ const addFlight = async e => {
     }
     //Lastly, reseting the form fields
     Object.values(add_flight_form_fields).forEach(jQueryObj=>jQueryObj.val(""));
+    /* maybe above line un-needed */
+    loadMainComponent('popularDeals');
 }
 
 const validate_add_flight_form = () => {

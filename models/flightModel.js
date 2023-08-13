@@ -31,6 +31,14 @@ const Flight = new Schema({
         type: Date,
         required: true
     },
+    economyPassengers: {
+        type: Set,
+        default: new Set()
+    },
+    bussinessPassengers: {
+        type: Set,
+        default: new Set()
+    },
     economyCapacity: {
         type: Number,
         default: 199
@@ -50,6 +58,10 @@ const Flight = new Schema({
     international: {
         type: Boolean,
         default: function(){return this.origin == this.destination;}
+    },
+    isPopular: {
+        type:Boolean,
+        default: false
     }
 });
 
