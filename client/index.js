@@ -31,7 +31,7 @@ const views_path = "./components/views";
         NOTE: if cookie exists, the cart data should be on it. Otherwise, we will also bring it from the server.
  */
 
-const loadMainComponent = componentStr => {
+const loadMainComponent = async componentStr => {
     if(componentStr=='login'){
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
             $("#login-submit").on('click',login);
@@ -54,6 +54,29 @@ const loadMainComponent = componentStr => {
 
     if(componentStr=="popularDeals"){
         $('#main-component-container').html('');
+        $('#featuredDeals').html('');
+        $("#featuredDeals").load(`${views_path}/flight.html`, async () => {
+            /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
+            let res = await fetch(`${url}/flights/popular`);
+            res = await res.json();
+            res.forEach((flightModelInstance, i) => {
+                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , true));
+                featuredDeals.push(flightModelInstance);
+            });
+        }); 
+    }
+
+    if(componentStr == "allFlights"){
+        $('featuredDeals').html('');
+        $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
+            //$.getScript('allFlights.js', loadAllFlights());
+            let res = await fetch(`${url}/flights`);
+                res = await res.json();
+                res.forEach((flightModelInstance, i) => {
+                    $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , false));
+                    featuredDeals.push(flightModelInstance);
+                });
+        })
     }
 
     if(componentStr=="cart"){
@@ -120,11 +143,7 @@ const loadMainComponent = componentStr => {
             });
         })
     }
-    if(componentStr == "allFlights"){
-        $('#main-component-container').load(`${views_path}/allFlights.html`,()=>{
-            
-        })
-    }
+    
 
 }
 
@@ -137,18 +156,11 @@ $(async function () {
         $("#originInput").on('input',auto_complete);
         $("#destinationInput").on('input',auto_complete);
     });
-    $("#featuredDeals").load(`${views_path}/flight.html`);
+    loadMainComponent('popularDeals');
+
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
-    (async () => {
-        /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
-        let res = await fetch(`${url}/flights`);
-        res = await res.json();
-        res.forEach((flightModelInstance, i) => {
-            generateFlightHTML(flightModelInstance, i)
-            featuredDeals.push(flightModelInstance);
-        });
-    })()
+    
 
 });
