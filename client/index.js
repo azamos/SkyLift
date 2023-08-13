@@ -120,7 +120,11 @@ const loadMainComponent = componentStr => {
             });
         })
     }
-
+    if(componentStr == "allFlights"){
+        $('#main-component-container').load(`${views_path}/allFlights.html`,()=>{
+            
+        })
+    }
 
 }
 
