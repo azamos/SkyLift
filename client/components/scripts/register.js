@@ -34,9 +34,15 @@ const register = e => {
             return;
         }
         state.user = register_email;
-        state.name = register_full_name;
         headers.set('Authorization',res.token);
-        $("#userIdentitySpan").text(`User: ${register_full_name}`);
+        if(register_full_name == ""){
+            $("#userIdentitySpan").text(`User: ${register_email}`);
+            state.name = register_email;
+        }
+        else {
+            state.name = register_full_name;
+            $("#userIdentitySpan").text(`User: ${register_full_name}`);
+        }
         loadMainComponent('welcomeMsgForRegister');
     })
     .catch(err=>console.log(err))
@@ -63,13 +69,16 @@ const register_email_input_changed = e => {
 function phoneNumberValidation(inputNumber){
     let number = inputNumber.toString();
     let digits = number.length;
-    if(digits == 10){
+    if(digits == 10 || digits == 0){
         return true;
     }
     return false;
 }
 
 function checkFullName(inputString) {
+if(inputString == ""){
+    return true;
+}
 // Remove leading and trailing spaces
 inputString = inputString.trim();
 

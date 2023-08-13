@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const User = new Schema({
     full_name: {
         type: String,
-        required:true
+        required: false
     },
     email: {
         type: String,
@@ -12,7 +12,7 @@ const User = new Schema({
     },
     phone_number:{
         type: Number,
-        default:0
+        required: false
     },
     password: {
         type: String,

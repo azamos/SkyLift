@@ -91,6 +91,9 @@ const loadMainComponent = componentStr => {
 
     if(componentStr == "welcomeMsgForRegister"){
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`,x=>{
+            if(state.name == 'Guest'){
+                $('#user-welcome-span').text('welcome ' + state.user);
+            }
             $('#user-welcome-span').text('welcome ' + state.name);
         });
     }
