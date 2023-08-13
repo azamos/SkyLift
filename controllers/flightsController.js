@@ -87,9 +87,9 @@ const purchaseFlightSeat = async (req,res) => {
     const flight = flightDbService.getFlightById(flight_id);
     let seatAmount = 1;//later, change it
     /* FIRST, CHECK IF USER NOT IN PASSENGER LIST AND IF THERE ARE ENOUGH AVAILABLE SEATS */
-    if(seatType=='bussiness' && !(flight.bussinessPassengers.has(userId) ) && flight.bussinessCapacity - (seatAmount-1) > 0){
+    if(seatType=='bussiness' && !(flight.bussinessPassengers.includes(userId) ) && flight.bussinessCapacity - (seatAmount-1) > 0){
         const {bussinessPassengers,bussinessCapacity} = flight;
-        bussinessPassengers.add(user);
+        bussinessPassengers.push(user);
         bussinessCapacity-=seatAmount;
         flightDbService.updateFlightData(flight_id,{bussinessCapacity,bussinessPassengers});
         /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
@@ -104,9 +104,9 @@ const purchaseFlightSeat = async (req,res) => {
             return;
         }
     }
-    if(seatType=='economy' && !(flight.economyPassengers.has(userId) ) && flight.economyCapacity - (seatAmount-1) > 0){
+    if(seatType=='economy' && !(flight.economyPassengers.includes(userId) ) && flight.economyCapacity - (seatAmount-1) > 0){
         const {economyPassengers,economyCapacity} = flight;
-        economyPassengers.add(user);
+        economyPassengers.push(user);
         economyCapacity-=seatAmount;
         flightDbService.updateFlightData(flight_id,{bussinessCapacity,bussinessPassengers});
         /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)

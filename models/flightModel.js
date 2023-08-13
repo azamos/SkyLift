@@ -32,12 +32,12 @@ const Flight = new Schema({
         required: true
     },
     economyPassengers: {
-        type: Set,
-        default: new Set()
+        type: Array,
+        default: []
     },
     bussinessPassengers: {
-        type: Set,
-        default: new Set()
+        type: Array,
+        default: []
     },
     economyCapacity: {
         type: Number,
