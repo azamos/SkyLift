@@ -13,7 +13,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
     //TODO
-    $('.delete-flight-btn').attr('id',flightModelInstance._id).on('click',function(){
+    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',function(){
         fetch(`${url}/flights/delete`, {
             method: 'POST',
             headers,
