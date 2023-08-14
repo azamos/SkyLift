@@ -16,9 +16,10 @@ const updateUser = async (email,data) => {
     const x= await User.findOne({email});
     if(!x){
         res.send({error:'user not found'});
+        return
     }
-    let successQmark = await x.updateOne({...data});
-    res.send({msg:successQmark.n});
+    await x.updateOne({...data});
+    res.send({msg:"success"});
 }
 
 

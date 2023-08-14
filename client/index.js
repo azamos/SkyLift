@@ -7,6 +7,7 @@ const state = {
     user: 'Guest',
     name: 'Guest'
 }
+let socket = null;
 
 const url = `http://localhost:3000/api`;
 function camelize(str) {
@@ -31,7 +32,7 @@ const views_path = "./components/views";
         NOTE: if cookie exists, the cart data should be on it. Otherwise, we will also bring it from the server.
  */
 
-const loadMainComponent = componentStr => {
+const loadMainComponent = async componentStr => {
     if (componentStr == 'login') {
         $('#main-component-container').load(`${views_path}/loginform.html`, x => {
             $("#login-submit").on('click', login);
@@ -54,6 +55,34 @@ const loadMainComponent = componentStr => {
 
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
+        $('#featuredDeals').html('');
+        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
+        $("#featuredDeals").load(`${views_path}/flight.html`, async () => {
+            /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
+            let res = await fetch(`${url}/flights/popular`);
+            res = await res.json();
+            res.forEach((flightModelInstance, i) => {
+                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i, true));
+                featuredDeals.push(flightModelInstance._id);
+            });
+            socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
+        });
+    }
+
+    if (componentStr == "allFlights") {
+        //unsubscribe flights first
+        $('featuredDeals').html('');
+        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
+        $('#featuredDeals').load(`${views_path}/allFlights.html`, async () => {
+            //$.getScript('allFlights.js', loadAllFlights());
+            let res = await fetch(`${url}/flights`);
+            res = await res.json();
+            res.forEach((flightModelInstance, i) => {
+                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i, false));
+                featuredDeals.push(flightModelInstance._id);
+            });
+            socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
+        })
     }
 
     if (componentStr == "cart") {
@@ -133,26 +162,12 @@ $(async function () {
         $("#originInput").on('input', auto_complete);
         $("#destinationInput").on('input', auto_complete);
     });
-    $("#featuredDeals").load(`${views_path}/flight.html`);
+    socket = io();
+    socket.on('chat message', msg => console.log(msg))
+    loadMainComponent('popularDeals');
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
-    (async () => {
-        /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
-        let res = await fetch(`${url}/flights`);
-        res = await res.json();
-        res.forEach((flightModelInstance, i) => {
-            generateFlightHTML(flightModelInstance, i)
-            featuredDeals.push(flightModelInstance);
-        });
-        var socket = io()
-        socket.emit('chat message', 'hello')
-        socket.on('chat message',msg=>{
-            console.log('server response: '+msg);
-            let d = $('<div>');
-            d.text(msg);
-            featuredDeals.forEach(fd=>fd.append(d));
-          })
-    })()
+
 
 });

@@ -130,6 +130,11 @@ const findFlightFrom_a_to_b = async (Location_a,Location_b,desiredDepartTime=nul
     const arriving_to_b = await flightDbService.getFlightsByFilter({destination:Location_a.b._id})
 }
 
+const getPopularFlights = async (req,res) => {
+    const flightsArr = await flightDbService.getPopularFlights();
+    res.json(flightsArr);
+}
+
 
 module.exports = {
     createFlight,//Create
@@ -137,5 +142,6 @@ module.exports = {
     getFlightById,//Read
     getFlightsByParamaters,//Read
     updateFlightData,//Update
-    deleteFlight//Delete
+    deleteFlight,//Delete
+    getPopularFlights
 };

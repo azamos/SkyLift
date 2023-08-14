@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Include Font Awesome stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    .wishlist-button {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="allFlight-template" class="card" style="width: 15vw;display: none;">
+    <img src="./images/destination/crete.jpg" class="destination-photo" alt="..." height="200px" width="100%"
+      style="max-height: 200px;">
+    <div class="flight-header card-body">
+      <div class="flight-title"></div>
+      <div class="price"></div>
+    </div>
+    <ul class="content list-group list-group-flush">
+      <div class="origin border-bottom"></div>
+      <div class="destination border-bottom"></div>
+      <div class="departure border-bottom"></div>
+      <div class="arrival border-bottom"></div>
+      <div class="connection"></div>
+    </ul>
+    <div class="card-body">
+      <button class="btn btn-success buy-button">Buy</button>
+      <button class="btn btn-outline-secondary wishlist-button" id="wishlist-button">
+        <i class="fas fa-star"></i>
+      </button>
+      <button class="btn btn-info edit-button">
+        <i class="fas fa-edit"></i> Edit
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>

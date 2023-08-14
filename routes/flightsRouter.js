@@ -5,11 +5,13 @@ const {
     getFlightById,//Read
     getFlightsByParamaters,//Read
     updateFlightData,//Update
-    deleteFlight//Delete,
+    deleteFlight,//Delete,
+    getPopularFlights
  } = require('../controllers/flightsController');
 
 flightsRouter.post('/',createFlight);
 flightsRouter.get('/',getFlights);
+flightsRouter.get('/popular',getPopularFlights);
 flightsRouter.route('/:id')
     .get(getFlightById)
     .put(updateFlightData)
