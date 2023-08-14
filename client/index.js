@@ -1,11 +1,13 @@
-const featuredDeals = [];
+const allDeals = [];
+
 const headers = new Headers({
     'Authorization': 'Guest',
     'Content-Type': 'application/json'
 });
 const state = {
     user: 'Guest',
-    name: 'Guest'
+    name: 'Guest',
+    token: ""
 }
 let socket = null;
 
@@ -33,62 +35,80 @@ const views_path = "./components/views";
  */
 
 const loadMainComponent = async componentStr => {
-    if (componentStr == 'login') {
-        $('#main-component-container').load(`${views_path}/loginform.html`, x => {
-            $("#login-submit").on('click', login);
-            $("#login-email-input").on('input', login_email_input_changed)
+
+    if(componentStr=='login'){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
+            $("#login-submit").on('click',login);
+            $("#login-email-input").on('input',login_email_input_changed)
         });
     }
-    if (componentStr == 'register') {
-        $('#main-component-container').load(`${views_path}/registerform.html`, x => {
-            $("#register-submit").on('click', register);
-            $("#register-email-input").on('input', register_email_input_changed);
+    if(componentStr=='register'){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/registerform.html`,x=> {
+            $("#register-submit").on('click',register);
+            $("#register-email-input").on('input',register_email_input_changed);
         });
     }
     //user search
-    if (componentStr == "searchUsers") {
-        $('#main-component-container').load(`${views_path}/searchUsers.html`, x => {
-            $("#searchButton").on('click', search);
-            $("#searchUser").on('input', search_user_input_changed);
+    if(componentStr=="searchUsers"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+            $("#searchButton").on('click',search);
+            $("#searchUser").on('input',search_user_input_changed);
         })
     }
 
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
         $('#featuredDeals').html('');
-        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
+        //socket.emit('unsubscribe flights', {socketId: socket.id ,allDeals})
+        $('#popularDealsTOallFlight').text('Popular Deals');
         $("#featuredDeals").load(`${views_path}/flight.html`, async () => {
             /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
             let res = await fetch(`${url}/flights/popular`);
             res = await res.json();
             res.forEach((flightModelInstance, i) => {
-                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i, true));
-                featuredDeals.push(flightModelInstance._id);
+                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , true));
+                allDeals.push(flightModelInstance);
             });
-            socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
+            //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
         });
     }
 
     if (componentStr == "allFlights") {
         //unsubscribe flights first
         $('featuredDeals').html('');
-        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
-        $('#featuredDeals').load(`${views_path}/allFlights.html`, async () => {
-            //$.getScript('allFlights.js', loadAllFlights());
+//socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
+        $('#popularDealsTOallFlight').text('All Flights');
+        $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
             let res = await fetch(`${url}/flights`);
-            res = await res.json();
-            res.forEach((flightModelInstance, i) => {
-                $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i, false));
-                featuredDeals.push(flightModelInstance._id);
-            });
-            socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
+                res = await res.json();
+                res.forEach((flightModelInstance, i) => {
+                    $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , false));
+                    allDeals.push(flightModelInstance);
+                });
+                //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
         })
+        // $(".delete-flight-btn").forEach(btn => {
+        //     btn.addeventlistener('click', e => {
+        //         const flight_id = e.parent().flight_id;
+                
+        //         fetch(`${url}/flights/${flight_id}`, {
+        //             method: 'DELETE',
+        //             headers: headers
+        //         }).catch(err => {
+        //             console.log(err);
+        //         })
+        //     })
+        // });
     }
 
-    if (componentStr == "cart") {
-        $('#main-component-container').load(`${views_path}/cart.html`, x => {
-            if (state.user != 'Guest') {
-                $("#purchaseButton").on('click', checkout_flights);
+    if(componentStr=="cart"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/cart.html`,x=>{
+            if(state.user != 'Guest'){
+                $("#purchaseButton").on('click',checkout_flights);
             }
             else {
                 $("#purchaseButton").on('click', () => {
@@ -99,16 +119,18 @@ const loadMainComponent = async componentStr => {
         })
     }
 
-    if (componentStr == "addFlight") {
-        $('#main-component-container').load(`${views_path}/addFlightForm.html`, x => {
-            $("#add-flight-btn").on('click', addFlight);
+    if(componentStr=="addFlight"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
+            $("#add-flight-btn").on('click',addFlight);
             addFlightInitiaizeFormFields();
         })
     }
 
-    if (componentStr == "addLocation") {
-        $('#main-component-container').load(`${views_path}/addLocationForm.html`, x => {
-            $("#add-location-submit").on('click', addLocation);
+    if(componentStr == "addLocation"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
+            $("#add-location-submit").on('click',addLocation);
         });
     }
 
@@ -126,10 +148,11 @@ const loadMainComponent = async componentStr => {
             $('#user-welcome-span').text('welcome ' + state.name);
         });
     }
-
-    if (componentStr == "userpage") {
-        $('#main-component-container').load(`${views_path}/userpage.html`, x => {
-            if (state.user != 'Guest') {
+    
+    if(componentStr == "userpage"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
+            if(state.user != 'Guest'){
                 $.getScript('accountPage.js', loadUserData(state.user));
             }
         });
@@ -140,8 +163,9 @@ const loadMainComponent = async componentStr => {
             $('#error-span').text('An Error Occoured');
         })
     }
-    if (componentStr == "whishlist") {
-        $('#main-component-container').load(`${views_path}/wishlist.html`, () => {
+    if(componentStr == "whishlist"){
+        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
             addFlightWishlistInitiaizeFormFields(state.user);
             addWishlistFlight();
             $('#removeWishlistX').click(function () {
@@ -165,6 +189,8 @@ $(async function () {
     socket = io();
     socket.on('chat message', msg => console.log(msg))
     loadMainComponent('popularDeals');
+    
+
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.
      */
