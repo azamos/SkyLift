@@ -20,7 +20,12 @@ const login = e => {
                 $("#login-email-input").val("");
                 $("#login-password-input").val("");
                 headers.set('Authorization',res.token);
-                $("#userIdentitySpan").text(`User: ${res.name}`);
+                if(!res.isAdmin){
+                    $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','red');
+                }
+                else{
+                    $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
+                }
                 state.user = res.email;
                 state.name = res.name;
                 state.token = res.token;

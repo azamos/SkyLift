@@ -15,7 +15,7 @@ flightsRouter.get('/popular',getPopularFlights);
 flightsRouter.route('/:id')
     .get(getFlightById)
     .put(updateFlightData)
-    .delete(deleteFlight)
+    .post(deleteFlight)
 flightsRouter.get('/:filterOBj',getFlightsByParamaters);
 
 module.exports = flightsRouter;

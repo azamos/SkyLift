@@ -64,7 +64,7 @@ const deleteFlight = async (req,res) => {
     if(req.headers && req.headers.authorization){
         const authorizedFlag = await is_authorized(req.headers.authorization);
         if(authorizedFlag){
-            await flightDbService.deleteFlight(req.params.id);
+            await flightDbService.deleteFlight(req.body.id);
             return;
         }
     }

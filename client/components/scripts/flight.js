@@ -13,14 +13,16 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
     //TODO
-    $('.delete-flight-btn').attr('id',flightModelInstance._id).on('click',function(){;
+    $('.delete-flight-btn').attr('id',flightModelInstance._id).on('click',function(){
         fetch(`${url}/flights/${flightModelInstance._id}`, {
-            method: 'DELETE',
-            headers: headers
+            method: 'POST',
+            headers,
+            body: JSON.stringify({id:flightModelInstance._id})
         }
         ).catch(err => {
-            console.log(err);
+            console.log(err); 
         })
+        loadMainComponent('allFlights');
     });
 
     //content.children('.connection').text(`${flightModelInstance.<replaceWithModelPropertyName>}`)
