@@ -25,40 +25,40 @@ let connections = 0;
 let watchedFlights = new Map();
 io.on('connection', socket => {
   connections++;
-  console.log('a user opened a sebsocket connection, there are now: '+connections+' open connections');
+  //console.log('a user opened a sebsocket connection, there are now: ' + connections + ' open connections');
   io.emit('chat message', `User joined.there are ${connections} users connetcted`)
   socket.on('disconnect', () => {
     connections--;
-    console.log('user disconnected, there are currently only '+connections+' connections');
+    //console.log('user disconnected, there are currently only ' + connections + ' connections');
     io.emit('chat message', `User left.there are ${connections} users connetcted`);
   });
   socket.on('watched flights', payload => {
     //console.log(payload);
-    const {featuredDeals, socketId} = payload;
+    const { featuredDeals, socketId } = payload;
     featuredDeals.forEach(deal => {
-      if(watchedFlights.get(deal)==null){
-        let clients_set = new Set();
-        clients_set.add(socketId);
-        watchedFlights.set(deal,clients_set);
+      if (watchedFlights.get(deal) == null) {
+        //let clients_set = new Set();
+        //clients_set.add(socketId);
+        watchedFlights.set(deal, new Set());
       }
-      else{
         watchedFlights.get(deal).add(socketId);
         //returns a client set _^
-      }
     });
-    console.log(watchedFlights)
+    //console.log(watchedFlights)
   })
-
-
   socket.on('unsubscribe flights', payload => {
-    //console.log(payload);
-    const {featuredDeals, socketId} = payload;
+    console.log('before unsubing, the subbed flights are');
+    console.log(watchedFlights);
+    console.log('flights to unsub from:')
+    console.log(payload);
+    const { featuredDeals, socketId } = payload;
     featuredDeals.forEach(deal => {
-      if(watchedFlights.get(deal)==null){
+      if (watchedFlights.get(deal) == null) {
         return;
       }
       watchedFlights.get(deal).delete(socketId);
     });
+    console.log('watchedFlights list after unsubing:')
     //Now, to let know to all subscribers of this flight that there is 1 less client
     console.log(watchedFlights)
   })
