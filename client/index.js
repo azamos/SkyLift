@@ -62,7 +62,8 @@ const loadMainComponent = async componentStr => {
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
         $('#featuredDeals').html('');
-        //socket.emit('unsubscribe flights', {socketId: socket.id ,allDeals})
+        let deals_ids = allDeals.map(d=>d._id);
+        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
         $('#popularDealsTOallFlight').text('Popular Deals');
         $("#featuredDeals").load(`${views_path}/flight.html`, async () => {
             /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
@@ -72,14 +73,16 @@ const loadMainComponent = async componentStr => {
                 $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , true));
                 allDeals.push(flightModelInstance);
             });
-            //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
+            deals_ids = allDeals.map(d=>d._id);
+            socket.emit('watched flights', {socketId: socket.id ,featuredDeals:deals_ids})
         });
     }
 
     if (componentStr == "allFlights") {
         //unsubscribe flights first
         $('featuredDeals').html('');
-//socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals})
+        let deals_ids = allDeals.map(d=>d._id);
+        socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
         $('#popularDealsTOallFlight').text('All Flights');
         $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
             let res = await fetch(`${url}/flights`);
@@ -88,6 +91,8 @@ const loadMainComponent = async componentStr => {
                     $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , false));
                     allDeals.push(flightModelInstance);
                 });
+                let deals_ids = allDeals.map(d=>d._id);
+                socket.emit('watched flights', {socketId: socket.id ,featuredDeals:deals_ids})
                 //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
         })
         // $(".delete-flight-btn").forEach(btn => {

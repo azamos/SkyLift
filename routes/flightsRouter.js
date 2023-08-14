@@ -12,10 +12,11 @@ const {
 flightsRouter.post('/',createFlight);
 flightsRouter.get('/',getFlights);
 flightsRouter.get('/popular',getPopularFlights);
+flightsRouter.post('/delete',deleteFlight);
 flightsRouter.route('/:id')
     .get(getFlightById)
     .put(updateFlightData)
-    .post(deleteFlight)
+    //.post(deleteFlight)
 flightsRouter.get('/:filterOBj',getFlightsByParamaters);
 
 module.exports = flightsRouter;

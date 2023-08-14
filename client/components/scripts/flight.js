@@ -14,7 +14,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     
     //TODO
     $('.delete-flight-btn').attr('id',flightModelInstance._id).on('click',function(){
-        fetch(`${url}/flights/${flightModelInstance._id}`, {
+        fetch(`${url}/flights/delete`, {
             method: 'POST',
             headers,
             body: JSON.stringify({id:flightModelInstance._id})
