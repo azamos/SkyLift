@@ -50,8 +50,8 @@ const userLogin = async (req, res) => {
         }
     }
     const raw_user = await userDbService.findUserByMail(email);
-    let name = raw_user.full_name;
     if(raw_user!=null){
+        let name = raw_user.full_name;
         let cmp_res = await bcrypt.compare(password,raw_user.password);
         if(cmp_res){
         //     const sanitized_user = filtered_user(raw_user);

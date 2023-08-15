@@ -41,6 +41,7 @@ const loadMainComponent = async componentStr => {
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
             $("#login-submit").on('click',login);
             $("#login-email-input").on('input',login_email_input_changed)
+            //$("#login-email-input").attr('button', );
         });
     }
     if(componentStr=='register'){
@@ -118,7 +119,7 @@ const loadMainComponent = async componentStr => {
             else {
                 $("#purchaseButton").on('click', () => {
                     alert('You must be logged in to purchase flights');
-                    $('#main-component-container').load(`${views_path}/loginform.html`);
+                    loadMainComponent('login');
                 });
             }
         })
