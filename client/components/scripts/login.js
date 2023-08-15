@@ -19,15 +19,8 @@ const login = e => {
             if (!res.error) {
                 $("#login-email-input").val("");
                 $("#login-password-input").val("");
-
+                $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
                 headers.set('Authorization',res.token);
-                if(res.isAdmin){
-                    $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','red');
-                }
-                else{
-                    $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
-                }
-
                 state.user = res.email;
                 state.name = res.name;
                 state.token = res.token;

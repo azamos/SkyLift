@@ -1,5 +1,6 @@
-<div style="display: flex; justify-content: center; align-items: center; height: 45vh;">
-    <div style="width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+<div class="card" style="width: 400px; margin-top: 5px;">
+    <div class="card-body">
+        <h5 class="card-title">Add New Flight</h5>
         <div class="mb-3">
             <input type="text" class="form-control" placeholder="Title" id="newFlightTitle">
         </div>
@@ -32,11 +33,13 @@
             </select>
         </div>
         <div class="mb-3">
+            <label for="departTime" class="form-label">Departure Date</label>
             <input type="date" class="form-control" id="departTime">
         </div>
         <div class="mb-3">
-            <input type="date" class="form-control" placeholder="Estimated Time of Arrival" id="newFlightEstimatedTimeOfArrival">
+            <label for="newFlightEstimatedTimeOfArrival" class="form-label">Estimated Time of Arrival</label>
+            <input type="date" class="form-control" id="newFlightEstimatedTimeOfArrival">
         </div>
-        <button class="btn btn-primary" id="add-flight-btn" disabled >ADD FLIGHT</button>
+        <button class="btn btn-primary" id="add-flight-btn" disabled>ADD FLIGHT</button>
     </div>
 </div>
