@@ -45,6 +45,7 @@ const register = e => {
             $("#userIdentitySpan").text(`User: ${register_full_name}`);
         }
         loadMainComponent('welcomeMsgForRegister');
+        $("#logoutButton").show();
         $("#userIdentitySpan").css('background-color','green');
 
     })

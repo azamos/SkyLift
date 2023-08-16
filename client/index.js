@@ -81,7 +81,7 @@ const loadMainComponent = async componentStr => {
 
     if (componentStr == "allFlights") {
         //unsubscribe flights first
-        $('featuredDeals').html('');
+        $('#main-component-container').html('');
         let deals_ids = allDeals.map(d=>d._id);
         socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
         $('#popularDealsTOallFlight').text('All Flights');

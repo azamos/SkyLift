@@ -25,6 +25,8 @@ const login = e => {
                 state.name = res.name;
                 state.token = res.token;
                 loadMainComponent('welcomeMsg');
+                $("#logoutButton").show();
+                
             }
             else {
                 alert(res.error);
