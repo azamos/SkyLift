@@ -14,11 +14,15 @@ const filtered_user = raw_user => {
 
 /* for authorized users only: either the user himself, or an admin. */
 const getUserData = async (req, res) => {
-    if (req.headers && req.headers.authorization) {
+    console.log('in getUserData...')
+    console.log(req.cookies);
+    if (req.cookies && req.cookies.token) {
         let { email } = req.body;
-        const authorizedFlag = await is_authorized(req.headers.authorization, email);
+        const authorizedFlag = await is_authorized(req.cookies.token,email);
         if (authorizedFlag) {
             const user_data = await userDbService.findUserByMail(email);
+            console.log('...')
+            console.log(user_data)
             if (user_data) {
                 user_data.password = null;
                 res.json(user_data);
@@ -33,11 +37,14 @@ const getUserData = async (req, res) => {
 //TODO: continue
 const userLogin = async (req, res) => {
     let { email, password } = req.body;
+    // console.log('userLogin. cookies:')
+    // console.log(req.cookies);
+    
     /* if there is an authorization header attached, it means that a user
     is already logged in, or have an expired token, in the browser.
     Thus I must invalidate the previous token if it is valid, otherwise, nothing? */
-    if (req.headers && req.headers.authorization) {
-        let token_id = req.headers.authorization;
+    if (req.cookies && req.cookies.token) {
+        let token_id = req.cookies.token;
         const token = await tokenDbService.getToken(token_id);
         if (token) {
             if (token.user != email) {
@@ -51,14 +58,19 @@ const userLogin = async (req, res) => {
     }
     const raw_user = await userDbService.findUserByMail(email);
     let name = raw_user.full_name;
-    if(raw_user!=null){
-        let cmp_res = await bcrypt.compare(password,raw_user.password);
-        if(cmp_res){
-        //     const sanitized_user = filtered_user(raw_user);
-        //     res.json(sanitized_user);
-            let token = await bcrypt.hash(`${password}${Date.now}`,salt_rounds);
-            await tokenDbService.createToken(token,email,raw_user.isAdmin ? 'admin':'user');
-            res.json({token,email,name});
+    if (raw_user != null) {
+        let cmp_res = await bcrypt.compare(password, raw_user.password);
+        if (cmp_res) {
+            let key = await bcrypt.hash(`${password}${Date.now}`, salt_rounds);
+            /* Generates public key for user */
+            let token_id = `${key}${process.env.SECRET}`;
+            console.log('createdToken');
+            console.log(token_id);
+            await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
+            res.cookie('token', key, {
+                httpOnly: true,
+                sameSite: 'strict'
+            }).json({ token:key, email, name });
             return;
         }
         else {
@@ -71,16 +83,16 @@ const userLogin = async (req, res) => {
 }
 
 const logOff = async (req, res) => {
-    if (req.headers && req.headers.authorization) {
-        const token = await tokenDbService.getToken(req.headers.authorization);
+    if (req.cookies && req.cookies.token) {
+        const token = await tokenDbService.getToken(req.cookies.token);
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }
     }
 }
 
-const createUser = async (req,res) => {
-    let {email,password,full_name,phone_number} = req.body;
+const createUser = async (req, res) => {
+    let { email, password, full_name, phone_number } = req.body;
     const userExist = await userDbService.findUserByMail(email);
     if (userExist) {
         res.send({ error: "a User with this email already exist. Send a recovery email?" });
@@ -92,11 +104,21 @@ const createUser = async (req,res) => {
         res.send({ error: "bcrypt hash failed" });
         return;
     }
-    const newUser = await userDbService.createUser(email , hashed_pass , full_name , phone_number);
-    if(newUser != {}){
-        let token = await bcrypt.hash(`${password}${Date.now}`,salt_rounds);
-        await tokenDbService.createToken(token,email);
-        res.json({token,email});
+    const newUser = await userDbService.createUser(email, hashed_pass, full_name, phone_number);
+    if (newUser != {}) {
+        let key = await bcrypt.hash(`${password}${Date.now}`, salt_rounds);
+        /* Generates public key for user */
+        //let token_id = await bcrypt.hash(`${key}${process.env.SECRET}`,salt_rounds);
+        /* bcrypt will generate a different hash for the same values, thus the above did not work */
+        let token_id = `${key}${process.env.SECRET}`;
+        //console.log('toked_id saved to db is: '+token_id);
+        console.log('createdToken');
+        console.log(token_id);
+        await tokenDbService.createToken(token_id, email);
+        res.cookie('token', key, {
+            httpOnly: true,
+            sameSite:'strict'
+        }).json({ token:key, email });
         return;
     }
     else {
@@ -105,18 +127,19 @@ const createUser = async (req,res) => {
 };
 
 const getUsersList = async (req, res) => {
-    if (req.headers && req.headers.authorization) {
-        const authorizedFlag = await is_authorized(req.headers.authorization, email);
-        if(!authorizedFlag){
-            res.send({error:'unauthorized request. If you are allowed to view this, login again'});
+    if (req.cookies && req.cookies.token) {
+        const authorizedFlag = await is_authorized(req.cookies.token, email);
+        if (!authorizedFlag) {
+            res.send({ error: 'unauthorized request. If you are allowed to view this, login again' });
             return;
         }
-        else{
+        else {
             const usersArr = await userDbService.getUsers();
-            res.json(usersArr);}
-            return;
+            res.json(usersArr);
+        }
+        return;
     }
-    res.send({error:'missing authorization'})
+    res.send({ error: 'missing authorization' })
 };
 
 

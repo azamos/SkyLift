@@ -35,7 +35,7 @@ const views_path = "./components/views";
  */
 
 const loadMainComponent = async componentStr => {
-
+    $('#main-component-container').html('')
     if(componentStr=='login'){
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
@@ -158,7 +158,7 @@ const loadMainComponent = async componentStr => {
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
             if(state.user != 'Guest'){
-                $.getScript('accountPage.js', loadUserData(state.user));
+                loadUserData(state.user)
             }
         });
     }

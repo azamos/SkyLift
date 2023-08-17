@@ -4,8 +4,8 @@ const { is_authorized } = utils;
 
 /* Creating locations: only admins are allowed */
 const createLocation = async (req, res) => {
-    if(req.headers && req.headers.authorization){
-        const authorizedFlag = await is_authorized(req.headers.authorization);
+    if(req.cookies && req.cookies.token){
+        const authorizedFlag = await is_authorized(req.cookies.token);
         if(authorizedFlag){
             const { cityName, country } = req.body;
             const new_location = await locationDbService.createLocation(cityName, country);

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js",
-    "start": "nodemon app.js"
+    "start": "SET NODE_ENV=local&& nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/azamos/SkyLift#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "custom-env": "^2.0.2",
     "express": "^4.18.2",

@@ -6,10 +6,10 @@ const { is_authorized } = utils;
 
 /* Authorozation checks belong in the controller. */
 
-/* only admins should be able to create new flights */
+/* only admins should be able to create new flights, no need to send email to is_authorized */
 const createFlight = async (req,res) => {
-    if(req.headers.authorization){
-        const authorizedFlag = await is_authorized(req.headers.authorization);
+    if(req.cookies.token){
+        const authorizedFlag = await is_authorized(req.cookies.token);
         if(authorizedFlag){
             const newFlight = await flightDbService.createFlight(req.body);
             res.json(newFlight);
@@ -49,7 +49,7 @@ const getFlightById = async(req,res) => {
 /* TODO: consider splitting into 2 functions. On first observation, should only be called by an admin.
 However, if a customer makes an order, will trigger this function as well, since now there are fewer seats available.
 Which reminds me, that we must add checks to make sure there are enough seats available for purchase,
-including multiple seats per purchase. */
+including multiple seats per purchaser. */
 const updateFlightData = async(req,res) => {//will reach here with a get request, so extract data from req.params
     const { id,newData } = req.params;
     const flightToBeUpdated = await flightDbService.updateFlightData(id,newData);
@@ -59,10 +59,10 @@ const updateFlightData = async(req,res) => {//will reach here with a get request
     res.json(flightToBeUpdated);
 };
 
-/* NO BRAINER: Admins only! */
+/* NO BRAINER: Admins only! No need to send email, only need token type */
 const deleteFlight = async (req,res) => {
-    if(req.headers && req.headers.authorization){
-        const authorizedFlag = await is_authorized(req.headers.authorization);
+    if(req.cookies && req.cookies.token){
+        const authorizedFlag = await is_authorized(req.cookies.token);
         if(authorizedFlag){
             await flightDbService.deleteFlight(req.body.id);
             return;
@@ -72,11 +72,11 @@ const deleteFlight = async (req,res) => {
 }
 
 const purchaseFlightSeat = async (req,res) => {
-    if((req.headers && req.headers.authorization)==false){
+    if((req.cookies && req.cookies.token)==false){
         res.send({error:'missing authorization'});
         return;
     }
-    const token_entry = await tokenModel.find({_id:req.headers.authorization});
+    const token_entry = await tokenModel.find({_id:req.cookies.token});
     let userId = token_entry.user;
     const user = await userModel.findUserByMail(userId);
     if(!user){

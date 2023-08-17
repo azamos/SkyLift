@@ -3,14 +3,17 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
-const PORT = 3000;
-const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/SkyLift';
 
-mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+const newLocal = require('custom-env')  
+newLocal.env(process.env.NODE_ENV,'./config');
+
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 const app = express();
+app.use(cookieParser());
 const httpServer = createServer(app);
 const io = new Server(httpServer, { /* options */ });
 app.use(cors());
@@ -47,10 +50,10 @@ io.on('connection', socket => {
     //console.log(watchedFlights)
   })
   socket.on('unsubscribe flights', payload => {
-    console.log('before unsubing, the subbed flights are');
-    console.log(watchedFlights);
-    console.log('flights to unsub from:')
-    console.log(payload);
+    // console.log('before unsubing, the subbed flights are');
+    // console.log(watchedFlights);
+    // console.log('flights to unsub from:')
+    // console.log(payload);
     const { featuredDeals, socketId } = payload;
     featuredDeals.forEach(deal => {
       if (watchedFlights.get(deal) == null) {
@@ -58,9 +61,9 @@ io.on('connection', socket => {
       }
       watchedFlights.get(deal).delete(socketId);
     });
-    console.log('watchedFlights list after unsubing:')
+    // console.log('watchedFlights list after unsubing:')
     //Now, to let know to all subscribers of this flight that there is 1 less client
-    console.log(watchedFlights)
+    // console.log(watchedFlights)
   })
 
   // socket.on('chat message', (msg) => {
@@ -70,4 +73,4 @@ io.on('connection', socket => {
 })
 
 
-httpServer.listen(PORT, () => console.log('server online'));
+httpServer.listen(process.env.PORT, () => console.log('server online on port '+process.env.PORT));
