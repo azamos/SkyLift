@@ -1,3 +1,4 @@
+const flightModel = require("../models/flightModel");
 const Flight = require("../models/flightModel");
 
 /* CREATE */
@@ -20,6 +21,9 @@ const getPopularFlights = async () => await Flight.find({isPopular:true})
  * To be used mainly by updateFlightData
  */
 const getFlightById = async dbId => await Flight.findById({_id:dbId});
+
+/*TODO: TEST THIS FUNCTION! */
+const getFlightsByIdArr = async arr=> arr.length ? await Flight.findById({_id:{$in:arr}}) : [];
 
 /**
  * 
@@ -77,4 +81,5 @@ module.exports = {
     getFlightsByFilter,//Read
     updateFlightData,//Update
     deleteFlight,//Delete
+    getFlightsByIdArr,//READ
 };

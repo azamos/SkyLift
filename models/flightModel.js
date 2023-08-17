@@ -62,6 +62,12 @@ const Flight = new Schema({
     isPopular: {
         type:Boolean,
         default: false
+    },
+    isOpen:{
+        type: Boolean,
+        default: function(){
+            return Date.now() < this.departTime
+        }
     }
 });
 

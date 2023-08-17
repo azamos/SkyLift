@@ -18,7 +18,7 @@ const createLocation = async (req, res) => {
 
 const getPartialMatch = async (req, res) => {
     const { partial_string } = req.params;
-    console.log(partial_string);
+    //console.log(partial_string);
     const auto_complete_arr = await locationDbService.returnPartialMatch(partial_string);
     if(!auto_complete_arr||auto_complete_arr==[]){
         res.json({error:"no match"});

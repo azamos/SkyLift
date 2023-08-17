@@ -11,7 +11,6 @@ const search = e => {
     })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if (!res.error) {
                 $("#searchUser-input").val("");
                 $('#main-component-container').load(`${views_path}/userpage.html`,()=>{

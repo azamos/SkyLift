@@ -95,18 +95,6 @@ const loadMainComponent = async componentStr => {
                 socket.emit('watched flights', {socketId: socket.id ,featuredDeals:deals_ids})
                 //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
         })
-        // $(".delete-flight-btn").forEach(btn => {
-        //     btn.addeventlistener('click', e => {
-        //         const flight_id = e.parent().flight_id;
-                
-        //         fetch(`${url}/flights/${flight_id}`, {
-        //             method: 'DELETE',
-        //             headers: headers
-        //         }).catch(err => {
-        //             console.log(err);
-        //         })
-        //     })
-        // });
     }
 
     if(componentStr=="cart"){

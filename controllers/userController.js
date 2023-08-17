@@ -1,5 +1,6 @@
 const userDbService = require('../services/userDbService');
 const tokenDbService = require('../services/tokenDbService');
+const flightDbService = require('../services/flightDbService');
 const utils = require('../services/utils');
 const { is_authorized } = utils;
 const bcrypt = require('bcrypt');
@@ -12,20 +13,28 @@ const filtered_user = raw_user => {
     return sanitized_user;
 }
 
+async function getUsersFlights(user_mail){
+    const user = await userDbService.findUserByMail(user_mail);
+    const past_flights = await flightDbService.getFlightsByIdArr(user.past_flights);
+    const cart = await flightDbService.getFlightsByIdArr(user.cart);
+    const future_flights = await flightDbService.getFlightsByIdArr(user.future_flights);
+    user.password = null;
+    return {
+        user,past_flights,cart,future_flights
+    }
+}
+
 /* for authorized users only: either the user himself, or an admin. */
 const getUserData = async (req, res) => {
-    console.log('in getUserData...')
-    console.log(req.cookies);
     if (req.cookies && req.cookies.token) {
         let { email } = req.body;
         const authorizedFlag = await is_authorized(req.cookies.token,email);
         if (authorizedFlag) {
             const user_data = await userDbService.findUserByMail(email);
-            console.log('...')
-            console.log(user_data)
             if (user_data) {
-                user_data.password = null;
-                res.json(user_data);
+                const monstrosity = await getUsersFlights(email);
+                console.log(monstrosity)
+                res.json(monstrosity);
                 return;
             }
             res.send({ error: 'user not found' });
@@ -37,8 +46,6 @@ const getUserData = async (req, res) => {
 //TODO: continue
 const userLogin = async (req, res) => {
     let { email, password } = req.body;
-    // console.log('userLogin. cookies:')
-    // console.log(req.cookies);
     
     /* if there is an authorization header attached, it means that a user
     is already logged in, or have an expired token, in the browser.
@@ -64,8 +71,6 @@ const userLogin = async (req, res) => {
             let key = await bcrypt.hash(`${password}${Date.now}`, salt_rounds);
             /* Generates public key for user */
             let token_id = `${key}${process.env.SECRET}`;
-            console.log('createdToken');
-            console.log(token_id);
             await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
             res.cookie('token', key, {
                 httpOnly: true,
@@ -111,9 +116,6 @@ const createUser = async (req, res) => {
         //let token_id = await bcrypt.hash(`${key}${process.env.SECRET}`,salt_rounds);
         /* bcrypt will generate a different hash for the same values, thus the above did not work */
         let token_id = `${key}${process.env.SECRET}`;
-        //console.log('toked_id saved to db is: '+token_id);
-        console.log('createdToken');
-        console.log(token_id);
         await tokenDbService.createToken(token_id, email);
         res.cookie('token', key, {
             httpOnly: true,
@@ -163,7 +165,7 @@ const updateUserData = async (req, res) => {//will reach here with a get request
 
 const deleteUser = async (req, res) => await userDbService.deleteUser(req.params.id);
 
-module.exports = { userLogin, createUser, getUserData, getUsersList };
+module.exports = { userLogin, createUser, getUserData, getUsersList};
 
 
 

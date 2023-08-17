@@ -1,5 +1,20 @@
-const searchFlight = e => {
+const searchFlight = async e => {
     e.preventDefault();//DO NOT REMOVE, OTHERWISE WILL REFRESH
+    const destinationSearchInput = $("#destinationInput").val();
+    const originSearchInput = $("#originInput").val();
+    const departureDateSearchInput = $("#departureDate").val();
+    const arrivalDateSearchInput =$("#arrivalDate").val();
+    //console.log(destinationSearchInput,originSearchInput,departureDateSearchInput,arrivalDateSearchInput);
+    const searchResultArray =  await fetch(`${url}/flights/searchFlight`,{
+        method:'POST',
+        body: JSON.stringify({
+            destination: destinationSearchInput,
+            origin: originSearchInput,
+            depart: departureDateSearchInput,
+            arrival: arrivalDateSearchInput
+        })
+    }).then(res=>res.json());
+    /* TODO: create and call a function that generate flight html BUT in list format(as opposed to card format used in the grid) */
 }
 
 let autocomplete_timer = null;//a variable used to avoid sending an autocomplete request to the server every milisecond 
