@@ -41,6 +41,7 @@ const loadMainComponent = async componentStr => {
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
             $("#login-submit").on('click',login);
             $("#login-email-input").on('input',login_email_input_changed)
+            //$("#login-email-input").attr('button', );
         });
     }
     if(componentStr=='register'){
@@ -80,7 +81,7 @@ const loadMainComponent = async componentStr => {
 
     if (componentStr == "allFlights") {
         //unsubscribe flights first
-        $('featuredDeals').html('');
+        $('#main-component-container').html('');
         let deals_ids = allDeals.map(d=>d._id);
         socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
         $('#popularDealsTOallFlight').text('All Flights');
@@ -106,7 +107,7 @@ const loadMainComponent = async componentStr => {
             else {
                 $("#purchaseButton").on('click', () => {
                     alert('You must be logged in to purchase flights');
-                    $('#main-component-container').load(`${views_path}/loginform.html`);
+                    loadMainComponent('login');
                 });
             }
         })

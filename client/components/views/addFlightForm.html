@@ -1,40 +1,45 @@
-<div id="add-flight-form">
-    <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Title" id="newFlightTitle" style="margin-top: 5px;">
+<div class="card" style="width: 400px; margin-top: 5px;">
+    <div class="card-body">
+        <h5 class="card-title">Add New Flight</h5>
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Title" id="newFlightTitle">
+        </div>
+        <div class="mb-3">
+            <input type="number" class="form-control" placeholder="Price" id="newFlightPrice">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Company" id="newFlightCompany">
+        </div>
+        <div class="mb-3">
+            <label for="newFlightOrigin" class="form-label">From</label>
+            <select class="form-select" id="newFlightOrigin">
+                <option value="newYork">New York</option>
+                <option value="amsterdam">Amsterdam</option>
+                <option value="crete">Crete</option>
+                <option value="paris">Paris</option>
+                <option value="rome">Rome</option>
+                <option value="telAviv">Tel Aviv</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="newFlightDestination" class="form-label">Choose Destination</label>
+            <select class="form-select" id="newFlightDestination">
+                <option value="newYork">New York</option>
+                <option value="amsterdam">Amsterdam</option>
+                <option value="crete">Crete</option>
+                <option value="paris">Paris</option>
+                <option value="rome">Rome</option>
+                <option value="telAviv">Tel Aviv</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="departTime" class="form-label">Departure Date</label>
+            <input type="date" class="form-control" id="departTime">
+        </div>
+        <div class="mb-3">
+            <label for="newFlightEstimatedTimeOfArrival" class="form-label">Estimated Time of Arrival</label>
+            <input type="date" class="form-control" id="newFlightEstimatedTimeOfArrival">
+        </div>
+        <button class="btn btn-primary" id="add-flight-btn" disabled>ADD FLIGHT</button>
     </div>
-    <div class="mb-3">
-        <input type="number" class="form-control" placeholder="Price" id="newFlightPrice">
-    </div>
-    <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Company" id="newFlightCompany">
-    </div>
-    <div class="mb-3">
-        <label for="newFlightOrigin" class="form-label">From</label>
-        <select class="form-select" id="newFlightOrigin">
-            <option value="newYork">New York</option>
-            <option value="amsterdam">Amsterdam</option>
-            <option value="crete">Crete</option>
-            <option value="paris">Paris</option>
-            <option value="rome">Rome</option>
-            <option value="telAviv">Tel Aviv</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="newFlightDestination" class="form-label">Choose Destination</label>
-        <select class="form-select" id="newFlightDestination">
-            <option value="newYork">New York</option>
-            <option value="amsterdam">Amsterdam</option>
-            <option value="crete">Crete</option>
-            <option value="paris">Paris</option>
-            <option value="rome">Rome</option>
-            <option value="telAviv">Tel Aviv</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <input type="date" class="form-control" id="departTime">
-    </div>
-    <div class="mb-3">
-        <input type="date" class="form-control" placeholder="Estimated Time of Arrival" id="newFlightEstimatedTimeOfArrival">
-    </div>
-    <button class="btn btn-primary" id="add-flight-btn" disabled>ADD FLIGHT</button>
 </div>

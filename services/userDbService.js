@@ -8,9 +8,15 @@ const createUser = async (email , password , full_name , phone_number) => {//TOD
 
 /* READ - LIST */
 const getUsers = async numOfUsers => await User.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfUsers
- /* READ - single entry */
-const findUserByMail = async email => await User.findOne({email});
 
+/* READ - single entry */
+const findUserByMail = async email =>{
+    const exist = await User.findOne({email})
+    if(exist!=null){
+        return exist;
+    } 
+    return null;
+}
 /* UPDATE */
 const updateUser = async (email,data) => {
     const x= await User.findOne({email});
