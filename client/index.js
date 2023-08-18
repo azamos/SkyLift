@@ -35,6 +35,8 @@ const views_path = "./components/views";
  */
 
 const loadMainComponent = async componentStr => {
+    $('#popularDealsTOallFlight').show();
+    $('#featuredDeals').show();
     $('#main-component-container').html('')
     if(componentStr=='login'){
         $('#popularDealsTOallFlight').text('Popular Deals');
@@ -54,8 +56,10 @@ const loadMainComponent = async componentStr => {
 
     //user search
     if(componentStr=="searchUsers"){
+        $('#popularDealsTOallFlight').hide();
+        $('#featuredDeals').hide();
         if(state.user != 'Guest'){
-            //need to add validation for admin
+            //TODO need to add validation for admin !!!!!!!!!!!!!!!!!!!!!!
             $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
                     bringAllUsers();
                     $("#searchButton").on('click',search);
