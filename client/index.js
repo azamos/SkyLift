@@ -54,13 +54,15 @@ const loadMainComponent = async componentStr => {
 
     //user search
     if(componentStr=="searchUsers"){
-        $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
-            //TODO: add authorization for admin !!!!!!!!!!!!!!!!!
-            bringAllUsers();
-            $("#searchButton").on('click',search);
-            $("#searchUser").on('input',search_user_input_changed);
-        })
-    }
+        if(state.user != 'Guest'){
+            //need to add validation for admin
+            $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+                    bringAllUsers();
+                    $("#searchButton").on('click',search);
+                    $("#searchUser").on('input',search_user_input_changed);
+                    })
+                }
+        }
 
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
@@ -198,3 +200,4 @@ $(async function () {
 
 
 });
+
