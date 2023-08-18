@@ -4,6 +4,7 @@ const flightDbService = require('../services/flightDbService');
 const utils = require('../services/utils');
 const { is_authorized, emailSyntaxIsValid } = utils;
 const bcrypt = require('bcrypt');
+const userModel = require('../models/userModel');
 const salt_rounds = 12;
 
 /*NOTE FOR TEAM:
@@ -202,20 +203,52 @@ const getUsersList = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
 const updateUser = async (req, res) => {
+    console.log(req.body);
     const { email, newData } = req.params;
-    const userToBeUpdated = await userDbService.updateUserData(email, newData);
-    if (!userToBeUpdated) {
-        res.send(`failed to find flight with id = ${email} to be updated.`)
+    if (emailSyntaxIsValid(email) == false) {
+        res.send('Not a valid email input. Try again with a valid email');
+        return;
     }
-    res.json(userToBeUpdated);
+    if (!(req.cookies && req.cookies.token)) {
+        res.send({ error: 'missing authorization' })
+        return;
+    }
+    /* TODO: WE MUST VALIDATE ALL THE DATA. for now, I simply use it as it is,
+    which is very very bad.  */
+    const user = await userDbService.updateUser(email,newData);
+    console.log(user);
+    res.send('User updated...');
+    return;
+    
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
-const deleteUser = async (req, res) => await userDbService.deleteUser(req.params.id);
+const deleteUser = async (req, res) => {
+    console.log(req.body);
+    const {email} = req.body;
+    if (emailSyntaxIsValid(email) == false) {
+        res.send('Not a valid email input. Try again with a valid email');
+        return;
+    }
+    if (!(req.cookies && req.cookies.token)) {
+        res.send({ error: 'missing authorization' })
+        return;
+    }
+    const authorizedFlag = await is_authorized(req.cookies.token);
+    if(!authorizedFlag){
+        res.send({error:'unauthorized request'});
+        return;
+    }
+    const deleted = await userDbService.deleteUser(email);
+    if(!deleted){
+        res.send({error:"can't delete user"});
+        return;
+    }
+    res.send({msg:'user deleted'});
+};
 
-module.exports = { userLogin, createUser, getUserData, getUsersList };
+module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser };
 
 
 
