@@ -56,7 +56,6 @@ const register = e => {
         $("#register-email-input").val("");
         $("#register-password-input").val("");
         $("#confirm-register-password-input").val("");
-        
     });
 }
 

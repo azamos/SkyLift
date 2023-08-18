@@ -51,10 +51,12 @@ const loadMainComponent = async componentStr => {
             $("#register-email-input").on('input',register_email_input_changed);
         });
     }
+
     //user search
     if(componentStr=="searchUsers"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+            //TODO: add authorization for admin !!!!!!!!!!!!!!!!!
+            bringAllUsers();
             $("#searchButton").on('click',search);
             $("#searchUser").on('input',search_user_input_changed);
         })
@@ -165,6 +167,11 @@ const loadMainComponent = async componentStr => {
             $('#removeWishlistX').click(function () {
                 $('#WishlistToRemove').remove();
             });
+        })
+    }
+    if(componentStr == "mporeInfo"){
+        $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
+            
         })
     }
 
