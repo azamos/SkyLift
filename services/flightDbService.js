@@ -23,7 +23,7 @@ const getPopularFlights = async () => await Flight.find({isPopular:true})
 const getFlightById = async dbId => await Flight.findById({_id:dbId});
 
 /*TODO: TEST THIS FUNCTION! */
-const getFlightsByIdArr = async arr=> arr.length ? await Flight.findById({_id:{$in:arr}}) : [];
+const getFlightsByIdArr = async arr=> arr.length ? await Flight.find({_id:{$in:arr}}) : [];
 
 /**
  * 
