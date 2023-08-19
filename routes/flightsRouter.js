@@ -11,6 +11,7 @@ const {
  } = require('../controllers/flightsController');
 
 flightsRouter.post('/',createFlight);
+flightsRouter.put('/',updateFlightData);
 flightsRouter.get('/',getFlights);
 flightsRouter.get('/popular',getPopularFlights);
 flightsRouter.post('/delete',deleteFlight);

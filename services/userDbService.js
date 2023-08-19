@@ -17,14 +17,20 @@ const findUserByMail = async email =>{
     } 
     return null;
 }
+
 /* UPDATE */
-const updateUser = async (email,data) => {
-    const x= await User.findOne({email});
-    if(!x){
+const updateUser = async (email,newData,type) => {
+    const x = await User.findOne({email});
+    if(x==null){
         res.send({error:'user not found'});
         return
     }
-    await x.updateOne({...data});
+    if(type == "future_flights"){ 
+        x.future_flights.push(newData);
+    }
+    else{
+        await x.updateOne({...newData});
+    }
     res.send({msg:"success"});
 }
 

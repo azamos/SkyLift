@@ -1,13 +1,18 @@
 const bringAllUsers = async() => {
     $('#allusers-textop').text('All Users');
-    const allUsers = await fetch(`${url}/users/usersList`, {
+    fetch(`${url}/users/usersList`, {
         method: 'GET',
-    }).catch(err => console.log(err))
+        headers
+    })
     .then(res => res.json())
     .then(res => {
-        res.forEach(user => {
-            let htmlRef = generateUserHTML(user,user.length);
-            $('#main-component').append(htmlRef);
-        });
-    });    
+        console.log(res);
+        if(!res.error){
+            res.forEach(user => {
+                let htmlRef = generateUserHTML(user , user.length);
+                console.log(htmlRef);
+                $('#all-users-container').append(htmlRef);
+            });
+        }
+    }).catch(err => {console.log(err);});    
 }

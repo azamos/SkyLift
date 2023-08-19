@@ -69,22 +69,32 @@
                 <hr class="dropdown-divider">
             </li>
 
-            <li><a class="dropdown-item" onclick="loadMainComponent('searchUsers')">Search User</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
 
-            <li><a class="dropdown-item" onclick="loadMainComponent('addFlight')">Add addFlight</a></li>
-
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-
-            <li><a class="dropdown-item" onclick="loadMainComponent('addLocation')">Add location</a></li>
+            <div id="searchUsers-dropdown" style="display: none;">
+                <li><a class="dropdown-item" onclick="loadMainComponent('searchUsers')">Search User</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+            </div>
             
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+           
+            <div id="addFlight-dropdown" style="display: none;">
+                <li><a class="dropdown-item" onclick="loadMainComponent('addFlight')">Add addFlight</a></li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+    
+            </div>
+            
+            <div id="addLocation-dropdownMenu" style="display: none;">
+                <li><a class="dropdown-item" onclick="loadMainComponent('addLocation')">Add location</a></li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+    
+            </div>
 
             <li><a class="dropdown-item" onclick="loadMainComponent('whishlist')">Wishlist</a></li>
             

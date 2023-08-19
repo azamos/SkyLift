@@ -1,35 +1,29 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Component</title>
-    <!-- Link to Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-  <body>
-    <div class="container mt-5" id="allusers-template">
-      <div class="card">
-        <div class="card-body">
-          <div class="form-group">
-            <label for="fullName">Full Name:</label>
-            <div id="fullName-allusers"></div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <div id="email-allusers"></div>
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number:</label>
-            <div id="phoneNumber-allusers"></div>
-          </div>
-          <div class="form-group">
-            <label for="miles">Miles:</label>
-            <div id="miles-allusers"></div>
-          </div>
-          <button id="pastFlights-allusers" class="btn btn-primary">Past Flights</button>
-          <button id="futureFlights-allusers" class="btn btn-primary">Future Flights</button>
-          <button id="cart-allusers" class="btn btn-primary">Cart</button>
-          <button id="moreInfo-allusers" class="btn btn-primary">More Info</button>
-        </div>
+<div class="container mt-5 allusers-template-forcss" id="allusers-template" style="display: none;">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group fullName-allusers">
+        <label for="fullName">Full Name:</label>
+      </div>
+      <div class="form-group email-allusers">
+        <label for="email">Email:</label>
+      </div>
+      <div class="form-group phoneNumber-allusers">
+        <label for="phoneNumber">Phone Number:</label>
+      </div>
+      <div class="form-group miles-allusers">
+        <label for="miles">Miles:</label>
+      </div>
+
+      <div class="place-holder-flights-info">
+        <div class="btn btn-primary pastFlights-allusers">Past Flights</div>
+        <div class="btn btn-primary futureFlights-allusers">Future Flights</div>
+        <div class="btn btn-primary cart-allusers">Cart</div>  
+      </div>
+      
+      <div class="button-group">  
+        <button class="btn btn-primary moreInfo-allusers">More Info</button>
       </div>
     </div>
-</body>
+  </div>
+</div>
+

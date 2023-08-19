@@ -204,7 +204,7 @@ const getUsersList = async (req, res) => {
 /*WARNING: testing is required */
 const updateUser = async (req, res) => {
     console.log(req.body);
-    const { email, newData } = req.params;
+    const { email, newData , type } = req.body;
     if (emailSyntaxIsValid(email) == false) {
         res.send('Not a valid email input. Try again with a valid email');
         return;
@@ -215,8 +215,8 @@ const updateUser = async (req, res) => {
     }
     /* TODO: WE MUST VALIDATE ALL THE DATA. for now, I simply use it as it is,
     which is very very bad.  */
-    const user = await userDbService.updateUser(email,newData);
-    console.log(user);
+    const user = await userDbService.updateUser(email,newData,type);
+    //console.log(user);
     res.send('User updated...');
     return;
     
