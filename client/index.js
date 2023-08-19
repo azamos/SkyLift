@@ -35,7 +35,16 @@ const views_path = "./components/views";
  */
 
 const loadMainComponent = async componentStr => {
+    $('#popularDealsTOallFlight').show();
+    $('#featuredDeals').show();
     $('#main-component-container').html('')
+    
+    if(state.user != 'Guest'){
+        $('#addFlight-dropdown').show();
+        $('#addLocation-dropdownMenu').show();
+        $('#searchUsers-dropdown').show();
+    }
+
     if(componentStr=='login'){
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
@@ -43,6 +52,7 @@ const loadMainComponent = async componentStr => {
             $("#login-email-input").on('input',login_email_input_changed)
             //$("#login-email-input").attr('button', );
         });
+        
     }
     if(componentStr=='register'){
         $('#popularDealsTOallFlight').text('Popular Deals');
@@ -51,13 +61,21 @@ const loadMainComponent = async componentStr => {
             $("#register-email-input").on('input',register_email_input_changed);
         });
     }
+
     //user search
     if(componentStr=="searchUsers"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
-            $("#searchButton").on('click',search);
-            $("#searchUser").on('input',search_user_input_changed);
-        })
+        $('#popularDealsTOallFlight').hide();
+        $('#featuredDeals').hide();
+        if(state.user != 'Guest'){
+            //TODO need to add validation for admin !!!!!!!!!!!!!!!!!!!!!!
+            $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+                $('#all-users-container').load(`${views_path}/allUsers.html`,x=>{
+                    bringAllUsers();
+                });
+                $("#searchButton").on('click',search);
+                $("#searchUser").on('input',search_user_input_changed);
+            })
+        }
     }
 
     if (componentStr == "popularDeals") {
@@ -99,7 +117,6 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="cart"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/cart.html`,x=>{
             if(state.user != 'Guest'){
                 $("#purchaseButton").on('click',checkout_flights);
@@ -114,18 +131,22 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="addFlight"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
-            $("#add-flight-btn").on('click',addFlight);
-            addFlightInitiaizeFormFields();
-        })
+        if(state.user != 'Guest'){
+            $('#popularDealsTOallFlight').text('Popular Deals');
+            $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
+                $("#add-flight-btn").on('click',addFlight);
+                addFlightInitiaizeFormFields();
+            })
+        }
     }
 
     if(componentStr == "addLocation"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
-            $("#add-location-submit").on('click',addLocation);
-        });
+        if(state.user != 'Guest'){
+            $('#popularDealsTOallFlight').text('Popular Deals');
+            $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
+                $("#add-location-submit").on('click',addLocation);
+            });
+        }
     }
 
     if (componentStr == "welcomeMsg") {
@@ -167,6 +188,11 @@ const loadMainComponent = async componentStr => {
             });
         })
     }
+    if(componentStr == "mporeInfo"){
+        $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
+            
+        })
+    }
 
 
 }
@@ -191,3 +217,4 @@ $(async function () {
 
 
 });
+
