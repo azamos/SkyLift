@@ -27,33 +27,33 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     });
 
     //BUY FLIGHT
-    htmlRef.children('.card-body').children('.buy-button').on('click',function(){
-        const ff = "future_flights";
-        fetch(`${url}/users/update`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({email:state.user , newData:flightModelInstance._id , type:ff})
-        }
-        ).catch(err => {
-            console.log(err);
-        })
-        loadMainComponent('allFlights');
-    });
+    // htmlRef.children('.card-body').children('.buy-button').on('click',function(){
+    //     const ff = "future_flights";
+    //     fetch(`${url}/users/update`, {
+    //         method: 'POST',
+    //         headers,
+    //         body: JSON.stringify({email:state.user , newData:flightModelInstance._id})
+    //     }
+    //     ).catch(err => {
+    //         console.log(err);
+    //     })
+    //     loadMainComponent('allFlights');
+    // });
 
     //EDIT FLIGHT
-    htmlRef.children('.card-body').children('.edit-button').on('click',function(){
+    // htmlRef.children('.card-body').children('.edit-button').on('click',function(){
         
-        loadMainComponent('addFlight');
-        fetch(`${url}/users/update`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({id:flightModelInstance._id , newData:})
-        }
-        ).catch(err => {
-            console.log(err);
-        })
-        loadMainComponent('allFlights');
-    });
+    //     loadMainComponent('addFlight');
+    //     fetch(`${url}/users/update`, {
+    //         method: 'POST',
+    //         headers,
+    //         body: JSON.stringify({id:flightModelInstance._id , newData:})
+    //     }
+    //     ).catch(err => {
+    //         console.log(err);
+    //     })
+    //     loadMainComponent('allFlights');
+    // });
 
        //ADD TO WISHLIST
     // htmlRef.children('.card-body').children('.wishlist-button').on('click',function(){
