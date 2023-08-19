@@ -86,6 +86,11 @@ const purchaseFlightSeat = async (req,res) => {
     }
     /* THIS IS WHAT MUST BE PASSED TO THE POST REQUEST */
     const flight = await flightDbService.getFlightById(flight_id);
+    console.log(flight);
+    if(!flight){
+        res.send({error:'flight not found'});
+        return;
+    }
     let seatAmount = 1;//later, change it
     /* FIRST, CHECK IF USER NOT IN PASSENGER LIST AND IF THERE ARE ENOUGH AVAILABLE SEATS */
     if(seatType=='bussiness' && !(flight.bussinessPassengers.includes(userId) ) && flight.bussinessCapacity - (seatAmount-1) > 0){
