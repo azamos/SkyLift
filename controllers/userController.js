@@ -135,9 +135,22 @@ const logOff = async (req, res) => {
             tokenDbService.expireToken(token._id);
         }
         res.clearCookie('token',cookieOptions);
+        return;
     }
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const signOut = async (req, res) => {
+    if (req.cookies && req.cookies.token) {
+        const token = await tokenDbService.getToken(req.cookies.token);
+        if (token && token.expired == false) {
+            tokenDbService.expireToken(token._id);
+        }
+        res.clearCookie('token',cookieOptions);
+        res.send({msg:'user signed off'});
+        return;
+    }
+    res.send({msg:'not currently signed in user'});
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* Works fine, but try to find edge cases I might have missed */
 const createUser = async (req, res) => {
@@ -244,7 +257,7 @@ const deleteUser = async (req, res) => {
     res.send({msg:'user deleted'});
 };
 
-module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser };
+module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser,signOut };
 
 
 
