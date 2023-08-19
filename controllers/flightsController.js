@@ -1,8 +1,9 @@
 const tokenDbService = require('../services/tokenDbService');
 const flightDbService = require('../services/flightDbService');
-const userModel = require('../services/userDbService');
+const userDbService = require('../services/userDbService');
+const userModel = require('../models/userModel');
 const utils = require('../services/utils');
-const { is_authorized } = utils;
+const { is_authorized, valid_field_names } = utils;
 
 /* Authorozation checks belong in the controller. */
 
@@ -78,7 +79,7 @@ const purchaseFlightSeat = async (req,res) => {
     }
     const token_entry = await tokenDbService.getToken(req.cookies.token+process.env.SECRET);
     let userId = token_entry.user;
-    const user = await userModel.findUserByMail(userId);
+    const user = await userDbService.findUserByMail(userId);
     if(!user){
         res.send({error:'Error: user no longer exists'});
         return;
@@ -89,7 +90,7 @@ const purchaseFlightSeat = async (req,res) => {
     /* FIRST, CHECK IF USER NOT IN PASSENGER LIST AND IF THERE ARE ENOUGH AVAILABLE SEATS */
     if(seatType=='bussiness' && !(flight.bussinessPassengers.includes(userId) ) && flight.bussinessCapacity - (seatAmount-1) > 0){
         let {bussinessPassengers,bussinessCapacity} = flight;
-        bussinessPassengers.push(user._id);
+        bussinessPassengers.push(userId);//NOTE: bad name. userId is actualy email, and not user._id
         bussinessCapacity-=seatAmount;
         flightDbService.updateFlightData(flight_id,{bussinessCapacity,bussinessPassengers});
         /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
@@ -99,14 +100,16 @@ const purchaseFlightSeat = async (req,res) => {
         something has failed, and thus he can try again. */
         const { future_flights } = user;
         future_flights.push(flight_id);
-        if(await userModel.updateUser(user.email,{future_flights})){
+        if(await userDbService.updateUser(user.email,{future_flights})){
             res.send({msg:'flight added succesfuly'})
             return;
         }
     }
     if(seatType=='economy' && !(flight.economyPassengers.includes(userId) ) && flight.economyCapacity - (seatAmount-1) > 0){
         let {economyPassengers,economyCapacity} = flight;
-        economyPassengers.push(user._id);
+        economyPassengers.push(userId);//NOTE: bad name. userId is actualy email, and not user._id
+        //However, user's email is better for checking dups, since Mongodb default _id is object,
+        //and not really working against dups
         economyCapacity-=seatAmount;
         flightDbService.updateFlightData(flight_id,{economyCapacity,economyPassengers});
         /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
@@ -116,7 +119,7 @@ const purchaseFlightSeat = async (req,res) => {
         something has failed, and thus he can try again. */
         const { future_flights } = user;
         future_flights.push(flight_id);
-        if(await userModel.updateUser(user.email,{future_flights})){
+        if(await userDbService.updateUser(user.email,{future_flights})){
             res.send({msg:'flight added succesfuly'})
             return;
         }
@@ -130,6 +133,7 @@ const getPopularFlights = async (req,res) => {
     res.json(flightsArr);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 module.exports = {
     createFlight,//Create

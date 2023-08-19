@@ -14,4 +14,15 @@ const is_authorized = async (key,email = null) =>{
     return email && token.user == email || token.authorization == 'admin';
 }
 
-module.exports = {is_authorized,emailSyntaxIsValid};
+
+function valid_field_names(modelFieldsObject,newFields){
+    const modelFields = Object.keys(modelFieldsObject);
+    Object.keys(newFields).forEach(field => {
+        if(!(field in modelFields)){
+            return false;
+        }
+    });
+    return true;
+}
+
+module.exports = {is_authorized,emailSyntaxIsValid,valid_field_names};

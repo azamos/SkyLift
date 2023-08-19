@@ -33,20 +33,6 @@ const getFlightsByIdArr = async arr=> arr.length ? await Flight.findById({_id:{$
  */
 const getFlightsByFilter = async (filterOBj = {},) => await Flight.find({ ...filterOBj });
 
-const tommorow =86400*1000;
-const get_flights_from_a_to_b = async (origin, destination,
-     desired_depart_time = new Date(Date.now()), desired_arrive_time = (new Date(Date.now()+tommorow))) => {
-    const directFlight = await Flight.aggregate([{ $match: 
-        { origin: a._id, destination: b._id,
-            departTime: { $gte: desired_depart_time},estimatedTimeOfArrival: { $lte: new Date(desired_depart_time+tommorow)} } }]);
-    const departing_from_a = await Flight.aggregate([{ $match: { origin: a._id } },
-    { $match: { departTime: { $gte: desired_depart_time} } }])
-    const arriving_to_b = await Flight.aggregate([{ $match: { destination: b._id } },
-    { $match: { departure: { $gte: desired_depart_time ? desired_depart_time : Date.now() } } }])
-}
-
-
-
 /**UPDATE
  * 
  * @param {*} dbIdentifier 
