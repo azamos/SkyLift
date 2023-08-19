@@ -24,8 +24,9 @@ const updateUser = async (email,data) => {
         res.send({error:'user not found'});
         return
     }
-    await x.updateOne({...data});
-    res.send({msg:"success"});
+    Object.keys(data).forEach(key=>x[key]=data[key])
+    await x.save();
+    return x;
 }
 
 

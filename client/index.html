@@ -44,7 +44,7 @@
         <div id="featuredDeals" class="grid-container"
             style="width: 65%;box-shadow: 1px 1px 1px 1px #0D67B5;border-radius: 20px;"></div>
     </div>
-
+    <button id="test-purchase" >TEST PURCHASE</button>
     
 
 
@@ -73,6 +73,14 @@
     <script src="./components/scripts/cart.js"></script>
     <script src="./components/scripts/wishlist.js"></script>
     <script src="./components/scripts/accountPage.js"></script>
+    <script>
+        $('#test-purchase').on('click',e=>{
+            fetch('http://localhost:3000/api/flights/purchase',{
+                method:'POST',
+                body: JSON.stringify({flight_id:'123',seatType:'economy'})
+            }).then(res=>res.json()).then(res=>console.log(res));
+        })
+    </script>
 
     <!-- <script src="./components/scripts/userpage.js"></script> -->
 

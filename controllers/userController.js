@@ -6,6 +6,7 @@ const { is_authorized, emailSyntaxIsValid } = utils;
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 const salt_rounds = 12;
+const cookieOptions = {httpOnly: true,sameSite: 'strict'};
 
 /*NOTE FOR TEAM:
     This is the Controller for the Users, which handles ALL requests
@@ -113,10 +114,7 @@ const userLogin = async (req, res) => {
             /* Generates public key for user */
             let token_id = `${key}${process.env.SECRET}`;
             await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
-            res.cookie('token', key, {
-                httpOnly: true,
-                sameSite: 'strict'
-            }).json({ token: key, email, name });
+            res.cookie('token', key, cookieOptions).json({ token: key, email, name });
             return;
         }
         else {
@@ -136,6 +134,7 @@ const logOff = async (req, res) => {
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }
+        res.clearCookie('token',cookieOptions);
     }
 }
 
@@ -170,10 +169,7 @@ const createUser = async (req, res) => {
         /* bcrypt will generate a different hash for the same values, thus the above did not work */
         let token_id = `${key}${process.env.SECRET}`;
         await tokenDbService.createToken(token_id, email);
-        res.cookie('token', key, {
-            httpOnly: true,
-            sameSite: 'strict'
-        }).json({ token: key, email });
+        res.cookie('token', key, cookieOptions).json({ token: key, email });
         return;
     }
     else {
