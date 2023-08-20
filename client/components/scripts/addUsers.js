@@ -10,7 +10,6 @@ const bringAllUsers = async() => {
         if(!res.error){
             res.forEach(user => {
                 let htmlRef = generateUserHTML(user , user.length);
-                console.log(htmlRef);
                 $('#all-users-container').append(htmlRef);
             });
         }

@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 
 
+
 const createUser = async (email , password , full_name , phone_number) => {//TODO: make sure only a privileged user is able to create a flight.
     const newUser = new User({email , password , full_name ,phone_number});
     return await newUser.save();

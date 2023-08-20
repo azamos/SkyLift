@@ -64,7 +64,6 @@ const getUserData = async (req, res) => {
             const user_data = await userDbService.findUserByMail(email);
             if (user_data) {
                 const monstrosity = await getUsersFlights(email);
-                console.log(monstrosity)
                 res.json(monstrosity);
                 return;
             }
@@ -256,6 +255,7 @@ const deleteUser = async (req, res) => {
     }
     res.send({msg:'user deleted'});
 };
+
 
 module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser,signOut };
 

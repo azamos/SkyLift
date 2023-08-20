@@ -12,33 +12,60 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
+    const flight_id = flightModelInstance._id;
 
     //DELETE FLIGHT
-    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',function(){
+    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
+        console.log(flight_id);
+        fetch(`${url}/flights/deleteFromAllUsers`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({flight_id:flight_id})
+        })
+        .then(res => res.json())
+        .then(res =>{
+            if(res.error){
+                alert(res.msg);
+                return;
+            }
+        })
+        .catch(err => {
+            console.log(err); 
+        })
+
         fetch(`${url}/flights/delete`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({id:flightModelInstance._id})
-        }
-        ).catch(err => {
+            body: JSON.stringify({id:flight_id})
+        })
+        .catch(err => {
             console.log(err); 
         })
+        
+
         loadMainComponent('allFlights');
     });
 
     //BUY FLIGHT
-    // htmlRef.children('.card-body').children('.buy-button').on('click',function(){
-    //     const ff = "future_flights";
-    //     fetch(`${url}/users/update`, {
-    //         method: 'POST',
-    //         headers,
-    //         body: JSON.stringify({email:state.user , newData:flightModelInstance._id})
-    //     }
-    //     ).catch(err => {
-    //         console.log(err);
-    //     })
-    //     loadMainComponent('allFlights');
-    // });
+    htmlRef.children('.card-body').children('.buy-button').on('click',function(){
+        const ff = "future_flights";
+        fetch(`${url}/flights/purchase`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({flight_id:flightModelInstance._id , seatType:"economy"})
+        })
+        .then(res => res.json())
+        .then(res =>{
+            if(res.msg){
+                alert(res.msg);
+                return;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        loadMainComponent('allFlights');
+    });
 
     //EDIT FLIGHT
     // htmlRef.children('.card-body').children('.edit-button').on('click',function(){

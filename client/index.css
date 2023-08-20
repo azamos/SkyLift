@@ -1,9 +1,4 @@
-.allusers-template-forcss{
-  width: 100%;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
+
 .wishlist-button {
   color: #fff;
   background-color: #007bff;
