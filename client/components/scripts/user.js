@@ -11,55 +11,66 @@ const generateUserHTML = (UserModelInstance,i) =>{
     userHeader.children('.place-holder-flights-info').children('.futureFlights-allusers').text(`Future Flights: ${UserModelInstance.future_flights.length}`)
     userHeader.children('.place-holder-flights-info').children('.cart-allusers').text(`Cart: ${UserModelInstance.cart.length}`)
     
-    //WORK ON THIS
+
+
+    //TODO --- WORK ON THIS
     userHeader.children('.button-group').children('.moreInfo-allusers').on('click',function(){
         $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
-            $(".btn-gobacktosearchuser").on('click',()=>{
+            
+
+            //this button send you back to search user page
+            $(".gobacktosearchuser").on('click',()=>{
                 loadMainComponent('searchUsers');
             });
+
             fetch(`${url}/users/getUserData`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({email:UserModelInstance.email})
             })
-            .then(res => res.json()
-            ).then(res => {
+            .then(res => res.json())
+            .then(res => {
                 res.past_flights.forEach(flightToAdd => {
-                    fetch(`${url}/flights/getFlightData`, {
-                        method: 'POST',
-                        headers,
-                        body: JSON.stringify({flightId:flightToAdd})
-                    }).then(res => res.json()
-                    ).then(res => {
-                        let temp = generateFlightHTML(res, i , isAdmin);
-                        $('.pastFlight-moreinfo').append(temp);   
-                    })
+                    let temp = generateMoreInfoFlightHTML(flightToAdd);
+                    $('.pastFlight-moreinfo').append(temp);  
                 });
                 res.cart.forEach(flightToAdd => {
-                    fetch(`${url}/flights/getFlightData`, {
-                        method: 'POST',
-                        headers,
-                        body: JSON.stringify({flightId:flightToAdd})
-                    }).then(res => res.json()
-                    ).then(res => {
-                        let temp = generateFlightHTML(res, i , isAdmin);   
-                        $('.cart-moreinfo').append(temp);
-                    })
+                    let temp = generateMoreInfoFlightHTML(flightToAdd);   
+                    $('.cart-moreinfo').append(temp);
                 });
                 res.future_flights.forEach(flightToAdd => {
-                    fetch(`${url}/flights/getFlightData`, {
-                        method: 'POST',
-                        headers,
-                        body: JSON.stringify({flightId:flightToAdd})
-                    }).then(res => res.json()
-                    ).then(res => {
-                        let temp = generateFlightHTML(res, i , isAdmin);   
-                        $('.futureFlights-moreinfo').append(temp);
-                    })
+                    let temp = generateMoreInfoFlightHTML(flightToAdd);  
+                    $('.futureFlights-moreinfo').append(temp);
                 });
-    
-            }).catch(err => {console.log(err);})
+                
+                //this will add the count of flights in the more-info user page
+                $('.futureflightinfo').text(`Future Flights: ${res.future_flights.length}`)
+                $('.cartinfo').text(`Cart: ${res.cart.length}`)
+                $('.pastflightsinfo').text(`Past Flights: ${res.past_flights.length}`)
+            })
+            .catch(err => {console.log(err);})
+
+            
         });
     });
 return htmlRef;
+}
+
+
+const generateMoreInfoFlightHTML = (flightModelInstance) => {
+    let htmlRef = $("#flight-template").clone();
+    htmlRef.attr('style',"background-color: rgb(224, 224, 217);");
+    htmlRef.children('.destination-photo').attr('src',`./images/destination/${camelize(flightModelInstance.destination)}.jpg`)
+    htmlRef.attr('style',`margin-top: 10px;`);
+    let flightHeader = htmlRef.children('.flight-header');
+    flightHeader.children('.price').text(`PRICE: ${flightModelInstance.price}$`)
+    flightHeader.children('.flight-title').text(`FLIGHT NUMBER:  ${flightModelInstance.title}`)
+    let content = htmlRef.children('.content');
+    content.children('.origin').text(`From: ${flightModelInstance.origin}`)
+    content.children('.destination').text(`To: ${flightModelInstance.destination}`)
+    content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
+    content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
+    htmlRef.children('.card-body').children('.buy-button').remove();
+    htmlRef.children('.card-body').children('.wishlist-button').remove();
+    return htmlRef; 
 }

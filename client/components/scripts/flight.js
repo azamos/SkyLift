@@ -19,26 +19,36 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             method: 'POST',
             headers,
             body: JSON.stringify({id:flightModelInstance._id})
-        }
-        ).catch(err => {
+        })
+        .catch(err => {
             console.log(err); 
         })
+
+        fetch(`${url}/users/deleteFlightFromAllUsers`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({id:flightModelInstance._id})
+        })
+        .catch(err => {
+            console.log(err); 
+        })
+
         loadMainComponent('allFlights');
     });
 
     //BUY FLIGHT
-    // htmlRef.children('.card-body').children('.buy-button').on('click',function(){
-    //     const ff = "future_flights";
-    //     fetch(`${url}/users/update`, {
-    //         method: 'POST',
-    //         headers,
-    //         body: JSON.stringify({email:state.user , newData:flightModelInstance._id})
-    //     }
-    //     ).catch(err => {
-    //         console.log(err);
-    //     })
-    //     loadMainComponent('allFlights');
-    // });
+    htmlRef.children('.card-body').children('.buy-button').on('click',function(){
+        const ff = "future_flights";
+        fetch(`${url}/flights/purchase`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({flight_id:flightModelInstance._id , seatType:"economy"})
+        }
+        ).catch(err => {
+            console.log(err);
+        })
+        loadMainComponent('allFlights');
+    });
 
     //EDIT FLIGHT
     // htmlRef.children('.card-body').children('.edit-button').on('click',function(){

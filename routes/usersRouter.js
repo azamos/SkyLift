@@ -6,11 +6,13 @@ const {
     getUsersList,
     updateUser,
     deleteUser,
-    signOut
+    signOut,
+    deleteFlightFromAllUsers
  } = require('../controllers/userController');
 
 usersRouter.post('/checkuser',userLogin);
 usersRouter.post('/getUserData',getUserData);
+usersRouter.post('/deleteFlightFromAllUsers',deleteFlightFromAllUsers);
 usersRouter.post('/',createUser);
 usersRouter.get('/usersList',getUsersList);
 usersRouter.post('/update',updateUser);

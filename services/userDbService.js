@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 
 
+
 const createUser = async (email , password , full_name , phone_number) => {//TODO: make sure only a privileged user is able to create a flight.
     const newUser = new User({email , password , full_name ,phone_number});
     return await newUser.save();
@@ -41,10 +42,29 @@ const deleteUser = async userEmail => {
     return userToDeleted;
 };
 
+const deleteFlightFromAllUsers = async (flight_id) => {
+    const users = await User.find({});
+    let i = 0;
+    users.forEach(async user => {
+        let index = user.future_flights.findOne(flight_id);
+        if(index != null){
+            i++;
+            await user.future_flights.deleteOne();
+        }
+        if(i!=0){
+            res.send({success:'deleted from all users'});
+            return;
+        }
+        res.send({error:'not found in any user!'});
+    });
+}
+
+
 module.exports = {
     createUser,
     getUsers,
     findUserByMail,
     deleteUser,
-    updateUser
+    updateUser,
+    deleteFlightFromAllUsers
 };
