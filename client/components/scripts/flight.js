@@ -25,7 +25,6 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         .then(res => res.json())
         .then(res =>{
             if(res.error){
-                alert(res.msg);
                 return;
             }
         })
@@ -57,7 +56,6 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         .then(res => res.json())
         .then(res =>{
             if(res.msg){
-                alert(res.msg);
                 return;
             }
         })

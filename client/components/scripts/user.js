@@ -15,6 +15,7 @@ const generateUserHTML = (UserModelInstance,i) =>{
 
     //TODO --- WORK ON THIS
     userHeader.children('.place-holder-flights-info').children('.moreInfo-allusers').on('click',function(){
+        $('#main-component-container').html('');
         $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
             
             //this button send you back to search user page

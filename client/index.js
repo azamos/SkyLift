@@ -58,7 +58,6 @@ const loadMainComponent = async componentStr => {
         $('#popularDealsTOallFlight').hide();
         $('#featuredDeals').hide();
         
-        //TODO need to add validation for admin !!!!!!!!!!!!!!!!!!!!!!
         $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
             $('#all-users-container').load(`${views_path}/allUsers.html`,x=>{
                 bringAllUsers();
@@ -67,6 +66,12 @@ const loadMainComponent = async componentStr => {
             $("#searchUser").on('input',search_user_input_changed);
         })
     }
+
+    // if(componentStr == "moreInfo"){
+    //     $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
+    //         bringAllUsers();
+    //     })
+    // }
 
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
@@ -92,8 +97,9 @@ const loadMainComponent = async componentStr => {
         $('#main-component-container').html('');
         let deals_ids = allDeals.map(d=>d._id);
         socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
+        
         $('#popularDealsTOallFlight').text('All Flights');
-        $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
+        $('#main-component-container').load(`${views_path}/allFlights.html`, async ()=>{
             let res = await fetch(`${url}/flights`);
                 res = await res.json();
                 res.forEach((flightModelInstance, i) => {
@@ -173,6 +179,10 @@ const loadMainComponent = async componentStr => {
             $('#error-span').text('An Error Occoured');
         })
     }
+
+
+   
+
     // if(componentStr == "whishlist"){
     //     $('#popularDealsTOallFlight').text('Popular Deals');
     //     $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
@@ -183,12 +193,6 @@ const loadMainComponent = async componentStr => {
     //         });
     //     })
     // }
-    if(componentStr == "mporeInfo"){
-        $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
-            
-        })
-    }
-
 
 }
 

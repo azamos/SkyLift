@@ -27,7 +27,7 @@ function loadUserData (email_in) {
                         const flight = generateMoreInfoFlightHTML(pastFlights[i]);
                         $('.past-flight-list').append(flight);
                     }
-
+                if(futureFlights.length!=0){
                     $("#allfutureflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
                             for(let i = 0; i<futureFlights.length; i++){
@@ -39,8 +39,8 @@ function loadUserData (email_in) {
                                 loadMainComponent('userpage');
                             })
                         })
-                    })
-
+                    })}
+                if(pastFlights.length!=0){
                     $("#allpastflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
                             for(let i = 0; i<pastFlights.length; i++){
@@ -52,10 +52,13 @@ function loadUserData (email_in) {
                                 loadMainComponent('userpage');
                             })
                         })
-                    })
-                    $("#cart-button-acc").on('click',()=>{
-                        loadMainComponent('cart');
-                    })
+                    })}
+                    if(cart.length!=0){
+                        $("#cart-button-acc").on('click',()=>{
+                            loadMainComponent('cart');
+                        })
+                    }
+                    
                 })
             }
             
