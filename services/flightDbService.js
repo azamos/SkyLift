@@ -1,10 +1,9 @@
-const flightModel = require("../models/flightModel");
 const Flight = require("../models/flightModel");
 
 /* CREATE */
 const createFlight = async data => {
-    const { special_id,title, price, company, origin, destination, departTime, estimatedTimeOfArrival } = data;
-    const newFlight = new Flight({ special_id,title, price, company, origin, destination, departTime, estimatedTimeOfArrival });
+    const { special_id,title, price, company, origin, destination, departTime, estimatedTimeOfArrival,imageUrl} = data;
+    const newFlight = new Flight({ special_id,title, price, company, origin, destination, departTime, estimatedTimeOfArrival,imageUrl });
     return await newFlight.save();
 };
 

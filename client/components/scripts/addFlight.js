@@ -7,10 +7,12 @@ function addFlightInitiaizeFormFields() {
     const newFlightDestinationJqueryObj = $("#newFlightDestination");
     const newFlightdepartTimeJqueryObj = $("#departTime");
     const newFlightEstimatedTimeOfArrivalJqueryObj = $("#newFlightEstimatedTimeOfArrival");
+    const newFlightUploadFlightImageJuqryObj = $("#uploadFlightImage");
     add_flight_form_fields = {
         newFlightTitleJqueryObj, newFlightPriceJqueryObj, newFlightCompanyJqueryObj,
         newFlightOriginJqueryObj, newFlightDestinationJqueryObj, newFlightdepartTimeJqueryObj,
-        newFlightEstimatedTimeOfArrivalJqueryObj
+        newFlightEstimatedTimeOfArrivalJqueryObj,
+        newFlightUploadFlightImageJuqryObj
     }
     /* adding change-event-listeners to all of the form fields */
     Object.values(add_flight_form_fields).forEach(jQueryObj => jQueryObj.on('change', validate_add_flight_form));
@@ -23,7 +25,8 @@ const addFlight = async e => {
         newFlightOriginJqueryObj,
         newFlightDestinationJqueryObj,
         newFlightdepartTimeJqueryObj,
-        newFlightEstimatedTimeOfArrivalJqueryObj } = add_flight_form_fields;
+        newFlightEstimatedTimeOfArrivalJqueryObj,
+        newFlightUploadFlightImageJuqryObj } = add_flight_form_fields;
     const data = {
         title: newFlightTitleJqueryObj.val(),
         price: newFlightPriceJqueryObj.val(),
@@ -31,13 +34,15 @@ const addFlight = async e => {
         origin: newFlightOriginJqueryObj.val(),
         destination: newFlightDestinationJqueryObj.val(),
         departTime: newFlightdepartTimeJqueryObj.val(),
-        estimatedTimeOfArrival: newFlightEstimatedTimeOfArrivalJqueryObj.val()
+        estimatedTimeOfArrival: newFlightEstimatedTimeOfArrivalJqueryObj.val(),
     };
-    const b = JSON.stringify(data);
+    const formData = new FormData();
+    Object.keys(data).forEach(field=>formData.append(field,data[field]));
+    console.log(formData);
+    formData.append('image',newFlightUploadFlightImageJuqryObj.prop('files')[0]);
     let newlyAddedFlight = await fetch(`${url}/flights`, {
         method: 'POST',
-        headers,
-        body: b
+        body: formData
     })
     newlyAddedFlight = await newlyAddedFlight.json();
     if(newlyAddedFlight.error){
@@ -67,10 +72,12 @@ const validate_add_flight_form = () => {
         newFlightOriginJqueryObj,
         newFlightDestinationJqueryObj,
         newFlightdepartTimeJqueryObj,
-        newFlightEstimatedTimeOfArrivalJqueryObj } = add_flight_form_fields;
+        newFlightEstimatedTimeOfArrivalJqueryObj,
+        newFlightUploadFlightImageJuqryObj } = add_flight_form_fields;
     const add_flight_button = $("#add-flight-btn");
     /* make sure all fields are filled and valid, and if so, allow to submit new flight */
-    if (newFlightTitleJqueryObj.val() != "" && newFlightPriceJqueryObj.val() != "" && newFlightCompanyJqueryObj.val() != ""
+    if (newFlightUploadFlightImageJuqryObj.prop('files').length > 0 &&
+        newFlightTitleJqueryObj.val() != "" && newFlightPriceJqueryObj.val() != "" && newFlightCompanyJqueryObj.val() != ""
         && newFlightOriginJqueryObj.val() != newFlightDestinationJqueryObj.val()
         && newFlightdepartTimeJqueryObj.val() && newFlightEstimatedTimeOfArrivalJqueryObj.val() &&
         new Date(newFlightdepartTimeJqueryObj.val())<new Date(newFlightEstimatedTimeOfArrivalJqueryObj.val())) {

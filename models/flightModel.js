@@ -31,6 +31,10 @@ const Flight = new Schema({
         type: Date,
         required: true
     },
+    imageUrl: {
+        type:String,
+        required:true
+    },
     economyPassengers: {
         type: Array,
         default: []
