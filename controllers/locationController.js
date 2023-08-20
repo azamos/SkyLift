@@ -1,10 +1,26 @@
 const locationDbService = require('../services/locationDbService');
-
 const utils = require('../services/utils');
-
 const { is_authorized } = utils;
 
 
+const getLocationsList = async (req,res) => {
+    if (!(req.cookies && req.cookies.token)) {
+        res.send({error:'missing authorization'});
+        return;
+    }
+    const authorizedFlag = await is_authorized(req.cookies.token);
+    if(!authorizedFlag){
+        res.send({error:'unauthorized request'});
+        return;
+    }
+    const result = await locationDbService.locationList();
+    console.log(result);
+    if(!result){
+        res.send({error:'something went wrong while fetching locationList'});
+        return;
+    }
+    res.json(result);
+}
 
 /* Creating locations: only admins are allowed */
 const createLocation = async (req, res) => {
@@ -37,4 +53,4 @@ const getPartialMatch = async (req, res) => {
 const updateLocationData = async (req, res) =>
     await locationDbService.updateLocation(req.body.cityName, req.body.data);
 
-module.exports = { createLocation, getPartialMatch, updateLocationData };
+module.exports = { createLocation, getPartialMatch, updateLocationData, getLocationsList };

@@ -1,0 +1,140 @@
+[{
+  "_id": {
+    "$oid": "64e27c2d146119111fb25ab7"
+  },
+  "cityName": "New York",
+  "country": "USA",
+  "airport": "JFK",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27c67146119111fb25aba"
+  },
+  "cityName": "New York",
+  "country": "USA",
+  "airport": "Newark Liberty",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27c78146119111fb25abd"
+  },
+  "cityName": "New York",
+  "country": "USA",
+  "airport": "LaGuardia",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27c8c146119111fb25ac0"
+  },
+  "cityName": "Tel Aviv",
+  "country": "Israel",
+  "airport": "Ben Gurion",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27c97146119111fb25ac3"
+  },
+  "cityName": "Tel Aviv",
+  "country": "Israel",
+  "airport": "Sde Dov",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27cf4146119111fb25ac6"
+  },
+  "cityName": "Be'er Ora",
+  "country": "Israel",
+  "airport": "Ramon",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27d2e146119111fb25ac9"
+  },
+  "cityName": "Bangkok",
+  "country": "Thailand",
+  "airport": "Suvarnabhumi ",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27d62146119111fb25acc"
+  },
+  "cityName": "Budapest ",
+  "country": "Hungary",
+  "airport": "Ferenc Liszt",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27d97146119111fb25acf"
+  },
+  "cityName": "Rome",
+  "country": "Italy",
+  "airport": "Leonardo da Vinci–Fiumicino ",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27dbc146119111fb25ad2"
+  },
+  "cityName": "Paris",
+  "country": "France",
+  "airport": "Charles de Gaulle",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27de6146119111fb25ad5"
+  },
+  "cityName": "Heraklion ",
+  "country": "Crete",
+  "airport": "Heraklion ",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27e16146119111fb25ad8"
+  },
+  "cityName": "Los Angeles",
+  "country": "USA",
+  "airport": "LAX",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27f23146119111fb25adb"
+  },
+  "cityName": "New Delhi",
+  "country": "India",
+  "airport": "Indira Gandhi",
+  "international": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64e27f7c146119111fb25ade"
+  },
+  "cityName": "Tokyo",
+  "country": "Japan",
+  "airport": "Haneda",
+  "international": true,
+  "__v": 0
+}]
