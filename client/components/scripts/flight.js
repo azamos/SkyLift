@@ -12,26 +12,36 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
+    const flight_id = flightModelInstance._id;
 
     //DELETE FLIGHT
-    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',function(){
+    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
+        console.log(flight_id);
+        fetch(`${url}/flights/deleteFromAllUsers`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({flight_id:flight_id})
+        })
+        .then(res => res.json())
+        .then(res =>{
+            if(res.error){
+                alert(res.msg);
+                return;
+            }
+        })
+        .catch(err => {
+            console.log(err); 
+        })
+
         fetch(`${url}/flights/delete`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({id:flightModelInstance._id})
+            body: JSON.stringify({id:flight_id})
         })
         .catch(err => {
             console.log(err); 
         })
-
-        fetch(`${url}/users/deleteFlightFromAllUsers`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({id:flightModelInstance._id})
-        })
-        .catch(err => {
-            console.log(err); 
-        })
+        
 
         loadMainComponent('allFlights');
     });
@@ -43,8 +53,15 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             method: 'POST',
             headers,
             body: JSON.stringify({flight_id:flightModelInstance._id , seatType:"economy"})
-        }
-        ).catch(err => {
+        })
+        .then(res => res.json())
+        .then(res =>{
+            if(res.msg){
+                alert(res.msg);
+                return;
+            }
+        })
+        .catch(err => {
             console.log(err);
         })
         loadMainComponent('allFlights');

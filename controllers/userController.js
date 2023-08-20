@@ -64,7 +64,6 @@ const getUserData = async (req, res) => {
             const user_data = await userDbService.findUserByMail(email);
             if (user_data) {
                 const monstrosity = await getUsersFlights(email);
-                console.log(monstrosity)
                 res.json(monstrosity);
                 return;
             }
@@ -257,22 +256,8 @@ const deleteUser = async (req, res) => {
     res.send({msg:'user deleted'});
 };
 
-const deleteFlightFromAllUsers = async (req,res) => {
-    const {flight_id} = req.body;
-    if (flight_id == null) {
-        res.send('Not a valid flight id');
-        return;
-    }
-    const deleteFlightFromAllUsers = await userDbService.deleteFlightFromAllUsers(flight_id);
-    console.log(deleteFlightFromAllUsers);
-    if(!deleteFlightFromAllUsers){
-        res.send({error:"can't delete flight from all users"});
-        return;
-    }
-    res.send({msg:'flight deleted from all users'});
-}
 
-module.exports = { deleteFlightFromAllUsers,userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser,signOut };
+module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser,signOut };
 
 
 

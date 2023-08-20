@@ -1,44 +1,69 @@
-<div class="flex-center" style="border-radius: 10px;box-shadow: 1px 1px 1px 1px rgb(184, 183, 183);">
-    <div>
-        <div class="user-header">
-            <div id="userName">Guest</div>
-            <div id="userEmail">Guest</div>
-        </div>
-        <div class="user-stats">
-            <div class="stat-box">
-                <div class="stat-label">Total Miles </div>
-                <div class="stat-value" id="totalMiles">0</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">All Future Flights</div>
-                <div class="stat-value" id="futureDealsSum">0</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">All Past Flights</div>
-                <div class="stat-value" id="pastFlights">0</div>
-            </div>
-        </div>
 
-        <div class="stat-box" style="margin-top: 7px;">
-            <div class="stat-label">cart &#128722</div>
-            <div class="stat-value" id="cartSum">0</div>
-        </div>
-
-        <div class="flight-container">
-            <h3>Last 3 Future Flights</h3>
-            <ul class="flight-list">
-                <li class="flight-item">Flight 1</li>
-                <li class="flight-item">Flight 2</li>
-                <li class="flight-item">Flight 3</li>
-            </ul>
-        </div>
-        <div class="flight-container">
-            <h3>Last 3 Past Flights</h3>
-            <ul class="flight-list">
-                <li class="flight-item">Past Flight 1</li>
-                <li class="flight-item">Past Flight 2</li>
-                <li class="flight-item">Past Flight 3</li>
-            </ul>
+    <div class="container mt-5">
+        <div class="card shadow-sm rounded">
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h1 class="username-account">User Profile</h1>
+                    <p><span id="useraccount-email"></span></p>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title ">Total Miles</h5>
+                                <p class="card-text" id="totalMiles-account"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" id="allfutureflights-button">
+                            <div class="card-body">
+                                <h5 class="card-title">All Future Flights</h5>
+                                <p class="card-text" id="futureDealsSum"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" id="allpastflights-button">
+                            <div class="card-body">
+                                <h5 class="card-title">All Past Flights</h5>
+                                <p class="card-text" id="pastFlights"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4 ">
+                    <div class="col-md-4" >
+                        <div class="card" id="cart-button-acc">
+                            <div class="card-body ">
+                                <h5 class="card-title">Cart &#128722;</h5>
+                                <p class="card-text" id="cartSum"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Last 3 Future Flights</h3>
+                                <ul class="list-group future-flight-list">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Last 3 Past Flights</h3>
+                                <ul class="list-group past-flight-list">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>

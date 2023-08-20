@@ -154,12 +154,18 @@ const loadMainComponent = async componentStr => {
     }
     
     if(componentStr == "userpage"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
-            if(state.user != 'Guest'){
-                loadUserData(state.user)
-            }
-        });
+        if(state.user != 'Guest'){
+            $('#popularDealsTOallFlight').text('Popular Deals');
+            $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
+                if(state.user != 'Guest'){
+                    loadUserData(state.user)
+                }
+            });
+        }
+        else {
+            alert('You must be logged in to view your account');
+            loadMainComponent('login');
+        }
     }
 
     if (componentStr == "errorMsg") {
@@ -167,16 +173,16 @@ const loadMainComponent = async componentStr => {
             $('#error-span').text('An Error Occoured');
         })
     }
-    if(componentStr == "whishlist"){
-        $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
-            addFlightWishlistInitiaizeFormFields(state.user);
-            addWishlistFlight();
-            $('#removeWishlistX').click(function () {
-                $('#WishlistToRemove').remove();
-            });
-        })
-    }
+    // if(componentStr == "whishlist"){
+    //     $('#popularDealsTOallFlight').text('Popular Deals');
+    //     $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
+    //         addFlightWishlistInitiaizeFormFields(state.user);
+    //         addWishlistFlight();
+    //         $('#removeWishlistX').click(function () {
+    //             $('#WishlistToRemove').remove();
+    //         });
+    //     })
+    // }
     if(componentStr == "mporeInfo"){
         $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
             

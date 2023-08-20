@@ -71,6 +71,42 @@ const deleteFlight = async (req,res) => {
     res.send("error: unauthorized user");
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const deleteFlightFromAllUsers = async (req, res) => {
+    const { flight_id } = req.body;
+    let check = false;
+    const flight = await flightDbService.getFlightById(flight_id);
+    if (!flight) {
+        res.send({ error: 'flight not found' });
+        return;
+    }
+    flight.economyPassengers.forEach(async passengerEmail => {
+        const user = await userDbService.findUserByMail(passengerEmail);
+        if (!user) {
+            res.send({ error: 'Error: user does not exist' });
+            return;
+        }
+        let { future_flights } = user;
+        const flightIndex = future_flights.indexOf(flight_id);
+        if (flightIndex != -1) {
+            future_flights.splice(flightIndex, 1);
+            await userDbService.updateUser(passengerEmail, { future_flights });
+            check = true;
+            return;
+        }
+        if(check){
+            res.send({msg:'flight deleted succesfuly'});
+            return;
+        }
+        else {
+            res.send({msg: 'something went wrong, flight not deleted. Please try again' });
+            return;
+        }
+    })
+};
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const purchaseFlightSeat = async (req,res) => {
     const { flight_id, seatType } = req.body;
     if(!(req.cookies && req.cookies.token)){
@@ -141,6 +177,7 @@ const getPopularFlights = async (req,res) => {
 
 
 module.exports = {
+    deleteFlightFromAllUsers,
     createFlight,//Create
     getFlights,//Read
     searchFlight,//Read
