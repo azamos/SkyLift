@@ -10,8 +10,11 @@ const { is_authorized } = utils;
 const createLocation = async (req, res) => {
     if (req.cookies && req.cookies.token) {
         const authorizedFlag = await is_authorized(req.cookies.token);
-        if (!authorizedFlag) {
-            res.send({ error: "unauthorized user" });
+        if(authorizedFlag){
+            const { cityName, country, airport } = req.body;
+            const new_location = await locationDbService.createLocation(cityName, country,airport);
+            res.json(new_location);
+            return;
         }
     }
     const { cityName, country } = req.body;

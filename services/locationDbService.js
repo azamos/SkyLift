@@ -1,8 +1,8 @@
 const Location = require('../models/locationModel');
 
 /* CREATE */
-const createLocation = async (cityName, country) => {
-    const new_location = new Location({ cityName, country });
+const createLocation = async (cityName, country, airport) => {
+    const new_location = new Location({ cityName, country, airport });
     return await new_location.save();
 }
 
