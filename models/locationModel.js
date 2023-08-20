@@ -16,6 +16,10 @@ const Location = new Schema({
         type:String,
         required: true
     },
+    airport:{
+        type:String,
+        required: true
+    },
     international: {
         type: Boolean,
         default:true

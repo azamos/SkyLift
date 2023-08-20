@@ -7,8 +7,8 @@ const createLocation = async (req, res) => {
     if(req.cookies && req.cookies.token){
         const authorizedFlag = await is_authorized(req.cookies.token);
         if(authorizedFlag){
-            const { cityName, country } = req.body;
-            const new_location = await locationDbService.createLocation(cityName, country);
+            const { cityName, country, airport } = req.body;
+            const new_location = await locationDbService.createLocation(cityName, country,airport);
             res.json(new_location);
             return;
         }
