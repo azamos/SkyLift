@@ -1,7 +1,7 @@
 const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     let htmlRef = !isPopular ? $("#allFlight-template").clone(): $("#flight-template").clone();
     htmlRef.attr('style',"background-color: rgb(224, 224, 217)");
-    htmlRef.children('.destination-photo').attr('src',`./images/destination/${camelize(flightModelInstance.destination)}.jpg`)
+    htmlRef.children('.destination-photo').attr('src',flightModelInstance.imageUrl);
     htmlRef.attr('id',`${flightModelInstance._id["$oid"]}`);
     let flightHeader = htmlRef.children('.flight-header');
     flightHeader.children('.price').text(`PRICE: ${flightModelInstance.price}$`)
