@@ -128,7 +128,7 @@ const deleteFlightFromAllUsers = async (req, res) => {
             return;
         }
         else {
-            res.send({msg: 'something went wrong, flight not deleted. Please try again' });
+            res.send({error: 'something went wrong, flight not deleted. Please try again' });
             return;
         }
     })

@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const path = require('path');
@@ -7,9 +8,10 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
+const locationModel= require('./models/locationModel');
 
-const newLocal = require('custom-env')  
-newLocal.env(process.env.NODE_ENV,'./config');
+const newLocal = require('custom-env')
+newLocal.env(process.env.NODE_ENV, './config');
 
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 const app = express();
@@ -23,7 +25,22 @@ app.use(express.static(path.join(__dirname, './client')));
 app.use('/api', indexRouter);
 app.set('socketio', io);
 
-
+(async () => {
+  try{
+    const locationsCounter = await locationModel.countDocuments(); 
+    if(locationsCounter==0){
+      const jsonFile = await fs.promises.readFile(path.join(__dirname,'/client/SkyLift.locations.json'),'utf-8');
+      const jsonToOBj = JSON.parse(jsonFile);
+      await locationModel.insertMany(jsonToOBj);
+    }
+    else{
+      console.log('data is already present...');
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+})()
 let connections = 0;
 let watchedFlights = new Map();
 io.on('connection', socket => {
@@ -44,8 +61,8 @@ io.on('connection', socket => {
         //clients_set.add(socketId);
         watchedFlights.set(deal, new Set());
       }
-        watchedFlights.get(deal).add(socketId);
-        //returns a client set _^
+      watchedFlights.get(deal).add(socketId);
+      //returns a client set _^
     });
     //console.log(watchedFlights)
   })
@@ -72,5 +89,4 @@ io.on('connection', socket => {
   //   });
 })
 
-
-httpServer.listen(process.env.PORT, () => console.log('server online on port '+process.env.PORT));
+httpServer.listen(process.env.PORT, () => console.log('server online on port ' + process.env.PORT));

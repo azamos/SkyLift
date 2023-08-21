@@ -27,12 +27,14 @@ function loadUserData (email_in) {
                         const flight = generateMoreInfoFlightHTML(pastFlights[i]);
                         $('.past-flight-list').append(flight);
                     }
+
                 if(futureFlights.length!=0){
                     $("#allfutureflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
+                            
                             for(let i = 0; i<futureFlights.length; i++){
                                 const flight = generateMoreInfoFlightHTML(futureFlights[i]);
-                                $('#allfutureflights').append(flight);
+                                $('#all-flights-info').append(flight);
                             }
                             $('#putNameHere').text('Future Flights');
                             $('#go-back-btn-allflights').on('click',()=>{
@@ -40,12 +42,13 @@ function loadUserData (email_in) {
                             })
                         })
                     })}
+                
                 if(pastFlights.length!=0){
                     $("#allpastflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
                             for(let i = 0; i<pastFlights.length; i++){
                                 const flight = generateMoreInfoFlightHTML(pastFlights[i]);
-                                $('#allfutureflights').append(flight);
+                                $('#all-flights-info').append(flight);
                             }
                             $('#putNameHere').text('Past Flights');
                             $('#go-back-btn-allflights').on('click',()=>{
@@ -53,12 +56,12 @@ function loadUserData (email_in) {
                             })
                         })
                     })}
-                    if(cart.length!=0){
-                        $("#cart-button-acc").on('click',()=>{
+                 
+                if(res.cart.length!=0){
+                    $("#cart-button-acc").on('click',()=>{
                             loadMainComponent('cart');
                         })
                     }
-                    
                 })
             }
             
