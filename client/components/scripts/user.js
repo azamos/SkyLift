@@ -1,7 +1,7 @@
 const generateUserHTML = (UserModelInstance,i) =>{
     let htmlRef = $("#allusers-template").clone();
     htmlRef.attr('style',"background-color: rgb(224, 224, 217)");
-    //
+    
     let userHeader = htmlRef.children('.card').children('.card-body');
     userHeader.children('.fullName-allusers').text(`User Name:  ${UserModelInstance.full_name}`)
     userHeader.children('.phoneNumber-allusers').text(`Phone Number: 0${UserModelInstance.phone_number}`)
@@ -11,9 +11,30 @@ const generateUserHTML = (UserModelInstance,i) =>{
     userHeader.children('.place-holder-flights-info').children('.futureFlights-allusers').text(`Future Flights: ${UserModelInstance.future_flights.length}`)
     userHeader.children('.place-holder-flights-info').children('.cart-allusers').text(`Cart: ${UserModelInstance.cart.length}`)
     
+    
 
+    userHeader.children('.place-holder-flights-info').children('.circle-delete-btn').on('click',function(){
+        var result = window.confirm("Are you sure you want to delete this user?");
+        if(!result){
+            console.log('not deleted');
+            return;
+        }
+        fetch(`${url}/users/delete`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({email:UserModelInstance.email})
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.status == 'success'){
+                loadMainComponent('searchUsers');
+                alert('User Deleted Successfully');
+            }
+        })
+        .catch(err => {console.log(err);})
 
-    //TODO --- WORK ON THIS
+    });
+
     userHeader.children('.place-holder-flights-info').children('.moreInfo-allusers').on('click',function(){
         $('#all-users-container').html('');
         $('#main-component-container').html('');

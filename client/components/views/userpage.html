@@ -1,52 +1,61 @@
 
+  
+    <div class="circle-edit" role="img" aria-label="Edit">
+      ✏️
+    </div>
+  
     <div class="container mt-5">
         <div class="card shadow-sm rounded">
             <div class="card-body">
                 <div class="text-center mb-4">
                     <h1 class="username-account">User Profile</h1>
-                    <p><span id="useraccount-email"></span></p>
+                    <p><span id="useraccount-email" style="font-size: 20px;"></span></p>
+                    <p><span id="useraccount-phonenumber"></span></p>
                 </div>
+
+                <div class="row mb-4 " style="justify-content: center;">
+                    <div class="col-md-4" style="justify-content: center;">
+                        <div class="card" id="cart-button-acc" style="justify-content: center;">
+                            <div class="card-body " style="justify-content: center;">
+                                <h5 class="card-title" style="text-align: center;">Cart &#128722;</h5>
+                                <p class="card-text" id="cartSum" style="text-align: center;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card" id="allpastflights-button">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">All Past Flights</h5>
+                                <p class="card-text" id="pastFlights" style="text-align: center;"></p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title ">Total Miles</h5>
-                                <p class="card-text" id="totalMiles-account"></p>
+                                <h5 class="card-title " style="text-align: center;">Total Miles</h5>
+                                <p class="card-text" id="totalMiles-account" style="text-align: center;"></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card" id="allfutureflights-button">
                             <div class="card-body">
-                                <h5 class="card-title">All Future Flights</h5>
-                                <p class="card-text" id="futureDealsSum"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" id="allpastflights-button">
-                            <div class="card-body">
-                                <h5 class="card-title">All Past Flights</h5>
-                                <p class="card-text" id="pastFlights"></p>
+                                <h5 class="card-title" style="text-align: center;">All Future Flights</h5>
+                                <p class="card-text" id="futureDealsSum" style="text-align: center;"></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4 ">
-                    <div class="col-md-4" >
-                        <div class="card" id="cart-button-acc">
-                            <div class="card-body ">
-                                <h5 class="card-title">Cart &#128722;</h5>
-                                <p class="card-text" id="cartSum"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Last 3 Future Flights</h3>
+                                <h3 class="card-title" style="text-align: center;">Last 3 Future Flights</h3>
                                 <ul class="list-group future-flight-list">
                                     
                                 </ul>
@@ -56,7 +65,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Last 3 Past Flights</h3>
+                                <h3 class="card-title" style="text-align: center;">Last 3 Past Flights</h3>
                                 <ul class="list-group past-flight-list">
                                     
                                 </ul>
