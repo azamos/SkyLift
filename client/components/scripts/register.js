@@ -33,9 +33,7 @@ const register = e => {
             loadMainComponent('errorMsg');
             return;
         }
-        state.token = res.token;
         state.user = register_email;
-        headers.set('Authorization',res.token);
         if(register_full_name == ""){
             $("#userIdentitySpan").text(`User: ${register_email}`);
             state.name = register_email;

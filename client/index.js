@@ -1,13 +1,11 @@
 const allDeals = [];
 
 const headers = new Headers({
-    'Authorization': 'Guest',
     'Content-Type': 'application/json'
 });
 const state = {
     user: 'Guest',
-    name: 'Guest',
-    token: "",
+    name: 'Guest'
 }
 let socket = null;
 
@@ -96,6 +94,10 @@ const loadMainComponent = async componentStr => {
         $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
             let res = await fetch(`${url}/flights`);
                 res = await res.json();
+                if(!(res instanceof Array)){
+                    console.log('PROBLEM:')
+                    return;
+                }
                 res.forEach((flightModelInstance, i) => {
                     $("#featuredDeals").append(generateFlightHTML(flightModelInstance, i , false));
                     allDeals.push(flightModelInstance);

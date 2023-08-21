@@ -16,7 +16,6 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
 
     //DELETE FLIGHT
     htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
-        console.log(flight_id);
         fetch(`${url}/flights/deleteFromAllUsers`, {
             method: 'POST',
             headers,

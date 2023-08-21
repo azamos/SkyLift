@@ -1,20 +1,8 @@
 const locationDbService = require('../services/locationDbService');
-const utils = require('../services/utils');
-const { is_authorized } = utils;
 
 
 const getLocationsList = async (req,res) => {
-    if (!(req.cookies && req.cookies.token)) {
-        res.send({error:'missing authorization'});
-        return;
-    }
-    const authorizedFlag = await is_authorized(req.cookies.token);
-    if(!authorizedFlag){
-        res.send({error:'unauthorized request'});
-        return;
-    }
     const result = await locationDbService.locationList();
-    console.log(result);
     if(!result){
         res.send({error:'something went wrong while fetching locationList'});
         return;
@@ -24,17 +12,12 @@ const getLocationsList = async (req,res) => {
 
 /* Creating locations: only admins are allowed */
 const createLocation = async (req, res) => {
-    if (req.cookies && req.cookies.token) {
-        const authorizedFlag = await is_authorized(req.cookies.token);
-        if(authorizedFlag){
-            const { cityName, country, airport } = req.body;
-            const new_location = await locationDbService.createLocation(cityName, country,airport);
-            res.json(new_location);
-            return;
-        }
+    const { cityName, country, airport } = req.body;
+    if(!(cityName && country && airport)){
+        res.status(400).send({error:'missing paramaters'});
+        return;
     }
-    const { cityName, country } = req.body;
-    const new_location = await locationDbService.createLocation(cityName, country);
+    const new_location = await locationDbService.createLocation(cityName, country,airport);
     res.json(new_location);
     return;
 };

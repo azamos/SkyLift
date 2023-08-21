@@ -3,7 +3,7 @@ const flightDbService = require('../services/flightDbService');
 const userDbService = require('../services/userDbService');
 const userModel = require('../models/userModel');
 const utils = require('../services/utils');
-const { is_authorized, valid_field_names } = utils;
+const { valid_field_names } = utils;
 const multer = require('multer');
 const path = require('path');
 // Configure multer to handle file uploads
@@ -22,15 +22,7 @@ const upload = multer({ storage: storage });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* only admins should be able to create new flights, no need to send email to is_authorized */
 const createFlight = async (req, res) => {
-    if (!(req.cookies && req.cookies.token)) {
-        res.send({ error: 'missing authorziation' });
-        return;
-    }
-    const authorizedFlag = await is_authorized(req.cookies.token);
-    if (!authorizedFlag) {
-        res.send({ error: 'unauthorized request' });
-        return;
-    }
+    //Moved authorization checks to middleware: authorization.js
     upload.single('image')(req, res, async function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(400).json({ error: 'File upload failed.' });
@@ -43,7 +35,7 @@ const createFlight = async (req, res) => {
         const imageUrl = `/images/destination/${req.file.filename}`;
         console.log('after writing file to server. image is');
         console.log(imageUrl);
-        const newFlight = await flightDbService.createFlight({...req.body,imageUrl});
+        const newFlight = await flightDbService.createFlight({ ...req.body, imageUrl });
         res.json(newFlight);
         return;
     });
@@ -88,16 +80,11 @@ const updateFlightData = async (req, res) => {//will reach here with a get reque
     res.json(flightToBeUpdated);
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/* NO BRAINER: Admins only! No need to send email, only need token type */
+
 const deleteFlight = async (req, res) => {
-    if (req.cookies && req.cookies.token) {
-        const authorizedFlag = await is_authorized(req.cookies.token);
-        if (authorizedFlag) {
-            await flightDbService.deleteFlight(req.body.id);
-            return;
-        }
-    }
-    res.send("error: unauthorized user");
+    //Moved authorization checks to middleware: authorization.js
+    await flightDbService.deleteFlight(req.body.id);
+    res.end();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -123,12 +110,12 @@ const deleteFlightFromAllUsers = async (req, res) => {
             check = true;
             return;
         }
-        if(check){
-            res.send({msg:'flight deleted succesfuly'});
+        if (check) {
+            res.send({ msg: 'flight deleted succesfuly' });
             return;
         }
         else {
-            res.send({msg: 'something went wrong, flight not deleted. Please try again' });
+            res.send({ msg: 'something went wrong, flight not deleted. Please try again' });
             return;
         }
     })
@@ -136,7 +123,7 @@ const deleteFlightFromAllUsers = async (req, res) => {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const purchaseFlightSeat = async (req,res) => {
+const purchaseFlightSeat = async (req, res) => {
     const { flight_id, seatType } = req.body;
     if (!(req.cookies && req.cookies.token)) {
         res.send({ error: 'missing authorization' });

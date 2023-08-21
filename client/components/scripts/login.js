@@ -20,35 +20,20 @@ const login = e => {
                 $("#login-email-input").val("");
                 $("#login-password-input").val("");
                 $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
-                headers.set('Authorization',res.token);
                 state.user = res.email;
                 state.name = res.name;
-                state.token = res.token;
+                if(res.isAdmin){
+                    $('#addFlight-dropdown').show();
+                    $('#addLocation-dropdownMenu').show();
+                    $('#searchUsers-dropdown').show();
+                }
                 loadMainComponent('welcomeMsg');
-
-                //ADMIN check!
-                fetch(`${url}/users/getUserData`, {
-                    method: 'POST',
-                    headers,
-                    body: JSON.stringify({email:state.user})
-                })
-                .then(resu => resu.json())
-                .then(resu => {
-                    if(resu.user.isAdmin){
-                        $('#addFlight-dropdown').show();
-                        $('#addLocation-dropdownMenu').show();
-                        $('#searchUsers-dropdown').show();
-                    }
-                })
-                .catch(err => {console.log(err);})
-
                 //LOGOUT BUTTON functionality
                 $("#logoutButton").show();
 
                 $("#logoutButton").on('click',function(){
                     state.user = 'Guest';
                     state.name = 'Guest';
-                    state.token = "";
                     fetch(`${url}/users/signout`, {
                         method: 'GET',
                         headers

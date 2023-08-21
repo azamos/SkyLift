@@ -1,4 +1,5 @@
 const usersRouter = require('express').Router();
+const requireAuthorization = require('../middleware/authorization');
 const {
     userLogin,
     createUser,
@@ -9,11 +10,14 @@ const {
     signOut
  } = require('../controllers/userController');
 
+//these 2 don't need authorization, since users who login/register do so since they
+//need to have an authentication token created
 usersRouter.post('/checkuser',userLogin);
-usersRouter.post('/getUserData',getUserData);
 usersRouter.post('/',createUser);
-usersRouter.get('/usersList',getUsersList);
-usersRouter.post('/update',updateUser);
-usersRouter.post('/delete',deleteUser);
-usersRouter.get('/signout',signOut);
+
+usersRouter.post('/getUserData',requireAuthorization,getUserData);
+usersRouter.get('/usersList',requireAuthorization,getUsersList);
+usersRouter.post('/update',requireAuthorization,updateUser);
+usersRouter.post('/delete',requireAuthorization,deleteUser);
+usersRouter.get('/signout',requireAuthorization,signOut);
 module.exports = usersRouter;

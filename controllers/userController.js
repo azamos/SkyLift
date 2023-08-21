@@ -2,11 +2,11 @@ const userDbService = require('../services/userDbService');
 const tokenDbService = require('../services/tokenDbService');
 const flightDbService = require('../services/flightDbService');
 const utils = require('../services/utils');
-const { is_authorized, emailSyntaxIsValid } = utils;
+const { emailSyntaxIsValid } = utils;
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 const salt_rounds = 12;
-const cookieOptions = {httpOnly: true,sameSite: 'strict'};
+const cookieOptions = { httpOnly: true, sameSite: 'strict' };
 
 /*NOTE FOR TEAM:
     This is the Controller for the Users, which handles ALL requests
@@ -53,25 +53,14 @@ or if an admin wishes to watch any other user's profile page(also called Account
 /* for authorized users only: either the user himself, or an admin. */
 /* Works fine, but try to find edge cases I might have missed */
 const getUserData = async (req, res) => {
-    if (req.cookies && req.cookies.token) {
-        let { email } = req.body;
-        if (emailSyntaxIsValid(email) == false) {
-            res.send('Not a valid email input. Try again with a valid email');
-            return;
-        }
-        const authorizedFlag = await is_authorized(req.cookies.token, email);
-        if (authorizedFlag) {
-            const user_data = await userDbService.findUserByMail(email);
-            if (user_data) {
-                const monstrosity = await getUsersFlights(email);
-                res.json(monstrosity);
-                return;
-            }
-            res.send({ error: 'user not found' });
-            return;
-        }
+    let { email } = req.body;
+    const user_data = await userDbService.findUserByMail(email);
+    if (user_data) {
+        const monstrosity = await getUsersFlights(email);
+        res.json(monstrosity);
+        return;
     }
-    res.send({ error: 'unauthorized user' });
+    res.send({ error: 'something went wrong...' });
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,7 +102,7 @@ const userLogin = async (req, res) => {
             /* Generates public key for user */
             let token_id = `${key}${process.env.SECRET}`;
             await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
-            res.cookie('token', key, cookieOptions).json({ token: key, email, name });
+            res.cookie('token', key, cookieOptions).json({ email, name, isAdmin: raw_user.isAdmin });
             return;
         }
         else {
@@ -133,7 +122,7 @@ const logOff = async (req, res) => {
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }
-        res.clearCookie('token',cookieOptions);
+        res.clearCookie('token', cookieOptions);
         return;
     }
 }
@@ -144,11 +133,11 @@ const signOut = async (req, res) => {
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }
-        res.clearCookie('token',cookieOptions);
-        res.send({msg:'user signed off'});
+        res.clearCookie('token', cookieOptions);
+        res.send({ msg: 'user signed off' });
         return;
     }
-    res.send({msg:'not currently signed in user'});
+    res.send({ msg: 'not currently signed in user' });
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* Works fine, but try to find edge cases I might have missed */
@@ -181,7 +170,7 @@ const createUser = async (req, res) => {
         /* bcrypt will generate a different hash for the same values, thus the above did not work */
         let token_id = `${key}${process.env.SECRET}`;
         await tokenDbService.createToken(token_id, email);
-        res.cookie('token', key, cookieOptions).json({ token: key, email });
+        res.cookie('token', key, cookieOptions).json({ email, name: newUser.full_name, isAdmin: newUser.isAdmin });
         return;
     }
     else {
@@ -192,26 +181,14 @@ const createUser = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* WORKS fine when you are logged in with an admin, as is required. */
 const getUsersList = async (req, res) => {
-    if (req.cookies && req.cookies.token) {
-        const authorizedFlag = await is_authorized(req.cookies.token);
-        if (!authorizedFlag) {
-            res.send({ error: 'unauthorized request. If you are allowed to view this, login again' });
-            return;
-        }
-        else {
-            const usersArr = await userDbService.getUsers();
-            res.json(usersArr);
-        }
-        return;
-    }
-    res.send({ error: 'missing authorization' })
+    const usersArr = await userDbService.getUsers();
+    res.json(usersArr);
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
 const updateUser = async (req, res) => {
-    console.log(req.body);
     const { email, newData } = req.params;
     if (emailSyntaxIsValid(email) == false) {
         res.send('Not a valid email input. Try again with a valid email');
@@ -223,41 +200,30 @@ const updateUser = async (req, res) => {
     }
     /* TODO: WE MUST VALIDATE ALL THE DATA. for now, I simply use it as it is,
     which is very very bad.  */
-    const user = await userDbService.updateUser(email,newData);
-    console.log(user);
+    const user = await userDbService.updateUser(email, newData);
     res.send('User updated...');
     return;
-    
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
 const deleteUser = async (req, res) => {
-    console.log(req.body);
-    const {email} = req.body;
+    const { email } = req.body;
     if (emailSyntaxIsValid(email) == false) {
         res.send('Not a valid email input. Try again with a valid email');
         return;
     }
-    if (!(req.cookies && req.cookies.token)) {
-        res.send({ error: 'missing authorization' })
-        return;
-    }
-    const authorizedFlag = await is_authorized(req.cookies.token);
-    if(!authorizedFlag){
-        res.send({error:'unauthorized request'});
-        return;
-    }
     const deleted = await userDbService.deleteUser(email);
-    if(!deleted){
-        res.send({error:"can't delete user"});
+    if (!deleted) {
+        res.send({ error: "can't delete user" });
         return;
     }
-    res.send({msg:'user deleted'});
+    res.send({ msg: 'user deleted' });
 };
 
 
-module.exports = { userLogin, createUser, getUserData, getUsersList,updateUser,deleteUser,signOut };
+module.exports = { userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut };
 
 
 
