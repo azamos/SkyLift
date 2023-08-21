@@ -13,8 +13,8 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
     const flight_id = flightModelInstance._id;
-
-    //DELETE FLIGHT
+    if(!isPopular){
+            //DELETE FLIGHT
     htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
         fetch(`${url}/flights/deleteFromAllUsers`, {
             method: 'POST',
@@ -24,7 +24,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         .then(res => res.json())
         .then(res =>{
             if(res.error){
-                alert(res.msg);
+                console.log(res.error);
                 return;
             }
         })
@@ -40,14 +40,14 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         .catch(err => {
             console.log(err); 
         })
-        
 
         loadMainComponent('allFlights');
     });
+    }
+    
 
     //BUY FLIGHT
-    htmlRef.children('.card-body').children('.buy-button').on('click',function(){
-        const ff = "future_flights";
+    htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
         fetch(`${url}/flights/purchase`, {
             method: 'POST',
             headers,
@@ -56,14 +56,14 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         .then(res => res.json())
         .then(res =>{
             if(res.msg){
-                alert(res.msg);
+                console.log(res.msg);
+                loadMainComponent('allFlights');
                 return;
             }
         })
         .catch(err => {
             console.log(err);
         })
-        loadMainComponent('allFlights');
     });
 
     //EDIT FLIGHT

@@ -36,7 +36,7 @@ const loadMainComponent = async componentStr => {
     $('#main-component-container').html('')
  
     if(componentStr=='login'){
-        $('#popularDealsTOallFlight').text('Popular Deals');
+        $('#popularDealsTOallFlight').text('All Deals');
         $('#main-component-container').load(`${views_path}/loginform.html`,x=> {
             $("#login-submit").on('click',login);
             $("#login-email-input").on('input',login_email_input_changed)
@@ -51,12 +51,23 @@ const loadMainComponent = async componentStr => {
         });
     }
 
-    //user search
-    if(componentStr=="searchUsers"){
+   
+
+    // if(componentStr == "moreInfo"){
+    //     $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
+    //         bringAllUsers();
+    //     })
+    // }
+
+     //user search
+     if(componentStr=="searchUsers"){
+        $('#main-component-container').html('');
+        loadMainComponent('popularDeals');
+        
+        //hide popular deals and the text "alldeals/allflights"
         $('#popularDealsTOallFlight').hide();
         $('#featuredDeals').hide();
         
-        //TODO need to add validation for admin !!!!!!!!!!!!!!!!!!!!!!
         $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
             $('#all-users-container').load(`${views_path}/allUsers.html`,x=>{
                 bringAllUsers();
@@ -68,10 +79,12 @@ const loadMainComponent = async componentStr => {
 
     if (componentStr == "popularDeals") {
         $('#main-component-container').html('');
+        $('#popularDealsTOallFlight').text('Popular Deals');
         $('#featuredDeals').html('');
+
         let deals_ids = allDeals.map(d=>d._id);
         socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
-        $('#popularDealsTOallFlight').text('Popular Deals');
+
         $("#featuredDeals").load(`${views_path}/flight.html`, async () => {
             /* brings hot deals, no need for authorization.Alternitavely, send authorization: Guest */
             let res = await fetch(`${url}/flights/popular`);
@@ -88,11 +101,14 @@ const loadMainComponent = async componentStr => {
     if (componentStr == "allFlights") {
         //unsubscribe flights first
         $('#main-component-container').html('');
+        $('#popularDealsTOallFlight').text('All Flights');
+        $('#featuredDeals').html('');
+
         let deals_ids = allDeals.map(d=>d._id);
         socket.emit('unsubscribe flights', {socketId: socket.id ,featuredDeals:deals_ids})
-        $('#popularDealsTOallFlight').text('All Flights');
+        
         $('#featuredDeals').load(`${views_path}/allFlights.html`, async ()=>{
-            let res = await fetch(`${url}/flights`);
+                let res = await fetch(`${url}/flights`);
                 res = await res.json();
                 if(!(res instanceof Array)){
                     console.log('PROBLEM:')
@@ -104,7 +120,6 @@ const loadMainComponent = async componentStr => {
                 });
                 let deals_ids = allDeals.map(d=>d._id);
                 socket.emit('watched flights', {socketId: socket.id ,featuredDeals:deals_ids})
-                //socket.emit('watched flights', {socketId: socket.id ,featuredDeals})
         })
     }
 
@@ -157,6 +172,7 @@ const loadMainComponent = async componentStr => {
     
     if(componentStr == "userpage"){
         if(state.user != 'Guest'){
+            loadMainComponent('popularDeals');
             $('#popularDealsTOallFlight').text('Popular Deals');
             $('#main-component-container').load(`${views_path}/userpage.html`,x=>{
                 if(state.user != 'Guest'){
@@ -175,6 +191,10 @@ const loadMainComponent = async componentStr => {
             $('#error-span').text('An Error Occoured');
         })
     }
+
+
+   
+
     // if(componentStr == "whishlist"){
     //     $('#popularDealsTOallFlight').text('Popular Deals');
     //     $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
@@ -185,12 +205,6 @@ const loadMainComponent = async componentStr => {
     //         });
     //     })
     // }
-    if(componentStr == "mporeInfo"){
-        $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
-            
-        })
-    }
-
 
 }
 
