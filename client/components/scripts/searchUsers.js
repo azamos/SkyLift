@@ -33,6 +33,7 @@ const search = e => {
                     }
 
                 if(futureFlights.length!=0){
+                    $("#allfutureflights-button").attr('style', 'background-color: #5f9ea0');
                     $("#allfutureflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
                             
@@ -45,9 +46,10 @@ const search = e => {
                                 loadMainComponent('userpage');
                             })
                         })
-                    })}
+                })}
                 
                 if(pastFlights.length!=0){
+                    $("#allpastflights-button").attr('style', 'background-color: blue');
                     $("#allpastflights-button").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`,()=>{
                             for(let i = 0; i<pastFlights.length; i++){
@@ -59,9 +61,10 @@ const search = e => {
                                 loadMainComponent('userpage');
                             })
                         })
-                    })}
+                })}
                  
                 if(res.cart.length!=0){
+                    $("#cart-button-acc").attr('style', 'background-color: blue');
                     $("#cart-button-acc").on('click',()=>{
                             loadMainComponent('cart');
                         })

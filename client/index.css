@@ -1,3 +1,33 @@
+.circle-edit {
+  margin-top: 30px;
+  margin-bottom: -10px;
+  display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px; /* Double the size */
+    height: 80px; /* Double the size */
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    font-size: 32px; /* Adjust font size to maintain emoji size */
+}
+.circle-delete-btn{
+  margin-left: 10px;
+  margin-right: -10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  font-size: 15px;
+}
+
+.users-search-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
 .wishlist-button {
   color: #fff;

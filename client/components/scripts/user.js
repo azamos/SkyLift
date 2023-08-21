@@ -1,7 +1,7 @@
 const generateUserHTML = (UserModelInstance,i) =>{
     let htmlRef = $("#allusers-template").clone();
     htmlRef.attr('style',"background-color: rgb(224, 224, 217)");
-    //
+    
     let userHeader = htmlRef.children('.card').children('.card-body');
     userHeader.children('.fullName-allusers').text(`User Name:  ${UserModelInstance.full_name}`)
     userHeader.children('.phoneNumber-allusers').text(`Phone Number: 0${UserModelInstance.phone_number}`)
