@@ -215,6 +215,7 @@ const deleteUser = async (req, res) => {
         return;
     }
     const deleted = await userDbService.deleteUser(email);
+    console.log(deleted);
     if (!deleted) {
         res.send({ error: "can't delete user" });
         return;

@@ -10,14 +10,7 @@ const createUser = async (email , password , full_name , phone_number) => {//TOD
 /* READ - LIST */
 const getUsers = async numOfUsers => await User.find({});//TODO: in future, add a limiter for pagination purposes.the name of the paramater: numOfUsers
 
-/* READ - single entry */
-const findUserByMail = async email =>{
-    const exist = await User.findOne({email})
-    if(exist!=null){
-        return exist;
-    } 
-    return null;
-}
+
 /* UPDATE */
 const updateUser = async (email,data) => {
     const x= await User.findOne({email});
@@ -30,12 +23,19 @@ const updateUser = async (email,data) => {
     return x;
 }
 
-
+/* READ - single entry */
+const findUserByMail = async email =>{
+    const exist = await User.findOne({email})
+    if(exist!=null){
+        return exist;
+    } 
+    return null;
+}
 
 /* DELETE */
 const deleteUser = async userEmail => {
-    const userToDeleted = await User.findByEmail(userEmail);
-    if(!userEmail){
+    const userToDeleted = await findUserByMail(userEmail);
+    if(!userToDeleted){
         return null;//Maybe throwing an error is better?
     }
     await userToDeleted.deleteOne();
