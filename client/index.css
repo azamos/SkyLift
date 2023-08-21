@@ -9,6 +9,7 @@
     border-radius: 50%;
     background-color: #f0f0f0;
     font-size: 32px; /* Adjust font size to maintain emoji size */
+    user-select: none;
 }
 .circle-delete-btn{
   margin-left: 10px;
@@ -21,6 +22,7 @@
   border-radius: 50%;
   background-color: #f0f0f0;
   font-size: 15px;
+  user-select: none;
 }
 
 .users-search-container {

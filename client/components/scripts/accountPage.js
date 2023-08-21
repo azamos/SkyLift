@@ -12,10 +12,12 @@ function loadUserData (email_in) {
                 $('#main-component-container').load(`${views_path}/userpage.html`,()=>{
                     $('.username-account').text(res.user.full_name);
                     $('#useraccount-email').text(res.user.email);
+                    $('#useraccount-phonenumber').text("0" + res.user.phone_number);
                     $('#totalMiles-account').text(res.user.total_miles);
                     $('#futureDealsSum').text(res.future_flights.length);
                     $('#pastFlights').text(res.past_flights.length);
                     $('#cartSum').text(res.cart.length);
+
                      
                     const futureFlights = res.future_flights;
                     for(let i = 0; i<futureFlights.length && i<3; i++){
