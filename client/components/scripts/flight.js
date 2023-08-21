@@ -51,7 +51,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         fetch(`${url}/flights/purchase`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({flight_id:flightModelInstance._id , seatType:"economy"})
+            body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
         })
         .then(res => res.json())
         .then(res =>{
