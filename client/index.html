@@ -45,7 +45,8 @@
         <div id="featuredDeals" class="grid-container"
             style="width: 65%;box-shadow: 1px 1px 1px 1px #0D67B5;border-radius: 20px;"></div>
     </div>
-
+<!--TODO: move to someplace more sensible-->
+<div id="newsContainer"></div>
 
 
     <style>
@@ -59,42 +60,6 @@
             transition: 0.4s;
         }
     </style>
-
-    <!-- <input type="file" id="fileInput">
-    <button id="uploadButton">Upload</button>
-    <div id="message"></div>
-
-    <script>
-        document.getElementById('uploadButton').addEventListener('click', () => {
-          const fileInput = document.getElementById('fileInput');
-          const file = fileInput.files[0];
-          if (!file) {
-            showMessage('Please select a file.');
-            return;
-          }
-    
-          const formData = new FormData();
-          formData.append('image', file);
-    
-          fetch('http://localhost:3000/api/locations/uploadimage', {
-            method: 'POST',
-            body: formData,
-          })
-          .then(response => response.text())
-          .then(message => {
-            showMessage(message);
-          })
-          .catch(error => {
-            showMessage('An error occurred.');
-            console.error(error);
-          });
-        });
-    
-        function showMessage(message) {
-          const messageDiv = document.getElementById('message');
-          messageDiv.textContent = message;
-        }
-      </script> -->
 
     <!--Here, we load the HTML component's functionalities-->
     <script src="./components/scripts/flight.js"></script>

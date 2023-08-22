@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <div id="article-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <!-- articles will be dynamically added here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    (async () => {
+        const articlesJSON = await fetch(`${url}/news`);
+        const articlesRes = await articlesJSON.json();
+        if(articlesRes.error){
+            console.log(articlesRes.error);
+            return;
+        }
+        const { articles } = articlesRes;
+        const carouselInner = document.querySelector(".carousel-inner");
+
+        articles.forEach((article, index) => {
+            const isActive = index === 0 ? "active" : "";
+            const articleHTML = `
+        <div class="carousel-item ${isActive}">
+          <div class="card p-3">
+            <h5 class="card-title">${article.title}</h5>
+            <p class="card-text">${article.description}</p>
+            <a href="${article.url}" class="btn btn-primary">Read more</a>
+          </div>
+        </div>
+      `;
+            carouselInner.innerHTML += articleHTML;
+        });
+
+        // Initialize the carousel
+        $("#article-carousel").carousel({
+            interval: 60000, // 1 minute interval
+            pause: "hover"
+        });
+    })()
+</script>

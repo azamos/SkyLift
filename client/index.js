@@ -244,7 +244,7 @@ $(async function () {
     socket = io();
     socket.on('chat message', msg => console.log(msg))
     loadMainComponent('popularDeals');
-    
+    $('#newsContainer').load(`${views_path}/articlesComponent.html`);
 
     /**
      * the bellow function is self activated, it will bring the relevant deals from the server and then generate html for each flight.

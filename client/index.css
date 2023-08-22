@@ -100,3 +100,7 @@
     flex-direction: column;
     align-items: center;
   }
+  .carousel-item {
+    background-color: #f8f9fa; /* Set background color as needed */
+    color: #343a40; /* Set text color as needed */
+  }
