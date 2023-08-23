@@ -94,7 +94,6 @@ const userLogin = async (req, res) => {
         }
     }
     const raw_user = await userDbService.findUserByMail(email);
-    let name = raw_user.full_name;
     if (raw_user != null) {
         let cmp_res = await bcrypt.compare(password, raw_user.password);
         if (cmp_res) {
@@ -113,6 +112,25 @@ const userLogin = async (req, res) => {
         res.send({ error: "User Not Found" });
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const checkUserPassword = async (req, res) => {
+    let { email, password } = req.body;
+    const raw_user = await userDbService.findUserByMail(email);
+    console.log(raw_user.password , password);
+    if(raw_user==null){
+        res.send({error:'user not found'});
+        return;
+    }
+    let cmp_res = await bcrypt.compare(password, raw_user.password);
+    if (cmp_res) {
+        res.send({ msg: 'correct password' });
+        return;
+    }
+    res.send({ error: 'wrong password' });
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* FOR now, I only use this function in case a user is already logged in, and he wishes to CREATE another user.
 Thus, we must discconect his previous user, and remove all relevant authorizations */
@@ -186,6 +204,7 @@ const getUsersList = async (req, res) => {
 };
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
 const updateUser = async (req, res) => {
@@ -215,6 +234,7 @@ const deleteUser = async (req, res) => {
         return;
     }
     const deleted = await userDbService.deleteUser(email);
+    console.log(deleted);
     if (!deleted) {
         res.send({ error: "can't delete user" });
         return;
@@ -223,7 +243,7 @@ const deleteUser = async (req, res) => {
 };
 
 
-module.exports = { userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut };
+module.exports = { checkUserPassword , userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut };
 
 
 

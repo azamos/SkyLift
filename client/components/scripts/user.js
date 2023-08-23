@@ -12,27 +12,26 @@ const generateUserHTML = (UserModelInstance,i) =>{
     userHeader.children('.place-holder-flights-info').children('.cart-allusers').text(`Cart: ${UserModelInstance.cart.length}`)
     
     
-
+    const emailToDelete = UserModelInstance.email;
     userHeader.children('.place-holder-flights-info').children('.circle-delete-btn').on('click',function(){
         var result = window.confirm("Are you sure you want to delete this user?");
         if(!result){
             console.log('not deleted');
             return;
         }
-        fetch(`${url}/users/delete`, {
+        const temp = fetch(`${url}/users/delete`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({email:UserModelInstance.email})
+            body: JSON.stringify({email:emailToDelete})
         })
         .then(res => res.json())
         .then(res => {
-            if(res.status == 'success'){
+            if(res.msg){
                 loadMainComponent('searchUsers');
-                alert('User Deleted Successfully');
+                console.log('User Deleted Successfully');
             }
         })
         .catch(err => {console.log(err);})
-
     });
 
     userHeader.children('.place-holder-flights-info').children('.moreInfo-allusers').on('click',function(){
