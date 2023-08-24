@@ -25,7 +25,7 @@ router.get('/news', (req, res) => {
             return;
         })
 });
-router.get('/facebook',requireAuthorization,facebookPublish);
+router.post('/facebook',requireAuthorization,facebookPublish);
 router.use('/flights', flightsRouter);
 router.use('/users', usersRouter);
 router.use('/locations', locationRouter);

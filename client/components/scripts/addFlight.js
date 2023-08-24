@@ -55,6 +55,13 @@ const addFlight = async e => {
         generateFlightHTML(newlyAddedFlight, allDeals.length);
         /* next, add it to the list of flights */
         allDeals.push(newlyAddedFlight);
+        let postToFB = await fetch(`${url}/facebook`,{
+            method:'POST',
+            headers,
+            body:JSON.stringify(newlyAddedFlight)
+        });
+        postToFB = await postToFB.json();
+        console.log(postToFB);
     }
     else {
         console.log(`failed to add flight. reason: ${newlyAddedFlight}`);
