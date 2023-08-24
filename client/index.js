@@ -195,16 +195,11 @@ const loadMainComponent = async componentStr => {
 
    
 
-    // if(componentStr == "whishlist"){
-    //     $('#popularDealsTOallFlight').text('Popular Deals');
-    //     $('#main-component-container').load(`${views_path}/wishlist.html`,()=>{
-    //         addFlightWishlistInitiaizeFormFields(state.user);
-    //         addWishlistFlight();
-    //         $('#removeWishlistX').click(function () {
-    //             $('#WishlistToRemove').remove();
-    //         });
-    //     })
-    // }
+    if(componentStr == "arbitraryPage"){
+        $('#main-component-container').load(`${views_path}/arbitraryPage.html`,()=>{
+            prepareCanvas();
+        })
+    }
 
 }
 
