@@ -101,7 +101,7 @@ const userLogin = async (req, res) => {
             /* Generates public key for user */
             let token_id = `${key}${process.env.SECRET}`;
             await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
-            res.cookie('token', key, cookieOptions).json({ email, name, isAdmin: raw_user.isAdmin });
+            res.cookie('token', key, cookieOptions).json({ email, name:raw_user.full_name, isAdmin: raw_user.isAdmin });
             return;
         }
         else {
