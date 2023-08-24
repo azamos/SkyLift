@@ -3,7 +3,7 @@ const flightsRouter = require('./flightsRouter');
 const usersRouter = require('./usersRouter');
 const locationRouter = require('./locationRouter');
 const requireAuthorization = require('../middleware/authorization');
-const {facebook} = require('../controllers/facebookController');
+const {facebookPublish} = require('../controllers/facebookController');
 
 router.get('/', requireAuthorization, (req, res) => res.send({ msg: 'welcome. are you lost?' }));
 //TODO: export this to a controller later
@@ -25,7 +25,7 @@ router.get('/news', (req, res) => {
             return;
         })
 });
-router.get('/facebook',requireAuthorization,facebook);
+router.get('/facebook',requireAuthorization,facebookPublish);
 router.use('/flights', flightsRouter);
 router.use('/users', usersRouter);
 router.use('/locations', locationRouter);

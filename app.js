@@ -8,7 +8,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
-const locationModel= require('./models/locationModel');
+const locationModel = require('./models/locationModel');
+/* here I added the method which populates our merchant map with
+location data from the database, which includes the longtitude and latitude
+data for the real-world locations. */
+
+
 
 const newLocal = require('custom-env')
 newLocal.env(process.env.NODE_ENV, './config');
@@ -26,18 +31,19 @@ app.use('/api', indexRouter);
 app.set('socketio', io);
 
 (async () => {
-  try{
-    const locationsCounter = await locationModel.countDocuments(); 
-    if(locationsCounter==0){
-      const jsonFile = await fs.promises.readFile(path.join(__dirname,'/client/SkyLift.locations.json'),'utf-8');
+  try {
+    const locationsCounter = await locationModel.countDocuments();
+    if (locationsCounter == 0) {
+      const jsonFile = await fs.promises.readFile(path.join(__dirname, '/client/SkyLift.airports.json'), 'utf-8');
       const jsonToOBj = JSON.parse(jsonFile);
       await locationModel.insertMany(jsonToOBj);
+      console.log('add locations data!');
     }
-    else{
+    else {
       console.log('data is already present...');
     }
   }
-  catch(err){
+  catch (err) {
     console.log(err);
   }
 })()

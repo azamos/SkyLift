@@ -20,6 +20,14 @@ const Location = new Schema({
         type:String,
         required: true
     },
+    latitude_deg:{
+        type:String,
+        required:true
+    },
+    longitude_deg:{
+        type: String,
+        required:true
+    },
     international: {
         type: Boolean,
         default:true

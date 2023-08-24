@@ -1,0 +1,128 @@
+[
+ {
+   "cityName": "New York",
+   "country": "USA",
+   "airport": "JFK",
+   "latitude_deg": 40.639722,
+   "longitude_deg": -73.75,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "New York",
+   "country": "USA",
+   "airport": "Newark Liberty",
+   "latitude_deg": 40.6925,
+   "longitude_deg": -74.168611,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "New York",
+   "country": "USA",
+   "airport": "LaGuardia",
+   "latitude_deg": 40.774444,
+   "longitude_deg": -73.872778,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Tel Aviv",
+   "country": "Israel",
+   "airport": "Ben Gurion",
+   "latitude_deg": 32.071806,
+   "longitude_deg": 34.893094,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Tel Aviv",
+   "country": "Israel",
+   "airport": "Sde Dov",
+   "latitude_deg": 32.063611,
+   "longitude_deg": 34.833611,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Be'er Ora",
+   "country": "Israel",
+   "airport": "Ramon",
+   "latitude_deg": 29.549167,
+   "longitude_deg": 35.200833,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Bangkok",
+   "country": "Thailand",
+   "airport": "Suvarnabhumi",
+   "latitude_deg": 13.689444,
+   "longitude_deg": 100.488056,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Budapest",
+   "country": "Hungary",
+   "airport": "Ferenc Liszt",
+   "latitude_deg": 47.4975,
+   "longitude_deg": 19.040278,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Rome",
+   "country": "Italy",
+   "airport": "Leonardo da Vinci–Fiumicino",
+   "latitude_deg": 41.855556,
+   "longitude_deg": 12.277778,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Paris",
+   "country": "France",
+   "airport": "Charles de Gaulle",
+   "latitude_deg": 49.008333,
+   "longitude_deg": 2.558333,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Heraklion",
+   "country": "Crete",
+   "airport": "Heraklion",
+   "latitude_deg": 35.346667,
+   "longitude_deg": 25.138333,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Los Angeles",
+   "country": "USA",
+   "airport": "LAX",
+   "latitude_deg": 33.9425,
+   "longitude_deg": -118.408333,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "New Delhi",
+   "country": "India",
+   "airport": "Indira Gandhi",
+   "latitude_deg": 28.566667,
+   "longitude_deg": 77.196667,
+   "international": true,
+   "__v": 0
+ },
+ {
+   "cityName": "Tokyo",
+   "country": "Japan",
+   "airport": "Haneda",
+   "latitude_deg": 35.55,
+   "longitude_deg": 139.75,
+   "international": true,
+   "__v": 0
+ }
+]
