@@ -43,7 +43,7 @@ const search = e => {
                             }
                             $('#putNameHere').text('Future Flights');
                             $('#go-back-btn-allflights').on('click',()=>{
-                                loadMainComponent('userpage');
+                                loadMainComponent('searchUsers');
                             })
                         })
                 })}
@@ -58,7 +58,7 @@ const search = e => {
                             }
                             $('#putNameHere').text('Past Flights');
                             $('#go-back-btn-allflights').on('click',()=>{
-                                loadMainComponent('userpage');
+                                loadMainComponent('searchUsers');
                             })
                         })
                 })}

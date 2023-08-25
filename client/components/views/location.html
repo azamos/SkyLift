@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selected Location</title>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container mt-5">
+<div id="location-template" class="container mt-5" >
     <!-- Location Details Component (hidden by default) -->
     <div id="location-details" style="display: none;">
       <div class="card border-primary mb-3 w-25">
@@ -16,41 +6,12 @@
           Location Details
         </div>
         <div class="card-body">
-          <h4 id="country-name" class="card-title"></h4>
           <h4 id="city-name" class="card-title"></h4>
+          <h4 id="country-name" class="card-title"></h4>
           <h5 id="airport" class="card-text"></h5>
           <h5 id="flight-type" class="card-text"></h5>
+          <button type="button" class="btn btn-outline-danger-delete"></button>
         </div>
       </div>
     </div>
-  </div>
-
-
-
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const locationDetails = document.getElementById('location-details');
-    const countryName = document.getElementById('country-name');
-    const cityName = document.getElementById('city-name');
-    const airport = document.getElementById('airport');
-    const flightType = document.getElementById('flight-type');
-
-    // Simulating a function that is called when the user selects a location
-    function showLocationInfo(country, city, airportName, isInternational) {
-      countryName.textContent = `Country: ${country}`;
-      cityName.textContent=`City: ${city}`;
-      airport.textContent = `Airport: ${airportName}`;
-      flightType.textContent = isInternational ? 'International Flight' : 'Domestic Flight';
-      locationDetails.style.display = 'block';
-    }
-
-    // Example usage: You can call this function when the user selects a location
-    showLocationInfo('United States', 'New York', 'John F. Kennedy', true);
-  </script>
-</body>
-</html>
-
-        
+</div>

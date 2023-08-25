@@ -1,9 +1,14 @@
 const locationRouter = require('express').Router();
-const locationController = require('../controllers/locationController');
 const requireAuthorization = require('../middleware/authorization');
+const{
+    getLocationsList,
+    createLocation,
+    getPartialMatch
+} = require('../controllers/locationController');
 
-locationRouter.get('/:partial_string',locationController.getPartialMatch);
-locationRouter.get('/',requireAuthorization,locationController.getLocationsList);
-locationRouter.post('/',requireAuthorization,locationController.createLocation);
+
+locationRouter.get('/:partial_string',requireAuthorization,getPartialMatch);
+locationRouter.get('/getLocationsList',requireAuthorization,getLocationsList);
+locationRouter.post('/',requireAuthorization,createLocation);
 
 module.exports = locationRouter;
