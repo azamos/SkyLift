@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            <div class="card-body">
+                <h4 id="token-id" class="card-title">Token ID: ABC123</h4>
+                <h5 id="user" class="card-text">User: John Doe</h5>
+                <h5 id="authorization" class="card-text">Authorization: Admin</h5>
+                <h5 id="expired" class="card-text">Expired: No</h5>
+                <button type="button" class="btn btn-outline-danger delete-button" style="margin-bottom: 5px;">Delete</button>
+            </div>
+        </div>
+        <div class="pl-3">
+            <img src="token-image.jpg" alt="Token Image" class="card-img">
+        </div>
+    </div>
+</div>
+
+<style>
+     .card-body{
+      margin-left: 5px;
+    }
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-title {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .card-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .delete-button {
+        border-color: #dc3545;
+        color: #dc3545;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .delete-button:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .card-img {
+        object-fit: cover;
+        height: 100%; /* Set the desired height */
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+</style>
