@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Token Details Component (hidden by default) -->
+    <div id="token-details" style="display: none;">
+      <div class="card border-primary mb-3 w-25">
+        <div class="card-header bg-primary text-white">
+          Token Details
+        </div>
+        <div class="card-body">
+          <h4 id="token-id" class="card-title"></h4>
+          <h4 id="user" class="card-title"></h4>
+          <h4 id="authentication" class="card-text"></h4>
+          <h4 id="expire" class="card-text"></h4>
+          <button id="emoji-delete-button" class="btn btn-light" style="background-color: transparent; border: none;">
+            <div class="circle-delete-btn" role="img" aria-label="Delete">🗑️</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const tokenDetails = document.getElementById('token-details');
+    const tokenId = document.getElementById('token-id');
+    const user = document.getElementById('user');
+    const authentication = document.getElementById('authentication');
+    const expire = document.getElementById('expire');
+
+    // Simulating a function that is called when the user selects a token
+    function showTokenInfo(id, username, isAuthenticated, expirationDate) {
+      tokenId.textContent = `Token ID: ${id}`;
+      user.textContent = `User: ${username}`;
+      authentication.textContent = `Authentication: ${isAuthenticated}`;
+      expire.textContent = `Expire: ${expirationDate}`;
+      tokenDetails.style.display = 'block';
+    }
+
+    // Example usage: You can call this function when the user selects a token
+    showTokenInfo('12345', 'john_doe', 'Authenticated', '2023-12-31');
+  </script>
+</body>
+</html>
