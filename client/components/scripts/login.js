@@ -26,6 +26,8 @@ const login = e => {
                     $('#addFlight-dropdown').show();
                     $('#addLocation-dropdownMenu').show();
                     $('#searchUsers-dropdown').show();
+                    $('#arbitrary-requirements-dropdownMenu').show();
+
                 }
                 loadMainComponent('welcomeMsg');
                 //LOGOUT BUTTON functionality

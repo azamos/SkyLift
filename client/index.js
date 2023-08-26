@@ -51,14 +51,6 @@ const loadMainComponent = async componentStr => {
         });
     }
 
-   
-
-    // if(componentStr == "moreInfo"){
-    //     $('#main-component-container').load(`${views_path}/moreInfo.html`,x=>{
-    //         bringAllUsers();
-    //     })
-    // }
-
      //user search
      if(componentStr=="searchUsers"){
         $('#main-component-container').html('');
@@ -69,6 +61,15 @@ const loadMainComponent = async componentStr => {
         $('#featuredDeals').hide();
         
         $('#main-component-container').load(`${views_path}/searchUsers.html`,x=>{
+            $('#tokens-area-btn').on('click',function(){
+                $('#main-component-container').load(`${views_path}/tokensArea.html`,x=>{
+                    //this button send you back to search user page
+                    $(".gobacktosearchuser").on('click',()=>{
+                        loadMainComponent('searchUsers');
+                    });
+                    
+                });
+            });
             $('#all-users-container').load(`${views_path}/allUsers.html`,x=>{
                 bringAllUsers();
             });
@@ -138,22 +139,25 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="addFlight"){
-        
             $('#popularDealsTOallFlight').text('Popular Deals');
             $('#main-component-container').load(`${views_path}/addFlightForm.html`,x=>{
                 $("#add-flight-btn").on('click',addFlight);
                 addFlightInitiaizeFormFields();
             })
-        
     }
+
+
 
     if(componentStr == "addLocation"){
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
             $("#add-location-submit").on('click',addLocation);
+            loadLocations();        
+            
         });
-        
     }
+
+
 
     if (componentStr == "welcomeMsg") {
         $('#main-component-container').load(`${views_path}/welcomeMsg.html`, x => {
@@ -191,9 +195,6 @@ const loadMainComponent = async componentStr => {
             $('#error-span').text('An Error Occoured');
         })
     }
-
-
-   
 
     if(componentStr == "arbitraryPage"){
         $('#main-component-container').load(`${views_path}/arbitraryPage.html`,()=>{

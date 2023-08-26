@@ -4,7 +4,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     htmlRef.children('.destination-photo').attr('src',flightModelInstance.imageUrl);
     htmlRef.attr('id',`${flightModelInstance._id["$oid"]}`);
     let flightHeader = htmlRef.children('.flight-header');
-    flightHeader.children('.price').text(`PRICE: ${flightModelInstance.price}$`)
+    flightHeader.children('.price').text(`PRICE: ${flightModelInstance.price}`)
     flightHeader.children('.flight-title').text(`FLIGHT NUMBER:  ${flightModelInstance.title}`)
     let content = htmlRef.children('.content');
     content.children('.origin').text(`From: ${flightModelInstance.origin}`)
