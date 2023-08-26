@@ -9,9 +9,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
 const locationModel = require('./models/locationModel');
-/* here I added the method which populates our merchant map with
-location data from the database, which includes the longtitude and latitude
-data for the real-world locations. */
 
 
 
