@@ -9,6 +9,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
 const locationModel = require('./models/locationModel');
+//const {expireToken} = require('./services/tokenDbService');
 
 
 
@@ -53,6 +54,9 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     connections--;
     //console.log('user disconnected, there are currently only ' + connections + ' connections');
+    /* AMOS, TODO:  this is the place to call the method that invalidates tokens(expireToken or some such).
+    You will also need to create the ws connection ONLY after signing in. Hmm. Is this the best way?
+    Think about it more.*/
     io.emit('chat message', `User left.there are ${connections} users connetcted`);
   });
   socket.on('watched flights', payload => {

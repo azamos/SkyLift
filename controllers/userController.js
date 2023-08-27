@@ -81,7 +81,7 @@ const userLogin = async (req, res) => {
     is already logged in, or have an expired token, in the browser.
     Thus I must invalidate the previous token if it is valid, otherwise, nothing? */
     if (req.cookies && req.cookies.token) {
-        let token_id = req.cookies.token;
+        let token_id = req.cookies.token + process.env.SECRET;
         const token = await tokenDbService.getToken(token_id);
         if (token) {
             if (token.user != email) {
@@ -136,7 +136,7 @@ const checkUserPassword = async (req, res) => {
 Thus, we must discconect his previous user, and remove all relevant authorizations */
 const logOff = async (req, res) => {
     if (req.cookies && req.cookies.token) {
-        const token = await tokenDbService.getToken(req.cookies.token);
+        const token = await tokenDbService.getToken(req.cookies.token + process.env.SECRET);
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }
@@ -147,7 +147,7 @@ const logOff = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const signOut = async (req, res) => {
     if (req.cookies && req.cookies.token) {
-        const token = await tokenDbService.getToken(req.cookies.token);
+        const token = await tokenDbService.getToken(req.cookies.token + process.env.SECRET);
         if (token && token.expired == false) {
             tokenDbService.expireToken(token._id);
         }

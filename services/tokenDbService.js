@@ -36,19 +36,32 @@ The current token attached to authorization header must now become expired, sinc
 const expireToken = async _id => {
     const tokenToExpire = await Token.findOne({_id});
     if(!tokenToExpire){
-        res.send({error:'no such token'});
-        return;
+        return false;
     }
     await tokenToExpire.updateOne({expired:true});
+    return true;
 }/* UPDATE */
 
 const deleteToken =  async _id => {
     const tokenToDelete = await Token.findOne({_id});
     if(!tokenToDelete){
-        res.send({error:'no such token'});
-        return;
+        return false;;
     }
     await tokenToDelete.deleteOne({});
+    return true;
 }/* DELETE */
 
-module.exports = { createToken, getToken, expireToken };
+/*expects the true token id, i.e, req.cookies.token+process.env.SECRET */
+const updateToken = async (token_id,payload) => {
+    try{
+        const token_entry = await Token.findOne({_id: token_id});
+        Object.keys(payload).forEach(fieldName => token_entry[fieldName]=payload[fieldName]);
+        await token_entry.save();
+        return true;
+    }
+    catch(e){
+        return false;
+    }
+}
+
+module.exports = { createToken, getToken, expireToken, tokenList, deleteToken, updateToken };
