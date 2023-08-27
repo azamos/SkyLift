@@ -8,7 +8,7 @@ const{
 
 
 locationRouter.get('/:partial_string',requireAuthorization,getPartialMatch);
-locationRouter.get('/getLocationsList',requireAuthorization,getLocationsList);
+locationRouter.get('/',requireAuthorization,getLocationsList);
 locationRouter.post('/',requireAuthorization,createLocation);
 
 module.exports = locationRouter;
