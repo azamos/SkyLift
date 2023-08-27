@@ -18,15 +18,11 @@ const loadLocations = async () => {
     })
     .then(res=>res.json())
     .then(res=>{
-        console.log(res);
         if(res.error){
-            console.log(res.error);
             return;
         }
         res.forEach(locationModelInstanc => {
-            console.log(locationModelInstanc);
             let htmlRef  = generateLoctionHTML(locationModelInstanc);
-            console.log(htmlRef);
             $('#locations-container').append(htmlRef);
         });
     })

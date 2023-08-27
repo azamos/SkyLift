@@ -13,57 +13,57 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
     
     const flight_id = flightModelInstance._id;
+
+    //functions for admins
     if(!isPopular){
-            //DELETE FLIGHT
-    htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
-        fetch(`${url}/flights/deleteFromAllUsers`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({flight_id:flight_id})
-        })
-        .then(res => res.json())
-        .then(res =>{
-            if(res.error){
-                console.log(res.error);
-                return;
-            }
-        })
-        .catch(err => {
-            console.log(err); 
-        })
 
-        fetch(`${url}/flights/delete`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({id:flight_id})
-        })
-        .catch(err => {
-            console.log(err); 
-        })
+        //DELETE FLIGHT From all flights
+        htmlRef.children('.card-body').children('.delete-flight-btn').on('click',async()=>{
+            fetch(`${url}/flights/deleteFromAllUsers`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({flight_id:flight_id})
+            })
+            .then(res => res.json())
+            .then(res =>{
+                if(res.error){
+                    console.log(res.error);
+                    return;
+                }
+            })
+            .catch(err => {
+                console.log(err); 
+            })
 
-        loadMainComponent('allFlights');
-    });
-    }
-    
+            fetch(`${url}/flights/delete`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({id:flight_id})
+            })
+            .catch(err => {
+                console.log(err); 
+            })
 
-    //BUY FLIGHT
-    htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
-        fetch(`${url}/flights/purchase`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
-        })
-        .then(res => res.json())
-        .then(res =>{
-            if(res.msg){
-                console.log(res.msg);
-                loadMainComponent('allFlights');
-                return;
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            loadMainComponent('allFlights');
+        });
+
+        //BUY FLIGHT
+        htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
+            fetch(`${url}/flights/purchase`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
+            })
+            .then(res => res.json())
+            .then(res =>{
+                if(res.msg){
+                    loadMainComponent('allFlights');
+                    return;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     });
 
     //EDIT FLIGHT
@@ -80,6 +80,34 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     //     })
     //     loadMainComponent('allFlights');
     // });
+    }
+
+    //functions for all users
+    else{
+        //BUY FLIGHT From Hot Deals
+        htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
+            fetch(`${url}/flights/purchase`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
+            })
+            .then(res => res.json())
+            .then(res =>{
+                if(res.msg){
+                    // loadMainComponent('popularDeals');
+                    return;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        });
+    }
+    
+
+    
+
+    
 
        //ADD TO WISHLIST
     // htmlRef.children('.card-body').children('.wishlist-button').on('click',function(){
