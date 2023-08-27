@@ -67,7 +67,9 @@ const loadMainComponent = async componentStr => {
                     $(".gobacktosearchuser").on('click',()=>{
                         loadMainComponent('searchUsers');
                     });
-                    
+                    $('#main-component-container').load(`${views_path}/token.html`,x=>{
+                        loadTokens();
+                    });
                 });
             });
             $('#all-users-container').load(`${views_path}/allUsers.html`,x=>{
@@ -151,6 +153,7 @@ const loadMainComponent = async componentStr => {
     if(componentStr == "addLocation"){
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
+            $('.allLocaitions-text').text('All Locations');
             $("#add-location-submit").on('click',addLocation);
             $('#locations-container').load(`${views_path}/location.html`,x=>{
                 loadLocations();
