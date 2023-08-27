@@ -22,11 +22,11 @@ const Location = new Schema({
     },
     latitude_deg:{
         type:String,
-        required:true
+        default: "34.77101"
     },
     longitude_deg:{
         type: String,
-        required:true
+        default: "31.96978"
     },
     international: {
         type: Boolean,

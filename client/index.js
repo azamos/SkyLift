@@ -152,7 +152,10 @@ const loadMainComponent = async componentStr => {
         $('#popularDealsTOallFlight').text('Popular Deals');
         $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
             $("#add-location-submit").on('click',addLocation);
-            loadLocations();        
+            $('#locations-container').load(`${views_path}/location.html`,x=>{
+                loadLocations();
+            });
+                    
             
         });
     }
