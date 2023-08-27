@@ -127,10 +127,23 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="cart"){
-        $('#main-component-container').load(`${views_path}/cart.html`,x=>{
+        $('#main-component-container').load(`${views_path}/cartTamplate.html`,x=>{
             if(state.user != 'Guest'){
-                $("#purchaseButton").on('click',checkout_flights);
+                $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
+                    loadCart();
+                });
+                //continu to checkout
+                $("#purchaseButton").on('click',()=>{
+                    $('#main-component-container').load(`${views_path}/checkoutPage.html`,x=>{
+                        $('.go-back-to-cart-btn').on('click',()=>{
+                            loadMainComponent('cart');
+                        });
+                        loadCheckout();   
+                    })  
+                });
+
             }
+
             else {
                 $("#purchaseButton").on('click', () => {
                     alert('You must be logged in to purchase flights');

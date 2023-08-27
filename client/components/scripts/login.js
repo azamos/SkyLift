@@ -30,6 +30,7 @@ const login = e => {
                     $('#allFlights-dropdownMenu').show();
                 }
                 loadMainComponent('welcomeMsg');
+
                 //LOGOUT BUTTON functionality
                 $("#logoutButton").show();
                 $("#logoutButton").on('click',function(){
@@ -46,6 +47,7 @@ const login = e => {
                     $('#addLocation-dropdownMenu').hide();
                     $('#allFlights-dropdownMenu').hide();
                     $('#arbitrary-requirements-dropdownMenu').hide();
+                    loadMainComponent('popularDeals');
                 });
                 
             }

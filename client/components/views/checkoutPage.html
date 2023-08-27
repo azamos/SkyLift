@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flight Checkout</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container mt-5">
-    <h1 class="mb-4">Flight Checkout</h1>
+<button type="button" class="btn btn-outline-info go-back-to-cart-btn" style="margin-top: 5px;">Back To Cart</button>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Flights Checkout</h1>
     <div class="row">
       <div class="col-md-8">
-        <h2>Selected Flights</h2>
-        <div class="border p-3 bg-light mb-3">
-          <div class="d-flex flex-row align-items-center">
-            <input type="checkbox" class="form-check-input me-3">
-            <div>
-              <h3>Tel Aviv to New York</h3>
-              <p>Leaving: 23/7/2023 09:50</p>
-              <p>ETA: 23/7/2023 13:40</p>
-              <p>Airline: El Al</p>
-              <p>Price: 599$</p>
-            </div>
-            <span class="ms-auto">
-              <button type="button" class="btn btn-danger btn-sm">&#10060;</button>
-            </span>
-          </div>
-        </div>
-        <!-- Add more flight items here -->
+        <div id="here-add-checkout-items-component"></div>
+        <!-- will load all checkout flights -->
       </div>
       <div class="col-md-4">
         <h2>Payment</h2>
@@ -35,25 +13,23 @@
           <form>
             <div class="mb-3">
               <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" required>
+              <input type="text" class="form-control" id="name" >
             </div>
             <div class="mb-3">
               <label for="cardNumber" class="form-label">Credit Card Number</label>
-              <input type="text" class="form-control" id="cardNumber" required>
+              <input type="text" class="form-control" id="cardNumber" >
             </div>
             <div class="mb-3">
               <label for="expiry" class="form-label">Expiration Date</label>
-              <input type="text" class="form-control" id="expiry" required>
+              <input type="text" class="form-control" id="expiry" >
             </div>
             <div class="mb-3">
               <label for="cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cvv" required>
+              <input type="text" class="form-control" id="cvv" >
             </div>
             <button type="submit" class="btn btn-success btn-block">Complete Purchase &#128722;</button>
           </form>
         </div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+</div>
