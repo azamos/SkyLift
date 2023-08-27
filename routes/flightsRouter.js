@@ -7,7 +7,8 @@ const {
     getPopularFlights,
     searchFlight,
     purchaseFlightSeat,
-    deleteFlightFromAllUsers
+    deleteFlightFromAllUsers,
+    companiesFlightAmount
 } = require('../controllers/flightsController');
 
 //site visitors should be able to search a flight and to see popular deals anywhere,
@@ -39,5 +40,7 @@ flightsRouter.post('/delete',
 flightsRouter.post('/purchase',
     requireAuthorization,//authorization middleware - need to be a user in order to purchase a seat on a flight
     purchaseFlightSeat);
+
+flightsRouter.get('/airelinesTotalFlights',requireAuthorization,companiesFlightAmount);
 
 module.exports = flightsRouter;

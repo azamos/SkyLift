@@ -53,14 +53,17 @@ const getFlights = async (req, res) => {
 /* again, no need for special authorization to get search results */
 const searchFlight = async (req, res) => {
     const { destination, origin, depart, arrival } = req.body;
+    if(destination==null||origin==null||destination.trim().length<3 || origin.trim().length < 3){
+        res.send({msg:"invalid flight search paramaters"});
+    }
     const filteredFlights = await flightDbService.getFlightsByFilter({
         destination,
         origin,
-        departTime: depart,
-        estimatedTimeOfArrival: arrival
+        depart,
+        arrival
     });
     if (!filteredFlights || filteredFlights == {}) {
-        res.send("No flights matching the search paramaters.")
+        res.send({msg:"No flights matching the search paramaters."})
     }
     res.json(filteredFlights);
 };
@@ -190,7 +193,7 @@ const getPopularFlights = async (req, res) => {
     res.json(flightsArr);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+const companiesFlightAmount = async (req,res) => res.send(await flightDbService.totalFlightsPerCompany());
 
 module.exports = {
     deleteFlightFromAllUsers,
@@ -201,5 +204,6 @@ module.exports = {
     deleteFlight,//Delete
     getPopularFlights,
     searchFlight,
-    purchaseFlightSeat
+    purchaseFlightSeat,
+    companiesFlightAmount
 };
