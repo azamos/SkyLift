@@ -27,6 +27,7 @@ const login = e => {
                     $('#addLocation-dropdownMenu').show();
                     $('#searchUsers-dropdown').show();
                     $('#arbitrary-requirements-dropdownMenu').show();
+                    $('#allFlights-dropdownMenu').show();
 
                 }
                 loadMainComponent('welcomeMsg');

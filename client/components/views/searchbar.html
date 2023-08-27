@@ -65,12 +65,13 @@
 
             <li><a class="dropdown-item" onclick="loadMainComponent('cart')">Cart</a></li>
 
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+            
 
 
             <div id="searchUsers-dropdown" style="display: none;">
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
                 <li><a class="dropdown-item" onclick="loadMainComponent('searchUsers')">Search User</a></li>
                 <li>
                     <hr class="dropdown-divider">
@@ -109,9 +110,10 @@
             
             <li>
                 <hr class="dropdown-divider">
-            </li>
-            
-            <li><a class="dropdown-item" onclick="loadMainComponent('allFlights')">All Flights</a></li>
+            </li> -->
+            <div id="allFlights-dropdownMenu" style="display: none;">
+                <li><a class="dropdown-item" onclick="loadMainComponent('allFlights')">All Flights</a></li>
+            </div>
         </ul>
     </div>
     <span id="userIdentitySpan" style="background-color: black; color: white; padding: 4px 8px; border-radius: 4px; margin-right: 5px;">Guest</span>
