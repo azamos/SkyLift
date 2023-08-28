@@ -45,6 +45,7 @@ const register = e => {
         loadMainComponent('welcomeMsgForRegister');
         $("#logoutButton").show();
         $("#userIdentitySpan").css('background-color','green');
+        loadMainComponent('popularDeals');
 
     })
     .catch(err=>console.log(err))

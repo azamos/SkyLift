@@ -25,8 +25,18 @@ const generateCartHTML =  flightModelInstanc => {
     let headCartTemp = htmlRef.find('.head-cart-temp');
     
     headCartTemp.find('.fromwhere-to-where').text(`${flightModelInstanc.origin} TO ${flightModelInstanc.destination}`);
-    headCartTemp.find('.date-leaving').text(`Leaving: ${flightModelInstanc.departTime}`);
-    headCartTemp.find('.date-arriving').text(`ETA: ${flightModelInstanc.estimatedTimeOfArrival}`);
+    
+    let inputString = flightModelInstance.departTime;
+    let outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+
+    headCartTemp.find('.date-leaving').text(`Leaving: ${outputString}`);
+
+    inputString = flightModelInstance.estimatedTimeOfArrival;
+    outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+
+    headCartTemp.find('.date-arriving').text(`ETA: ${outputString}`);
     headCartTemp.find('.airline-company').text(`Airline: ${flightModelInstanc.company}`);
     headCartTemp.find('.flight-price').text(`Price: ${flightModelInstanc.price}$`);
     
@@ -62,8 +72,17 @@ const loadCheckout = async () => {
 const checkoutFlightGeneratorHtml = flightModelInstanc => {
     let htmlRef = $("#checkout-component-items").clone();
     htmlRef.children('.div-1-in').children('.div-2-in').children('.fromwhere-to-where').text(`${flightModelInstanc.origin} TO ${flightModelInstanc.destination}`);
-    htmlRef.children('.div-1-in').children('.div-2-in').children('.date-leaving').text(`Leaving: ${flightModelInstanc.departTime}`);
-    htmlRef.children('.div-1-in').children('.div-2-in').children('.date-arriving').text(`ETA: ${flightModelInstanc.estimatedTimeOfArrival}`);
+    
+    let inputString = flightModelInstanc.departTime;
+    let outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+    htmlRef.children('.div-1-in').children('.div-2-in').children('.date-leaving').text(`Leaving: ${outputString}`);
+
+    inputString = flightModelInstanc.estimatedTimeOfArrival;
+    outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+
+    htmlRef.children('.div-1-in').children('.div-2-in').children('.date-arriving').text(`ETA: ${outputString}`);
     htmlRef.children('.div-1-in').children('.div-2-in').children('.airline-company').text(`Airline: ${flightModelInstanc.company}`);
     htmlRef.children('.div-1-in').children('.div-2-in').children('.flight-price').text(`Price: ${flightModelInstanc.price}$`);
 

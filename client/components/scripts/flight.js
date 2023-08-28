@@ -9,9 +9,19 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     let content = htmlRef.children('.content');
     content.children('.origin').text(`From: ${flightModelInstance.origin}`)
     content.children('.destination').text(`To: ${flightModelInstance.destination}`)
-    content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
-    content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
+
     
+
+    let inputString = flightModelInstance.departTime;
+    let outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+    content.children('.departure').text(`Departing: ${outputString}`)
+    
+    inputString = flightModelInstance.estimatedTimeOfArrival;
+    outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+    content.children('.arrival').text(`ETA: ${outputString}`)
+        
     const flight_id = flightModelInstance._id;
 
     //functions for admins
@@ -124,3 +134,17 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
 
     return htmlRef;
 }
+
+
+function formatDate(inputDate) {
+    let parts = inputDate.split('-');
+    if (parts.length !== 3) {
+      return "Invalid date format";
+    }
+  
+    let year = parts[0];
+    let month = parts[1];
+    let day = parts[2];
+  
+    return `${day}/${month}/${year}`;
+  }

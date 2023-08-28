@@ -6,7 +6,6 @@ const bringAllUsers = async() => {
     })
     .then(res => res.json())
     .then(res => {
-        console.log(res);
         if(!res.error){
             res.forEach(user => {
                 let htmlRef = generateUserHTML(user , user.length);
