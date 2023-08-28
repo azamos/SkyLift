@@ -1,8 +1,5 @@
 const loadTokens = async () => {
-    fetch(`${url}/tokens`,{
-        method:'GET',
-        headers
-    })
+    fetch(`${url}/tokens/tokenList`,{})
     .then(res=>res.json())
     .then(res=>{
         if(res.error){

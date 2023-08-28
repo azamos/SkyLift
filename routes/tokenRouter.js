@@ -1,9 +1,9 @@
 const tokenRouter = require('express').Router();
 const requireAuthorization = require('../middleware/authorization');
-const {    tokenUpdateControl,
-    tokenDeleteControl,
-    tokenListControl,
-    tokenSearchControl} = require('../controllers/tokenController');
+const {tokenUpdateControl,
+       tokenDeleteControl,
+       tokenListControl,
+       tokenSearchControl} = require('../controllers/tokenController');
 tokenRouter.use('/',requireAuthorization);
 tokenRouter.get('/tokenList',tokenListControl);
 tokenRouter.post('/updateToken',tokenUpdateControl);
