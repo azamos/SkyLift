@@ -236,11 +236,11 @@ $(async function () {
     fetch(`${url}/users/isLoggedIn`).then(res => res.json())
     .then(res => {
         if (res.isLoggedIn) {
+            console.log(res);
             let temp ={email:res.email , name:res.name , isAdmin:res.isAdmin}; 
-            if(email != null){
+            if(temp.email != null){
                 afterLogin(temp);
             }
-            alert("something went wrong");
         }
     })
     .catch(err => console.log(err));
