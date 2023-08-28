@@ -33,14 +33,23 @@ const getFlightsByIdArr = async arr => arr.length ? await Flight.find({ _id: { $
 
 /*assumes filter has at the very least fields origin and destination */
 const getFlightsByFilter = async (filterOBj = {}) => {
-    const { origin, destination, depart, arrival } = filterOBj;
-    const d1 = new Date(depart);
-    const d2 = new Date(arrival);
+    let { origin, destination, depart, arrival } = filterOBj;
     try {
-        const filteredFlights = await Flight.find({
+        let filteredFlights;
+        depart = new Date(depart);
+        arrival = new Date(arrival);
+        //if they are not valid dates, I expect an error to be thrown.TEST THIS.
+        filteredFlights = await Flight.find({
             origin,
-            destination
+            destination,
+            departTime: { $gte: depart },
+            estimatedTimeOfArrival: { $lte: arrival }
         });
+        if(filteredFlights.length==0){
+            filteredFlights = await Flight.find({
+                origin,
+                destination});
+        }
         return filteredFlights;
     }
     catch (e) {

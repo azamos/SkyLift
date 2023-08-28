@@ -64,7 +64,6 @@ const searchFlight = async (req, res) => {
         depart,
         arrival
     });
-    console.log(filteredFlights);
     if (!filteredFlights || filteredFlights == {}) {
         res.send({msg:"No flights matching the search paramaters."})
         return;

@@ -245,7 +245,7 @@ const userIsStillLoggedIn = async (req, res) => {
     if (req.cookies && req.cookies.token) {
         const token_id = req.cookies.token + process.env.SECRET;
         const token = await tokenDbService.getToken(token_id);
-        const user = await userDbService.findUserByMail(token.email);
+        const user = await userDbService.findUserByMail(token.user);
         res.send({
             isLoggedIn: true,
             email: user.email, name: user.full_name, isAdmin: user.isAdmin
