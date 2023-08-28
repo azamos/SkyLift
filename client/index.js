@@ -127,6 +127,7 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="cart"){
+        loadMainComponent('popularDeals');
         $('#main-component-container').load(`${views_path}/cartTamplate.html`,x=>{
             if(state.user != 'Guest'){
                 $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
