@@ -118,7 +118,6 @@ const userLogin = async (req, res) => {
 const checkUserPassword = async (req, res) => {
     let { email, password } = req.body;
     const raw_user = await userDbService.findUserByMail(email);
-    console.log(raw_user.password , password);
     if(raw_user==null){
         res.send({error:'user not found'});
         return;
@@ -234,7 +233,6 @@ const deleteUser = async (req, res) => {
         return;
     }
     const deleted = await userDbService.deleteUser(email);
-    console.log(deleted);
     if (!deleted) {
         res.send({ error: "can't delete user" });
         return;

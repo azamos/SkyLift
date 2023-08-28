@@ -18,7 +18,6 @@ const facebookPublish = async (req, res) => {
             access_token: process.env.FacebookCopyOfExtendedToken
         })
     }).then(result => result.json()).then(result => {
-         console.log(result);
          res.send(result);
          return;
          })

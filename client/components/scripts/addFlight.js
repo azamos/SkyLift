@@ -39,7 +39,6 @@ const addFlight = async e => {
     };
     const formData = new FormData();
     Object.keys(data).forEach(field => formData.append(field, data[field]));
-    console.log(formData);
     formData.append('image', newFlightUploadFlightImageJuqryObj.prop('files')[0]);
     let newlyAddedFlight = await fetch(`${url}/flights`, {
         method: 'POST',

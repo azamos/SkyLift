@@ -7,7 +7,7 @@ const addLocation = async e => {
         method:'POST',
         headers,
         body:JSON.stringify({'cityName':cityName_input.val(),'country':country_input.val(),'airport':airport_input.val()})
-    }).then(res=>res.json()).then(res=>console.log(res))
+    }).then(res=>res.json()).then(res=>console.log(res)).catch(e=>console.error(e))
 }
 
 

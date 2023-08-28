@@ -6,7 +6,6 @@ const is_authorized = async (key, email = null) => {
     if (!token || token.expired) {
         return false;
     }
-    //console.log(email + token.user + token.authorization);
     return email && token.user == email || token.authorization == 'admin';
 }
 
@@ -38,7 +37,6 @@ const requireAuthorization = async (req, res, next) => {
         res.send({ error: 'Unauthorized request' });
         return;
     }
-    //console.log(authorizedFlag);
     next();
 };
 

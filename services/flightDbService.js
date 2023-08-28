@@ -19,7 +19,7 @@ const getPopularFlights = async () => await Flight.find({ isPopular: true })
  * @returns db.collection==Flight 's entry with id==dbId.
  * To be used mainly by updateFlightData
  */
-const getFlightById = async dbId => await Flight.findById({ _id: dbId });
+const getFlightById = async dbId => await Flight.findById(dbId);
 
 /*TODO: TEST THIS FUNCTION! */
 const getFlightsByIdArr = async arr => arr.length ? await Flight.find({ _id: { $in: arr } }) : [];
@@ -65,12 +65,9 @@ const updateFlightData = async (dbIdentifier, newData) => {
     return flightToBeUpdated;
 };
 
+
 /* DELETE */
-const deleteFlight = async flightId => {
-    const flightToDeleted = await Flight.findById(flightId);
-    if (!flightId) {
-        return null;//Maybe throwing an error is better?
-    }
+const deleteFlight = async flightToDeleted => {
     await flightToDeleted.deleteOne();
     return flightToDeleted;
 };

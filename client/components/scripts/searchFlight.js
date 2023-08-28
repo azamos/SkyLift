@@ -4,6 +4,10 @@ const searchFlight = async e => {
     const originSearchInput = $("#originInput").val();
     const departureDateSearchInput = $("#departureDate").val();
     const arrivalDateSearchInput =$("#arrivalDate").val();
+    if (destinationSearchInput == "" || originSearchInput == "" || departureDateSearchInput == "" || arrivalDateSearchInput == "") {
+        alert("Please fill all fields");
+        return;
+    }
     //console.log(destinationSearchInput,originSearchInput,departureDateSearchInput,arrivalDateSearchInput);
     const searchResultArray =  await fetch(`${url}/flights/searchFlight`,{
         method:'POST',
@@ -13,8 +17,14 @@ const searchFlight = async e => {
             depart: departureDateSearchInput,
             arrival: arrivalDateSearchInput
         })
-    }).then(res=>res.json());
-    /* TODO: create and call a function that generate flight html BUT in list format(as opposed to card format used in the grid) */
+    }).then(res=>res.json())
+    .then(res=>{
+        res.forEach(f=>{
+            const flight = generateFlightHTML(f, 0 , false);
+            $('#underTheSearchBar').append(flight);
+        })
+    })
+    .catch(e=>{console.error(e);return [];});
 }
 
 let autocomplete_timer = null;//a variable used to avoid sending an autocomplete request to the server every milisecond 
@@ -31,7 +41,6 @@ const auto_complete= e => {
         clearTimeout(autocomplete_timer);//Cancel previous key stroke autocomplete http request
     }
     if(e.target.value.trim()==""){
-        console.log("empty search");
         /* clearing previous suggestions from the relevant autocomplete dropdowns */
         if(e.target.id=="destinationInput"){
             $("#destination-dropdown").html("");
@@ -42,7 +51,6 @@ const auto_complete= e => {
         return;
     }
     if(e.target.value.trim().length<3){
-        console.log("Not Enough Letters");
         //HIDING THE EMPTY DROPDOWN
         if(e.target.id=="destinationInput"){
             $("#destination-dropdown").hide();

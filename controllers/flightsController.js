@@ -1,7 +1,7 @@
 const tokenDbService = require('../services/tokenDbService');
 const flightDbService = require('../services/flightDbService');
 const userDbService = require('../services/userDbService');
-const userModel = require('../models/userModel');
+
 const utils = require('../services/utils');
 const { valid_field_names } = utils;
 const multer = require('multer');
@@ -27,14 +27,12 @@ const createFlight = async (req, res) => {
         if (err instanceof multer.MulterError) {
             return res.status(400).json({ error: 'File upload failed.' });
         } else if (err) {
-            console.log(err);
+            console.error(err);
             return res.status(500).json({ error: 'An error occurred.' });
         }
 
         // Construct the URL of the uploaded image based on the server's URL and the image path
         const imageUrl = `/images/destination/${req.file.filename}`;
-        console.log('after writing file to server. image is');
-        console.log(imageUrl);
         const newFlight = await flightDbService.createFlight({ ...req.body, imageUrl });
         res.json(newFlight);
         return;
@@ -55,6 +53,7 @@ const searchFlight = async (req, res) => {
     const { destination, origin, depart, arrival } = req.body;
     if(destination==null||origin==null||destination.trim().length<3 || origin.trim().length < 3){
         res.send({msg:"invalid flight search paramaters"});
+        return;
     }
     const filteredFlights = await flightDbService.getFlightsByFilter({
         destination,
@@ -64,6 +63,7 @@ const searchFlight = async (req, res) => {
     });
     if (!filteredFlights || filteredFlights == {}) {
         res.send({msg:"No flights matching the search paramaters."})
+        return;
     }
     res.json(filteredFlights);
 };
@@ -141,7 +141,6 @@ const purchaseFlightSeat = async (req, res) => {
     }
     /* THIS IS WHAT MUST BE PASSED TO THE POST REQUEST */
     const flight = await flightDbService.getFlightById(flight_id);
-    console.log(flight);
     if (!flight) {
         res.send({ error: 'flight not found' });
         return;
