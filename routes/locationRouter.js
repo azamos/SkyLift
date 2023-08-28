@@ -7,7 +7,7 @@ const{
 } = require('../controllers/locationController');
 
 
-locationRouter.get('/:partial_string',requireAuthorization,getPartialMatch);
+locationRouter.get('/:partial_string',getPartialMatch);
 locationRouter.get('/',requireAuthorization,getLocationsList);
 locationRouter.post('/',requireAuthorization,createLocation);
 

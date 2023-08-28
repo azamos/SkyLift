@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { schema } = require('./flightModel');
+//const { schema } = require('./flightModel');
 const Schema = mongoose.Schema;
 
 
@@ -33,7 +33,7 @@ const Location = new Schema({
         default:true
     }
 });
-schema.index({cityName:1})
+//schema.index({cityName:1})
 Location.index({cityName:'text'});
 
 

@@ -11,6 +11,7 @@ const searchFlight = async e => {
     //console.log(destinationSearchInput,originSearchInput,departureDateSearchInput,arrivalDateSearchInput);
     const searchResultArray =  await fetch(`${url}/flights/searchFlight`,{
         method:'POST',
+        headers,
         body: JSON.stringify({
             destination: destinationSearchInput,
             origin: originSearchInput,
@@ -81,8 +82,8 @@ function fetch_autocomplete_suggestions(partial_string,id){
             }
             res.forEach(x=>
             $("#destination-dropdown")
-            .append($(`<li><a class="dropdown-item">${x.cityName}</a></li>`)
-            .on('click',()=>set_destinationInput(x.cityName))));
+            .append($(`<li><a class="dropdown-item">${x.airport},${x.cityName},${x.country}</a></li>`)
+            .on('click',()=>set_destinationInput(`${x.airport},${x.cityName},${x.country}`))));
             $("#destination-dropdown").show();
         }
         if(id=="originInput"){
@@ -94,8 +95,8 @@ function fetch_autocomplete_suggestions(partial_string,id){
             }
             res.forEach(x=>
                 $("#origin-dropdown")
-                .append($(`<li><a class="dropdown-item">${x.cityName}</a></li>`)
-                .on('click',()=>set_originInput(x.cityName))));
+                .append($(`<li><a class="dropdown-item">${x.airport},${x.cityName},${x.country}</a></li>`)
+                .on('click',()=>set_originInput(`${x.airport},${x.cityName},${x.country}`))));
                 $("#origin-dropdown").show();
         }
     })

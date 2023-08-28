@@ -34,12 +34,12 @@ const getFlightsByIdArr = async arr => arr.length ? await Flight.find({ _id: { $
 /*assumes filter has at the very least fields origin and destination */
 const getFlightsByFilter = async (filterOBj = {}) => {
     const { origin, destination, depart, arrival } = filterOBj;
+    const d1 = new Date(depart);
+    const d2 = new Date(arrival);
     try {
         const filteredFlights = await Flight.find({
             origin,
-            destination,
-            departTime: { $gte: depart },
-            estimatedTimeOfArrival: { $lte: arrival }
+            destination
         });
         return filteredFlights;
     }
