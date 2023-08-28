@@ -81,7 +81,7 @@ function fetch_autocomplete_suggestions(partial_string,id){
             }
             res.forEach(x=>
             $("#destination-dropdown")
-            .append($(`<li><a class="dropdown-item">${x.cityName}</a></li>`)
+            .append($(`<li><a class="dropdown-item">${x.airport},${x.cityName},${x.country}</a></li>`)
             .on('click',()=>set_destinationInput(x.cityName))));
             $("#destination-dropdown").show();
         }

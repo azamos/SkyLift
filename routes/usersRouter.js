@@ -8,13 +8,17 @@ const {
     updateUser,
     deleteUser,
     signOut,
-    checkUserPassword
+    checkUserPassword,
+    userIsStillLoggedIn
  } = require('../controllers/userController');
 
-//these 2 don't need authorization, since users who login/register do so since they
+//these 3 don't need authorization, since users who login/register do so since they
 //need to have an authentication token created
 usersRouter.post('/checkuser',userLogin);
 usersRouter.post('/',createUser);
+usersRouter.get('/isLoggedIn',userIsStillLoggedIn);
+
+//the rest do indeed require authentication and authorization
 usersRouter.post('/checkpassword',requireAuthorization,checkUserPassword);
 usersRouter.post('/getUserData',requireAuthorization,getUserData);
 usersRouter.get('/usersList',requireAuthorization,getUsersList);

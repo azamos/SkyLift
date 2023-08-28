@@ -101,7 +101,7 @@ const userLogin = async (req, res) => {
             /* Generates public key for user */
             let token_id = `${key}${process.env.SECRET}`;
             await tokenDbService.createToken(token_id, email, raw_user.isAdmin ? 'admin' : 'user');
-            res.cookie('token', key, cookieOptions).json({ email, name:raw_user.full_name, isAdmin: raw_user.isAdmin });
+            res.cookie('token', key, cookieOptions).json({ email, name: raw_user.full_name, isAdmin: raw_user.isAdmin });
             return;
         }
         else {
@@ -118,8 +118,8 @@ const userLogin = async (req, res) => {
 const checkUserPassword = async (req, res) => {
     let { email, password } = req.body;
     const raw_user = await userDbService.findUserByMail(email);
-    if(raw_user==null){
-        res.send({error:'user not found'});
+    if (raw_user == null) {
+        res.send({ error: 'user not found' });
         return;
     }
     let cmp_res = await bcrypt.compare(password, raw_user.password);
@@ -239,9 +239,26 @@ const deleteUser = async (req, res) => {
     }
     res.send({ msg: 'user deleted' });
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const userIsStillLoggedIn = async (req, res) => {
+    if (req.cookies && req.cookies.token) {
+        const token_id = req.cookies.token + process.env.SECRET;
+        const token = await tokenDbService.getToken(token_id);
+        const user = await userDbService.findUserByMail(token.email);
+        res.send({
+            isLoggedIn: true,
+            email: user.email, name: user.full_name, isAdmin: user.isAdmin
+        });
+        return;
+    }
+    else{
+        res.send({ isLoggedIn: false });
+        return;
+    }
+}
 
 
-module.exports = { checkUserPassword , userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut };
+module.exports = { checkUserPassword, userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut, userIsStillLoggedIn };
 
 
 
