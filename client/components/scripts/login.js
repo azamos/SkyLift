@@ -16,44 +16,7 @@ const login = e => {
     })
         .then(res => res.json())
         .then(res => {
-            if (!res.error) {
-                $("#login-email-input").val("");
-                $("#login-password-input").val("");
-                $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
-                state.user = res.email;
-                state.name = res.name;
-                if(res.isAdmin){
-                    $('#addFlight-dropdown').show();
-                    $('#addLocation-dropdownMenu').show();
-                    $('#searchUsers-dropdown').show();
-                    $('#arbitrary-requirements-dropdownMenu').show();
-                    $('#allFlights-dropdownMenu').show();
-                }
-                loadMainComponent('welcomeMsg');
-
-                //LOGOUT BUTTON functionality
-                $("#logoutButton").show();
-                $("#logoutButton").on('click',function(){
-                    state.user = 'Guest';
-                    state.name = 'Guest';
-                    fetch(`${url}/users/signout`, {
-                        method: 'GET',
-                        headers
-                    })
-                    $("#userIdentitySpan").text(`User: ${state.user}`).css('background-color','black');
-                    $("#logoutButton").hide();
-                    $('#searchUsers-dropdown').hide();
-                    $('#addFlight-dropdown').hide();
-                    $('#addLocation-dropdownMenu').hide();
-                    $('#allFlights-dropdownMenu').hide();
-                    $('#arbitrary-requirements-dropdownMenu').hide();
-                    loadMainComponent('popularDeals');
-                });
-                
-            }
-            else {
-                alert(res.error);
-            }
+            afterLogin(res);
         })
         .catch(err => console.log(err));
 }
@@ -65,5 +28,47 @@ const login_email_input_changed = e => {
     }
     else {
         $("#login-submit").attr('disabled', true);
+    }
+}
+
+// res = email, full_name and isAdmin (3)
+const afterLogin = (res) =>{
+    if (!res.error) {
+        $("#login-email-input").val("");
+        $("#login-password-input").val("");
+        $("#userIdentitySpan").text(`User: ${res.name}`).css('background-color','green');
+        state.user = res.email;
+        state.name = res.name;
+        if(res.isAdmin){
+            $('#addFlight-dropdown').show();
+            $('#addLocation-dropdownMenu').show();
+            $('#searchUsers-dropdown').show();
+            $('#arbitrary-requirements-dropdownMenu').show();
+            $('#allFlights-dropdownMenu').show();
+        }
+        loadMainComponent('welcomeMsg');
+
+        //LOGOUT BUTTON functionality
+        $("#logoutButton").show();
+        $("#logoutButton").on('click',function(){
+            state.user = 'Guest';
+            state.name = 'Guest';
+            fetch(`${url}/users/signout`, {
+                method: 'GET',
+                headers
+            })
+            $("#userIdentitySpan").text(`User: ${state.user}`).css('background-color','black');
+            $("#logoutButton").hide();
+            $('#searchUsers-dropdown').hide();
+            $('#addFlight-dropdown').hide();
+            $('#addLocation-dropdownMenu').hide();
+            $('#allFlights-dropdownMenu').hide();
+            $('#arbitrary-requirements-dropdownMenu').hide();
+            loadMainComponent('popularDeals');
+        });
+        
+    }
+    else {
+        alert(res.error);
     }
 }

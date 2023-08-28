@@ -179,6 +179,7 @@ const createUser = async (req, res) => {
         res.send({ error: "bcrypt hash failed" });
         return;
     }
+    //TODO - add check if user already exists
     const newUser = await userDbService.createUser(email, hashed_pass, full_name, phone_number);
     if (newUser != {}) {
         let key = await bcrypt.hash(`${password}${Date.now}`, salt_rounds);

@@ -127,6 +127,7 @@ const loadMainComponent = async componentStr => {
     }
 
     if(componentStr=="cart"){
+        loadMainComponent('popularDeals');
         $('#main-component-container').load(`${views_path}/cartTamplate.html`,x=>{
             if(state.user != 'Guest'){
                 $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
@@ -232,6 +233,16 @@ $(async function () {
         $("#originInput").on('input', auto_complete);
         $("#destinationInput").on('input', auto_complete);
     });
+
+    fetch(`${url}/users/isLoggedIn`).then(res => res.json())
+    .then(res => {
+        if (res.isLoggedIn) {
+            let temp ={email:res.email , full_name:res.full_name , isAdmin:res.isAdmin}; 
+            afterLogin(temp);
+        }
+    })
+    .catch(err => console.log(err));
+
     socket = io();
     socket.on('chat message', msg => console.log(msg))
     loadMainComponent('popularDeals');
