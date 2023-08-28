@@ -232,6 +232,16 @@ $(async function () {
         $("#originInput").on('input', auto_complete);
         $("#destinationInput").on('input', auto_complete);
     });
+
+    fetch(`${url}/users/isLoggedIn`).then(res => res.json())
+    .then(res => {
+        if (res.isLoggedIn) {
+            let temp ={email:res.email , full_name:res.full_name , isAdmin:res.isAdmin}; 
+            afterLogin(temp);
+        }
+    })
+    .catch(err => console.log(err));
+
     socket = io();
     socket.on('chat message', msg => console.log(msg))
     loadMainComponent('popularDeals');
