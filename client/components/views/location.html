@@ -1,25 +1,18 @@
 
-<div class="card">
+<div class="card-location-tamplate"style="display: none;">
   <style>
+    
     .card-body{
       text-align: center;
       margin-left: 5px;
     }
-    .card {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin: 10px;
-        transition: transform 0.2s;
-    }
-  
-    .card:hover {
-        transform: scale(1.02);
-    }
+   
   
     .card-title {
-        font-size: 40px;
-        margin-bottom: 5px;
+      flex-direction: row;
+      display: flex;
+      font-size: 20px;
+      margin-bottom: 5px;
     }
   
     .card-text {
@@ -41,26 +34,29 @@
     }
   
     .card-img {  
-      object-fit: cover;
-      height: 5%; 
+      max-width: 300px; 
+      max-height: 300px;
+      height: 90%;
+      width: 90%;
       border-radius: 10px;
-      margin-bottom: 5px;
+      margin-top: 5px;
       margin-left: 5px;
     }
+    
   </style>
   
-  <div class="d-flex " id="location-template">
+  <div class="d-flex" id="location-template" style="margin-top: 10px; align-items: center;">
       <div class="flex-grow-1">
-          <div class="card-body">
-            <h4 id="country-name" class="card-title-country-name" style="margin-top: 0px;">country : israel</h4>
-              <h4 class="card-city-city-name" style="margin-top: 5px; font-size: 30px">city : or yehuda</h4>
-              <h5 class="card-text-airport" style="margin-bottom: -20px; margin-top: -30px;"> airport : ben gurion</h5>
-              <h5 class="card-text-international" >international : yse</h5>
-              <button type="button" class="btn btn-outline-danger delete-button" style="margin-bottom: 5px;">delete</button>
+          <div class="card card-body-location-tamplate" style="flex-direction: column; align-items: center; margin-bottom: 50px; margin-left: 10px">
+            <h4 class="card-title  card-title-country-name" style="color: cadetblue;"></h4>
+            <h4 class="card-title card-city-city-name" style="color: cadetblue;"></h4>
+            <h5 class="card-text card-text-airport"></h5>
+            <h5 class="card-text card-text-international" style="margin-bottom: 5px;"></h5>
           </div>
       </div>
-      <div class="pl-3 card-head">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/1200px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg" alt="Location Image" class="card-img-location card-img">
+      <div class="pl-3 card-head-location-tamplate"  style="display: flex; flex-direction: column; align-items: center;">
+          <img src="https://www.rd.com/wp-content/uploads/2020/01/GettyImages-1131335393-e1650030686687.jpg" style="margin-bottom: 5px;" alt="Location Image" class="card-img-location card-img">
+          <button type="button" class="btn btn-outline-danger delete-button" style="margin-bottom: 10px; display: block;">delete</button>
       </div>
   </div>
 </div>

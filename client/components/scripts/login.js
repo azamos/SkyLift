@@ -28,12 +28,11 @@ const login = e => {
                     $('#searchUsers-dropdown').show();
                     $('#arbitrary-requirements-dropdownMenu').show();
                     $('#allFlights-dropdownMenu').show();
-
                 }
                 loadMainComponent('welcomeMsg');
+
                 //LOGOUT BUTTON functionality
                 $("#logoutButton").show();
-
                 $("#logoutButton").on('click',function(){
                     state.user = 'Guest';
                     state.name = 'Guest';
@@ -46,6 +45,8 @@ const login = e => {
                     $('#searchUsers-dropdown').hide();
                     $('#addFlight-dropdown').hide();
                     $('#addLocation-dropdownMenu').hide();
+                    $('#allFlights-dropdownMenu').hide();
+                    $('#arbitrary-requirements-dropdownMenu').hide();
                     loadMainComponent('popularDeals');
                 });
                 

@@ -67,7 +67,9 @@ const loadMainComponent = async componentStr => {
                     $(".gobacktosearchuser").on('click', () => {
                         loadMainComponent('searchUsers');
                     });
-
+                    $('#main-component-container').load(`${views_path}/token.html`,x=>{
+                        loadTokens();
+                    });
                 });
             });
             $('#all-users-container').load(`${views_path}/allUsers.html`, x => {
@@ -124,11 +126,24 @@ const loadMainComponent = async componentStr => {
         })
     }
 
-    if (componentStr == "cart") {
-        $('#main-component-container').load(`${views_path}/cart.html`, x => {
-            if (state.user != 'Guest') {
-                $("#purchaseButton").on('click', checkout_flights);
+    if(componentStr=="cart"){
+        $('#main-component-container').load(`${views_path}/cartTamplate.html`,x=>{
+            if(state.user != 'Guest'){
+                $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
+                    loadCart();
+                });
+                //continu to checkout
+                $("#purchaseButton").on('click',()=>{
+                    $('#main-component-container').load(`${views_path}/checkoutPage.html`,x=>{
+                        $('.go-back-to-cart-btn').on('click',()=>{
+                            loadMainComponent('cart');
+                        });
+                        loadCheckout();   
+                    })  
+                });
+
             }
+
             else {
                 $("#purchaseButton").on('click', () => {
                     alert('You must be logged in to purchase flights');
@@ -150,9 +165,10 @@ const loadMainComponent = async componentStr => {
 
     if (componentStr == "addLocation") {
         $('#popularDealsTOallFlight').text('Popular Deals');
-        $('#main-component-container').load(`${views_path}/addLocationForm.html`, x => {
-            $("#add-location-submit").on('click', addLocation);
-            $('#locations-container').load(`${views_path}/location.html`, x => {
+        $('#main-component-container').load(`${views_path}/addLocationForm.html`,x=>{
+            $('.allLocaitions-text').text('All Locations');
+            $("#add-location-submit").on('click',addLocation);
+            $('#locations-container').load(`${views_path}/location.html`,x=>{
                 loadLocations();
             });
 
