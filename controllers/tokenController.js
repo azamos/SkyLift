@@ -45,9 +45,9 @@ const tokenDeleteControl = async (req,res)=>{
         res.send({error:'could not delete token for whatever reason. check if it is still in the list'});
     }
 }
-const tokenListControl = async (req,res)=> await tokenList();
+const tokenListControl = async (req,res)=> res.send(await tokenList());
 
-const tokenSearchControl = async (req,res)=> await getToken(req.body.token_id);
+const tokenSearchControl = async (req,res)=> res.send(await getToken(req.body.token_id));
 
 module.exports = {
     tokenUpdateControl,

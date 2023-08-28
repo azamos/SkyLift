@@ -32,7 +32,7 @@ const login_email_input_changed = e => {
 }
 
 // res = email, full_name and isAdmin (3)
-const afterLogin = (res) =>{
+const afterLogin = (res) =>{ 
     if (!res.error) {
         $("#login-email-input").val("");
         $("#login-password-input").val("");
@@ -45,6 +45,14 @@ const afterLogin = (res) =>{
             $('#searchUsers-dropdown').show();
             $('#arbitrary-requirements-dropdownMenu').show();
             $('#allFlights-dropdownMenu').show();
+        }
+        else{
+            $('#addFlight-dropdown').hide();
+            $('#addLocation-dropdownMenu').hide();
+            $('#searchUsers-dropdown').hide();
+            $('#arbitrary-requirements-dropdownMenu').hide();
+            $('#allFlights-dropdownMenu').hide();
+            loadMainComponent('popularDeals');
         }
         loadMainComponent('welcomeMsg');
 

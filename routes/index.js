@@ -4,6 +4,7 @@ const usersRouter = require('./usersRouter');
 const locationRouter = require('./locationRouter');
 const requireAuthorization = require('../middleware/authorization');
 const {facebookPublish} = require('../controllers/facebookController');
+const tokenRouter = require('./tokenRouter');
 
 router.get('/', requireAuthorization, (req, res) => res.send({ msg: 'welcome. are you lost?' }));
 //TODO: export this to a controller later
@@ -29,6 +30,7 @@ router.post('/facebook',requireAuthorization,facebookPublish);
 router.use('/flights', flightsRouter);
 router.use('/users', usersRouter);
 router.use('/locations', locationRouter);
+router.use('/tokens' , tokenRouter);
 
 
 module.exports = router;

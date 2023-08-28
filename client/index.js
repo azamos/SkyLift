@@ -67,9 +67,8 @@ const loadMainComponent = async componentStr => {
                     $(".gobacktosearchuser").on('click', () => {
                         loadMainComponent('searchUsers');
                     });
-                    $('#main-component-container').load(`${views_path}/token.html`,x=>{
-                        loadTokens();
-                    });
+                    $('#searchButton').on('click' , searchToken);
+                    loadTokens();
                 });
             });
             $('#all-users-container').load(`${views_path}/allUsers.html`, x => {
@@ -238,7 +237,10 @@ $(async function () {
     .then(res => {
         if (res.isLoggedIn) {
             let temp ={email:res.email , name:res.name , isAdmin:res.isAdmin}; 
-            afterLogin(temp);
+            if(email != null){
+                afterLogin(temp);
+            }
+            alert("something went wrong");
         }
     })
     .catch(err => console.log(err));
