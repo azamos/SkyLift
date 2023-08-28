@@ -237,7 +237,7 @@ $(async function () {
     fetch(`${url}/users/isLoggedIn`).then(res => res.json())
     .then(res => {
         if (res.isLoggedIn) {
-            let temp ={email:res.email , full_name:res.full_name , isAdmin:res.isAdmin}; 
+            let temp ={email:res.email , name:res.name , isAdmin:res.isAdmin}; 
             afterLogin(temp);
         }
     })
