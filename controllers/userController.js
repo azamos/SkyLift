@@ -5,6 +5,7 @@ const utils = require('../services/utils');
 const { emailSyntaxIsValid } = utils;
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
+const { Flight } = require('facebook-nodejs-business-sdk');
 const salt_rounds = 12;
 const cookieOptions = { httpOnly: true, sameSite: 'strict' };
 
@@ -263,10 +264,10 @@ const userIsStillLoggedIn = async (req, res) => {
     since by the time the user decides to commit a purchase, the flights may already be full.
     The purchase of a flight is done in FLIGHT CONTROLLER, under the purchaseFlightSeat method.
 */
-const addFlightsToCart = async (req, res) => {
-    const { desired_flights } = req.body;
-    if (desired_flights == null || desired_flights == {}) {
-        res.send({ error: "no flights selected" });
+const addFlightToCart = async (req, res) => {
+    const { desired_flight_id } = req.body;
+    if (desired_flight_id == null) {
+        res.send({ error: "no flight selected" });
         return;
     }
     try {
@@ -276,22 +277,12 @@ const addFlightsToCart = async (req, res) => {
             return;
         }
         const userInstance = await userDbService.findUserByMail(find_user_result.email);
-        const dupliFlights = [];
-        const newFlights = [];
         //Set would have been more elegant, but not enough time to change it now
-        desired_flights.forEach(flight_id => {
-            if (userInstance.cart.includes(flight_id)) {
-                dupliFlights.push(flight_id);
-            }
-            else {
-                newFlights.push(flight_id);
-            }
-        })
-        if (newFlights.length == 0) {
+        if(userInstance.cart.includes(desired_flight_id)){
             res.send({ msg: "no new flights added to cart, only duplications." })
             return;
         }
-        const operation_result = await userDbService.addFlightIDsToCart(userInstance, newFlights);
+        const operation_result = await userDbService.addFlightIDToCart(userInstance, newFlights);
         if (operation_result) {
             res.send({
                 msg: 'added flights to cart.',
@@ -322,10 +313,52 @@ const detectUserMailByToken = async (req) => {
     }
 }
 
+const tryToPurchaseAllFlightsInCart = async(req,res)=>{
+    try{
+        const find_user_result = await detectUserMailByToken(req);
+        if (find_user_result.op == 'FAILURE') {
+            res.res({ error: 'did not detect user' });
+            return;
+        }
+        const userInstance = await userDbService.findUserByMail(find_user_result.email);
+        const {cart,future_flights} = userInstance;
+        const flight_instances_array = await flightDbService.getFlightsByIdArr(cart);
+        console.log("in userController.tryToPurchaseAllFlightsInCart");
+        console.log(flight_instances_array);
+        flight_instances_array.forEach(async flight_instance=>{
+            let {economyCapacity,economyPassengers,_id} = flight_instance;
+            if(economyCapacity>0 && !economyPassengers.includes(userInstance.email)){
+                economyCapacity--;
+                economyPassengers.push(userInstance.email);
+                let result = await flightDbService.updateFlightData(_id,{economyCapacity,economyPassengers});
+                if(result && result._id == _id){
+                    future_flights.push(_id);
+                   if( await userDbService.updateUser(userInstance.email,{future_flights,cart:[]})){
+                        res.send(userInstance);
+                        return;
+                   }
+                   else{
+                    throw new Error('failed to update user '+find_user_result.email);
+                   }
+                }
+                else{
+                    throw new Error('failed to update flight '+_id);
+                }
+            }
+        })
+    }
+    catch(err){
+        console.error('something went horribly wrong...');
+        console.error(err);
+        res.send({error:'something went wrong...'})
+    }
+}
+
 
 module.exports = {
     checkUserPassword, userLogin, createUser, getUserData, getUsersList,
-    updateUser, deleteUser, signOut, userIsStillLoggedIn, addFlightsToCart
+    updateUser, deleteUser, signOut, userIsStillLoggedIn, addFlightToCart,
+    tryToPurchaseAllFlightsInCart
 };
 
 

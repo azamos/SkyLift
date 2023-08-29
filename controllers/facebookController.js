@@ -7,6 +7,11 @@ enter your token here, and extend its duration, so we wont have to repeat this s
  */
 
 const facebookPublish = async (req, res) => {
+    if(!(process.env.FacebookCopyOfExtendedToken && process.env.FacebookPageId)){
+        console.error('missing configurations');
+        res.send({error:'missing configurations'});
+        return;
+    }
     const { origin, company, destination, availableEcoSeats, price } = req.body;
     const postMessage = `New flight from ${origin} to ${destination}, with
     ${company}, for only ${price}$! Only ${availableEcoSeats} seats remain!`;
