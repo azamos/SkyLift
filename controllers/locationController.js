@@ -1,10 +1,10 @@
 const locationDbService = require('../services/locationDbService');
 
 
-const getLocationsList = async (req,res) => {
+const getLocationsList = async (req, res) => {
     const result = await locationDbService.locationList();
-    if(!result){
-        res.send({error:'something went wrong while fetching locationList'});
+    if (!result) {
+        res.send({ error: 'something went wrong while fetching locationList' });
         return;
     }
     res.json(result);
@@ -13,11 +13,11 @@ const getLocationsList = async (req,res) => {
 /* Creating locations: only admins are allowed */
 const createLocation = async (req, res) => {
     const { cityName, country, airport } = req.body;
-    if(!(cityName && country && airport)){
-        res.status(400).send({error:'missing paramaters'});
+    if (!(cityName && country && airport)) {
+        res.status(400).send({ error: 'missing paramaters' });
         return;
     }
-    const new_location = await locationDbService.createLocation(cityName, country,airport);
+    const new_location = await locationDbService.createLocation(cityName, country, airport);
     res.json(new_location);
     return;
 };
@@ -35,4 +35,10 @@ const getPartialMatch = async (req, res) => {
 const updateLocationData = async (req, res) =>
     res.send(await locationDbService.updateLocation(req.body.cityName, req.body.data));
 
-module.exports = { createLocation, getPartialMatch, updateLocationData, getLocationsList };
+const deleteLocation = async (req, res) => {
+    const { airport, cityName, country } = req.body;
+    const op_succeeded = await locationDbService.deleteLocation();
+    res.send({success:op_succeeded});
+}
+
+module.exports = { createLocation, getPartialMatch, updateLocationData, getLocationsList,deleteLocation };

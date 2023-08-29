@@ -78,10 +78,25 @@ const deleteUser = async userEmail => {
     res.send({error:'FAILED TO DELETE USER'});
 };
 
+const addFlightIDsToCart = async (userInstance,flightIdsArr) => {
+    try{
+        let {cart} = userInstance;
+        cart = cart.concat(flightIdsArr);
+        userInstance.cart = cart;
+        await userInstance.save();
+        return true;
+    }
+    catch(err){
+        console.error(err);
+        return false;
+    }
+}
+
 module.exports = {
     createUser,
     getUsers,
     findUserByMail,
     deleteUser,
-    updateUser
+    updateUser,
+    addFlightIDsToCart
 };

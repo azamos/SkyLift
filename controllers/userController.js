@@ -252,14 +252,81 @@ const userIsStillLoggedIn = async (req, res) => {
         });
         return;
     }
-    else{
+    else {
         res.send({ isLoggedIn: false });
         return;
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*EXPLANATION: 
+    This adds the flights to the user's cart. However, it does not make any changes to the flights themselves,
+    since by the time the user decides to commit a purchase, the flights may already be full.
+    The purchase of a flight is done in FLIGHT CONTROLLER, under the purchaseFlightSeat method.
+*/
+const addFlightsToCart = async (req, res) => {
+    const { desired_flights } = req.body;
+    if (desired_flights == null || desired_flights == {}) {
+        res.send({ error: "no flights selected" });
+        return;
+    }
+    try {
+        const find_user_result = await detectUserMailByToken(req);
+        if (find_user_result.op == 'FAILURE') {
+            res.res({ error: 'did not detect user' });
+            return;
+        }
+        const userInstance = await userDbService.findUserByMail(find_user_result.email);
+        const dupliFlights = [];
+        const newFlights = [];
+        //Set would have been more elegant, but not enough time to change it now
+        desired_flights.forEach(flight_id => {
+            if (userInstance.cart.includes(flight_id)) {
+                dupliFlights.push(flight_id);
+            }
+            else {
+                newFlights.push(flight_id);
+            }
+        })
+        if (newFlights.length == 0) {
+            res.send({ msg: "no new flights added to cart, only duplications." })
+            return;
+        }
+        const operation_result = await userDbService.addFlightIDsToCart(userInstance, newFlights);
+        if (operation_result) {
+            res.send({
+                msg: 'added flights to cart.',
+                addFlights: newFlights
+            });
+            return;
+        }
+        res.send({ error: 'db op failed.' });
+        return;
+    }
+    catch (err) {
+        console.error(err);
+        res.send({ error: 'something went wrong...' });
+        return;
+    }
+
+}
+/*TODO: test if working, and if it does, maybe replace every other function that tries to detect the user */
+const detectUserMailByToken = async (req) => {
+    try {
+        const token_id = req.cookies.token + process.env.SECRET;
+        const token = await tokenDbService.getToken(token_id);
+        return { op: 'SUCCESS', email: token.user };
+    }
+    catch (err) {
+        console.error(err);
+        return { op: 'FAILURE' };
+    }
+}
 
 
-module.exports = { checkUserPassword, userLogin, createUser, getUserData, getUsersList, updateUser, deleteUser, signOut, userIsStillLoggedIn };
+module.exports = {
+    checkUserPassword, userLogin, createUser, getUserData, getUsersList,
+    updateUser, deleteUser, signOut, userIsStillLoggedIn, addFlightsToCart
+};
 
 
 

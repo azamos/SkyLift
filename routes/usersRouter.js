@@ -9,7 +9,8 @@ const {
     deleteUser,
     signOut,
     checkUserPassword,
-    userIsStillLoggedIn
+    userIsStillLoggedIn,
+    addFlightsToCart
  } = require('../controllers/userController');
 
 //these 3 don't need authorization, since users who login/register do so since they
@@ -25,4 +26,5 @@ usersRouter.get('/usersList',requireAuthorization,getUsersList);
 usersRouter.post('/update',requireAuthorization,updateUser);
 usersRouter.post('/delete',requireAuthorization,deleteUser);
 usersRouter.get('/signout',requireAuthorization,signOut);
+usersRouter.post('/addFlightsToCart',requireAuthorization,addFlightsToCart)
 module.exports = usersRouter;
