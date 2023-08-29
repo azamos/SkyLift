@@ -220,9 +220,9 @@ const updateUser = async (req, res) => {
     }
     /* TODO: WE MUST VALIDATE ALL THE DATA. for now, I simply use it as it is,
     which is very very bad.  */
-    if('password' in Object.keys(data)){
-        let hashed = await bcrypt.hash(data.password,process.env.SALT_ROUNDS);
-        data.password = hashed;
+    if('password' in Object.keys(newData)){
+        let hashed = await bcrypt.hash(newData.password,process.env.SALT_ROUNDS);
+        newData.password = hashed;
     }
     const user = await userDbService.updateUser(email, newData);
     res.send('User updated...');
