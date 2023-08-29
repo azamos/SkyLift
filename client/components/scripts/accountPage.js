@@ -13,7 +13,13 @@ function loadUserData(email_in) {
                 $('.username-account').text(res.user.full_name);
                 $('#useraccount-email').text(res.user.email);
                 if(res.user.phone_number != null){
-                    $('#useraccount-phonenumber').text("0" + res.user.phone_number);
+                    const digitCount = String(res.user.phone_number).length;
+                    if(digitCount >10 &&  digitCount <= 12){
+                        $('#useraccount-phonenumber').text("+" + res.user.phone_number);
+                    }
+                    else{
+                        $('#useraccount-phonenumber').text("0" + res.user.phone_number);
+                    }
                 }
                 else{
                     $('#useraccount-phonenumber').text("No Number");
@@ -37,44 +43,55 @@ function loadUserData(email_in) {
                     //TODO -- TOFIX this !! 
                     $(".circle-edit").on('click',()=>{
                         $('#main-component-container').load(`${views_path}/reconfirmPassword.html`,async()=>{
-                            let tempPass = $('#passwordInput-foredit').val();
                             
-                            fetch(`${url}/users/checkpassword`, {
-                                method: 'POST',
-                                headers,
-                                body: JSON.stringify({email,tempPass})
-                            })
-                            .then(res => res.json())
-                            .then(res => {
-                                if(res.msg){
-                                    $('#main-component-container').load(`${views_path}/editUserInfoComp.html`,async()=>{
-                                        const name = $('#fullName-editinfo');
-                                        const phone = $('#phoneNumber-editinfo');
-                                        const password = $('#password-editinfo');
-                                        const confirmPassword = $('#confirmPassword-editinfo');
-                                        if(password != confirmPassword){
-                                            alert("Passwords do not match");
-                                            return;
-                                        }
-                                        fetch(`${url}/users/update`, {
-                                            method: 'POST',
-                                            headers,
-                                            body: JSON.stringify({email:email , newData: {full_name:name , phone_number:phone , password:password}})
-                                        })
-                                        .then(res => res.json())
-                                        .then(res => {
-                                            if(res.error){
-                                                alert(res.error);
+                            //continu button after putting password
+                            $('#continue-btn-for-edit-user').on('click' , ()=>{
+                                let tempPass = $('#passwordInput-foredit').val();
+                                //check validation
+                                if(tempPass == ''){
+                                    alert("Enter a valid Password");
+                                    return;
+                                }
+
+                                fetch(`${url}/users/checkpassword`, {
+                                    method: 'POST',
+                                    headers,
+                                    body: JSON.stringify({email,tempPass})
+                                })
+                                .then(res => res.json())
+                                .then(res => {
+                                    if(res.msg){
+                                        $('#main-component-container').load(`${views_path}/editUserInfoComp.html`,async()=>{
+                                            const name = $('#fullName-editinfo').val();
+                                            const phone = $('#phoneNumber-editinfo').val();
+                                            const password = $('#password-editinfo').val();
+                                            const confirmPassword = $('#confirmPassword-editinfo').val();
+                                            
+                                            if(password != confirmPassword){
+                                                alert("Passwords do not match");
                                                 return;
                                             }
-                                            alert("User info updated");
-                                            loadMainComponent('userpage');
-                                        })
-                                        .catch(err => console.log(err));
-                                    });
-                                }
+                                            fetch(`${url}/users/update`, {
+                                                method: 'POST',
+                                                headers,
+                                                body: JSON.stringify({email:email , newData: {full_name:name , phone_number:phone , password:password}})
+                                            })
+                                            .then(res => res.json())
+                                            .then(res => {
+                                                if(res.error){
+                                                    alert(res.error);
+                                                    return;
+                                                }
+                                                alert("User info updated");
+                                                loadMainComponent('userpage');
+                                            })
+                                            .catch(err => console.log(err));
+                                        });
+                                    }
+                                })
+                                .catch(err => console.log(err));
                             })
-                            .catch(err => console.log(err));
+                            
                         });
                 });
                     

@@ -4,7 +4,13 @@ const generateUserHTML = (UserModelInstance,i) =>{
     
     let userHeader = htmlRef.children('.card').children('.card-body');
     userHeader.children('.fullName-allusers').text(`User Name:  ${UserModelInstance.full_name}`)
-    userHeader.children('.phoneNumber-allusers').text(`Phone Number: 0${UserModelInstance.phone_number}`)
+    if(UserModelInstance.phone_number != 0){
+        userHeader.children('.phoneNumber-allusers').text(`Phone Number: 0${UserModelInstance.phone_number}`)
+    }
+    else{
+        userHeader.children('.phoneNumber-allusers').text(`No Phone Number`)
+    }
+    
     userHeader.children('.email-allusers').text(`Email: ${UserModelInstance.email}`)
     userHeader.children('.miles-allusers').text(`Miles: ${UserModelInstance.total_miles}`) 
     userHeader.children('.place-holder-flights-info').children('.pastFlights-allusers').text(`Past Flights: ${UserModelInstance.past_flights.length}`)
@@ -90,9 +96,31 @@ const generateMoreInfoFlightHTML = (flightModelInstance) => {
     let content = htmlRef.children('.content');
     content.children('.origin').text(`From: ${flightModelInstance.origin}`)
     content.children('.destination').text(`To: ${flightModelInstance.destination}`)
-    content.children('.departure').text(`Departing: ${flightModelInstance.departTime}`)
-    content.children('.arrival').text(`ETA: ${flightModelInstance.estimatedTimeOfArrival}`)
+
+    let inputString = flightModelInstance.departTime;
+    let outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+    content.children('.departure').text(`Departing: ${outputString}`)
+
+    inputString = flightModelInstance.estimatedTimeOfArrival;
+    outputString = inputString.replace("T00:00:00.000Z", "");
+    outputString = formatDate(outputString);
+    content.children('.arrival').text(`ETA: ${outputString}`)
+
     htmlRef.children('.card-body').children('.buy-button').remove();
     htmlRef.children('.card-body').children('.wishlist-button').remove();
     return htmlRef; 
 }
+
+function formatDate(inputDate) {
+    let parts = inputDate.split('-');
+    if (parts.length !== 3) {
+      return "Invalid date format";
+    }
+  
+    let year = parts[0];
+    let month = parts[1];
+    let day = parts[2];
+  
+    return `${day}/${month}/${year}`;
+  }

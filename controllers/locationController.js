@@ -33,7 +33,7 @@ const getPartialMatch = async (req, res) => {
 };
 
 const updateLocationData = async (req, res) =>
-    res.send(await locationDbService.updateLocation(req.body.cityName, req.body.data));
+    res.send(await locationDbService.updateLocation(req.body.airport , req.body.cityName , req.body.country , req.body.data));
 
 const deleteLocation = async (req, res) => {
     const { airport, cityName, country } = req.body;
