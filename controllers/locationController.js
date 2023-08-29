@@ -37,7 +37,7 @@ const updateLocationData = async (req, res) =>
 
 const deleteLocation = async (req, res) => {
     const { airport, cityName, country } = req.body;
-    const op_succeeded = await locationDbService.deleteLocation();
+    const op_succeeded = await locationDbService.deleteLocation(airport, cityName, country );
     res.send({success:op_succeeded});
 }
 

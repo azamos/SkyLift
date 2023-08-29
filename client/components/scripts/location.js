@@ -9,10 +9,16 @@ const generateLoctionHTML = (locationModelInstanc) =>{
 
     //TODO - DELETE LOCATION
     htmlRef.children('.card-head-location-tamplate').children('.btn-outline-danger-location').on('click',()=>{
-        
-
-
-        loadMainComponent('addLocation');
+        fetch(`${url}/locations/deleteLocation`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({airport:locationModelInstanc.airport , cityName:locationModelInstanc.cityName , country:locationModelInstanc.country})
+        })
+        .then(res=>res.json())
+        .then(res => {
+            loadMainComponent('addLocation');
+        })
+        .catch(err => console.log(err));
     });
 
     //TODO - EDIT LOCATION
