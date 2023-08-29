@@ -59,14 +59,16 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
 
         //BUY FLIGHT
         htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
-            fetch(`${url}/flights/purchase`, {
+            console.log('baa')
+            fetch(`${url}/users/addFlightsToCart`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
+                body: JSON.stringify({desired_flight_id:flightModelInstance._id})
             })
             .then(res => res.json())
             .then(res =>{
                 if(res.msg){
+                    console.log(res);
                     loadMainComponent('allFlights');
                     return;
                 }

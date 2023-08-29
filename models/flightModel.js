@@ -65,7 +65,7 @@ const Flight = new Schema({
     },
     isPopular: {
         type:Boolean,
-        default: false
+        default: true
     },
     isOpen:{
         type: Boolean,
