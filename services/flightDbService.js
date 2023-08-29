@@ -76,7 +76,11 @@ const updateFlightData = async (dbIdentifier, newData) => {
 
 
 /* DELETE */
-const deleteFlight = async flightToDeleted => {
+const deleteFlight = async flight_id  => {
+    const flightToDeleted = await Flight.findById(flight_id);
+    if(flightToDeleted==null){
+        return null;
+    }
     await flightToDeleted.deleteOne();
     return flightToDeleted;
 };
