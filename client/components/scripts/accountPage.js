@@ -12,16 +12,16 @@ function loadUserData(email_in) {
             $('#main-component-container').load(`${views_path}/userpage.html`, () => {
                 $('.username-account').text(res.user.full_name);
                 $('#useraccount-email').text(res.user.email);
-                if(res.user.phone_number != null){
+                if (res.user.phone_number != null) {
                     const digitCount = String(res.user.phone_number).length;
-                    if(digitCount >10 &&  digitCount <= 12){
+                    if (digitCount > 10 && digitCount <= 12) {
                         $('#useraccount-phonenumber').text("+" + res.user.phone_number);
                     }
-                    else{
+                    else {
                         $('#useraccount-phonenumber').text("0" + res.user.phone_number);
                     }
                 }
-                else{
+                else {
                     $('#useraccount-phonenumber').text("No Number");
                 }
                 $('#totalMiles-account').text(res.user.total_miles);
@@ -29,75 +29,78 @@ function loadUserData(email_in) {
                 $('#pastFlights').text(res.past_flights.length);
                 $('#cartSum').text(res.cart.length);
 
-                     
-                    const futureFlights = res.future_flights;
-                    for(let i = 0; i<futureFlights.length && i<3; i++){
-                        const flight = generateMoreInfoFlightHTML(futureFlights[i]);
-                        $('.future-flight-list').append(flight);
-                    }
-                    const pastFlights = res.past_flights;
-                    for(let i = 0; i<pastFlights.length && i<3; i++){
-                        const flight = generateMoreInfoFlightHTML(pastFlights[i]);
-                        $('.past-flight-list').append(flight);
-                    }
-                    //TODO -- TOFIX this !! 
-                    $(".circle-edit").on('click',()=>{
-                        $('#main-component-container').load(`${views_path}/reconfirmPassword.html`,async()=>{
-                            
-                            //continu button after putting password
-                            $('#continue-btn-for-edit-user').on('click' , ()=>{
-                                let tempPass = $('#passwordInput-foredit').val();
-                                //check validation
-                                if(tempPass == ''){
-                                    alert("Enter a valid Password");
-                                    return;
-                                }
 
-                                fetch(`${url}/users/checkpassword`, {
-                                    method: 'POST',
-                                    headers,
-                                    body: JSON.stringify({email,tempPass})
-                                })
+                const futureFlights = res.future_flights;
+                for (let i = 0; i < futureFlights.length && i < 3; i++) {
+                    const flight = generateMoreInfoFlightHTML(futureFlights[i]);
+                    $('.future-flight-list').append(flight);
+                }
+                const pastFlights = res.past_flights;
+                for (let i = 0; i < pastFlights.length && i < 3; i++) {
+                    const flight = generateMoreInfoFlightHTML(pastFlights[i]);
+                    $('.past-flight-list').append(flight);
+                }
+                //TODO -- TOFIX this !! 
+                $(".circle-edit").on('click', () => {
+                    $('#main-component-container').load(`${views_path}/reconfirmPassword.html`, async () => {
+
+                        //continu button after putting password
+                        $('#continue-btn-for-edit-user').on('click', () => {
+                            let tempPass = $('#passwordInput-foredit').val();
+                            //check validation
+                            if (tempPass == '') {
+                                alert("Enter a valid Password");
+                                return;
+                            }
+
+                            fetch(`${url}/users/checkpassword`, {
+                                method: 'POST',
+                                headers,
+                                body: JSON.stringify({ email, password: tempPass })
+                            })
                                 .then(res => res.json())
                                 .then(res => {
-                                    if(res.msg){
-                                        $('#main-component-container').load(`${views_path}/editUserInfoComp.html`,async()=>{
-                                            const name = $('#fullName-editinfo').val();
-                                            const phone = $('#phoneNumber-editinfo').val();
-                                            const password = $('#password-editinfo').val();
-                                            const confirmPassword = $('#confirmPassword-editinfo').val();
-                                            
-                                            if(password != confirmPassword){
-                                                alert("Passwords do not match");
-                                                return;
-                                            }
-                                            fetch(`${url}/users/update`, {
-                                                method: 'POST',
-                                                headers,
-                                                body: JSON.stringify({email:email , newData: {full_name:name , phone_number:phone , password:password}})
-                                            })
-                                            .then(res => res.json())
-                                            .then(res => {
-                                                if(res.error){
-                                                    alert(res.error);
+                                    console.log(res);
+                                    if (res.msg) {
+                                        $('#main-component-container').load(`${views_path}/editUserInfoComp.html`, async () => {
+                                            $("#commit-user-edit").on('click', e => {
+                                                const name = $('#fullName-editinfo').val();
+                                                const phone = $('#phoneNumber-editinfo').val();
+                                                const password = $('#password-editinfo').val();
+                                                const confirmPassword = $('#confirmPassword-editinfo').val();
+
+                                                if (password != confirmPassword) {
+                                                    alert("Passwords do not match");
                                                     return;
                                                 }
-                                                alert("User info updated");
-                                                loadMainComponent('userpage');
+                                                fetch(`${url}/users/update`, {
+                                                    method: 'POST',
+                                                    headers,
+                                                    body: JSON.stringify({ email, newData: { full_name: name, phone_number: phone, password: password } })
+                                                })
+                                                    .then(res => res.json())
+                                                    .then(res => {
+                                                        if (res.error) {
+                                                            alert(res.error);
+                                                            return;
+                                                        }
+                                                        alert("User info updated");
+                                                        loadMainComponent('userpage');
+                                                    })
+                                                    .catch(err => console.error("a" + err));
                                             })
-                                            .catch(err => console.log(err));
                                         });
                                     }
                                 })
-                                .catch(err => console.log(err));
-                            })
-                            
-                        });
+                                .catch(err => console.log("b" + err));
+                        })
+
+                    });
                 });
-                    
+
 
                 //here it will load the data for future past and cart
-                if(futureFlights.length!=0){
+                if (futureFlights.length != 0) {
                     $("#allfutureflights-button").attr('style', 'background-color: #5f9ea0');
                     $("#allfutureflights-button").on('click', () => {
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`, () => {
@@ -113,8 +116,8 @@ function loadUserData(email_in) {
                         })
                     })
                 }
-                
-                if(pastFlights.length!=0){
+
+                if (pastFlights.length != 0) {
                     $("#allpastflights-button").attr('style', 'background-color: blue');
                     $("#allpastflights-button").on('click', () => {
                         $('#main-component-container').load(`${views_path}/allFlightsTamp.html`, () => {
@@ -210,17 +213,17 @@ function calculateMonthlyAverage(selectedFlightArray) {
     const monthAmount = new Map();
     months.forEach((obj, i) => {
         map1.set(obj.month, i);
-        monthAmount.set(obj.month,0);
+        monthAmount.set(obj.month, 0);
     });
     selectedFlightArray.forEach(flight => {
         const month = new Date(flight.departTime).toLocaleString("default", { month: "long" });;
         months[map1.get(month)].spending += parseInt(flight.price);
         let prevAm = monthAmount.get(month);
-        monthAmount.set(prevAm+1);
+        monthAmount.set(prevAm + 1);
     });
-    months.forEach(monthObj=>{
-        if(monthAmount.get(monthObj.month)){
-            months[map1.get(monthObj.month)].spending/= monthAmount.get(monthObj.month);
+    months.forEach(monthObj => {
+        if (monthAmount.get(monthObj.month)) {
+            months[map1.get(monthObj.month)].spending /= monthAmount.get(monthObj.month);
         }
     });
     return months;

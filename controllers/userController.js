@@ -117,18 +117,26 @@ const userLogin = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const checkUserPassword = async (req, res) => {
-    let { email, password } = req.body;
-    const raw_user = await userDbService.findUserByMail(email);
-    if (raw_user == null) {
-        res.send({ error: 'user not found' });
-        return;
+    try {
+        let { email, password } = req.body;
+        const raw_user = await userDbService.findUserByMail(email);
+        if (raw_user == null) {
+            res.json({ error: 'user not found' });
+            return;
+        }
+        let cmp_res = await bcrypt.compare(password, raw_user.password);
+        if (cmp_res) {
+            res.json({ msg: 'correct password' });
+            return;
+        }
+        else{
+            res.json({ error: 'wrong password' });
+        }
     }
-    let cmp_res = await bcrypt.compare(password, raw_user.password);
-    if (cmp_res) {
-        res.send({ msg: 'correct password' });
-        return;
+    catch (err) {
+        console.error(err);
+        res.json({ error: err });
     }
-    res.send({ error: 'wrong password' });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -209,9 +217,9 @@ const getUsersList = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*WARNING: testing is required */
 const updateUser = async (req, res) => {
-    const { email, newData } = req.params;
+    const { email, newData } = req.body;
     if (emailSyntaxIsValid(email) == false) {
-        res.send('Not a valid email input. Try again with a valid email');
+        res.send({msg:'Not a valid email input. Try again with a valid email'});
         return;
     }
     if (!(req.cookies && req.cookies.token)) {
@@ -220,12 +228,22 @@ const updateUser = async (req, res) => {
     }
     /* TODO: WE MUST VALIDATE ALL THE DATA. for now, I simply use it as it is,
     which is very very bad.  */
-    if('password' in Object.keys(data)){
-        let hashed = await bcrypt.hash(data.password,process.env.SALT_ROUNDS);
-        data.password = hashed;
+    // console.log('data before removing empty ',newData);
+    const newDataKeys = Object.keys(newData);
+    const keysToRemove = [];
+    newDataKeys.forEach(key=>{
+        if(newData[key].trim()==""){
+            keysToRemove.push(key);
+        }
+    })
+    keysToRemove.forEach(key=>delete(newData[key]));
+    // console.log('data after removing empty inputs: ',newData);
+    if ('password' in Object.keys(newData)) {
+        let hashed = await bcrypt.hash(newData.password, process.env.SALT_ROUNDS);
+        newData.password = hashed;
     }
     const user = await userDbService.updateUser(email, newData);
-    res.send('User updated...');
+    res.send({msg:'User updated...'});
     return;
 
 };
@@ -282,7 +300,7 @@ const addFlightToCart = async (req, res) => {
         }
         const userInstance = await userDbService.findUserByMail(find_user_result.email);
         //Set would have been more elegant, but not enough time to change it now
-        if(userInstance.cart.includes(desired_flight_id)){
+        if (userInstance.cart.includes(desired_flight_id)) {
             res.send({ msg: "no new flights added to cart, only duplications." })
             return;
         }
@@ -317,44 +335,44 @@ const detectUserMailByToken = async (req) => {
     }
 }
 
-const tryToPurchaseAllFlightsInCart = async(req,res)=>{
-    try{
+const tryToPurchaseAllFlightsInCart = async (req, res) => {
+    try {
         const find_user_result = await detectUserMailByToken(req);
         if (find_user_result.op == 'FAILURE') {
             res.res({ error: 'did not detect user' });
             return;
         }
         const userInstance = await userDbService.findUserByMail(find_user_result.email);
-        const {cart,future_flights} = userInstance;
+        const { cart, future_flights } = userInstance;
         const flight_instances_array = await flightDbService.getFlightsByIdArr(cart);
         console.log("in userController.tryToPurchaseAllFlightsInCart");
         console.log(flight_instances_array);
-        flight_instances_array.forEach(async flight_instance=>{
-            let {economyCapacity,economyPassengers,_id} = flight_instance;
-            if(economyCapacity>0 && !economyPassengers.includes(userInstance.email)){
+        flight_instances_array.forEach(async flight_instance => {
+            let { economyCapacity, economyPassengers, _id } = flight_instance;
+            if (economyCapacity > 0 && !economyPassengers.includes(userInstance.email)) {
                 economyCapacity--;
                 economyPassengers.push(userInstance.email);
-                let result = await flightDbService.updateFlightData(_id,{economyCapacity,economyPassengers});
-                if(result && result._id == _id){
+                let result = await flightDbService.updateFlightData(_id, { economyCapacity, economyPassengers });
+                if (result && result._id == _id) {
                     future_flights.push(_id);
-                   if( await userDbService.updateUser(userInstance.email,{future_flights,cart:[]})){
+                    if (await userDbService.updateUser(userInstance.email, { future_flights, cart: [] })) {
                         res.send(userInstance);
                         return;
-                   }
-                   else{
-                    throw new Error('failed to update user '+find_user_result.email);
-                   }
+                    }
+                    else {
+                        throw new Error('failed to update user ' + find_user_result.email);
+                    }
                 }
-                else{
-                    throw new Error('failed to update flight '+_id);
+                else {
+                    throw new Error('failed to update flight ' + _id);
                 }
             }
         })
     }
-    catch(err){
+    catch (err) {
         console.error('something went horribly wrong...');
         console.error(err);
-        res.send({error:'something went wrong...'})
+        res.send({ error: 'something went wrong...' })
     }
 }
 
