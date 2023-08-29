@@ -2,10 +2,10 @@
   margin-top: 30px;
   margin-bottom: -10px;
   display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px; /* Double the size */
-    height: 80px; /* Double the size */
+  justify-content: center;
+  align-items: center;
+  width: 80px; /* Double the size */
+  height: 80px; /* Double the size */
     border-radius: 50%;
     background-color: #f0f0f0;
     font-size: 32px; /* Adjust font size to maintain emoji size */

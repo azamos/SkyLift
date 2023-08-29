@@ -1,0 +1,51 @@
+
+  <style>
+    .location-edit-trs {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid beige;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-check-label {
+      font-weight: normal;
+    }
+    
+    
+  </style>
+
+<title>Edit Location</title>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="location-edit-trs">
+          <h3 class="mb-4">Edit Location</h3>
+          <button class="btn btn-danger exit-button" style="margin-top: -15px; margin-bottom: 5px;">Exit</button> <!-- Exit Button -->
+          <form>
+            <div class="mb-3">
+              <label for="origin" class="form-label">Origin</label>
+              <input type="text" class="form-control" id="origin-loc" placeholder="Enter origin">
+            </div>
+            <div class="mb-3">
+              <label for="destination" class="form-label">Destination</label>
+              <input type="text" class="form-control" id="destination-loc" placeholder="Enter destination">
+            </div>
+            <div class="mb-3">
+              <label for="airport" class="form-label">Airport</label>
+              <input type="text" class="form-control" id="airport-loc" placeholder="Enter airport">
+            </div>
+            <div class="mb-3 form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="internationalSwitch-loc">
+              <label class="form-check-label" for="internationalSwitch">International</label>
+            </div>
+            <button type="submit" class="btn btn-primary save-changes-location-edit">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
