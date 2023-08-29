@@ -58,6 +58,8 @@ const afterLogin = (res) =>{
 
         //LOGOUT BUTTON functionality
         $("#logoutButton").show();
+        $("#loginh-dropdown").hide();
+        $("#register-dropdown").hide();
         $("#logoutButton").on('click',function(){
             state.user = 'Guest';
             state.name = 'Guest';
@@ -72,6 +74,8 @@ const afterLogin = (res) =>{
             $('#addLocation-dropdownMenu').hide();
             $('#allFlights-dropdownMenu').hide();
             $('#arbitrary-requirements-dropdownMenu').hide();
+            $("#loginh-dropdown").show();
+            $("#register-dropdown").show();
             loadMainComponent('popularDeals');
         });
         

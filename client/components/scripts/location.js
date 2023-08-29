@@ -5,11 +5,10 @@ const generateLoctionHTML = (locationModelInstanc) =>{
     htmlRef.children('.flex-grow-1').children('.card-body-location-tamplate').children('.card-city-city-name').text(`${locationModelInstanc.cityName}`);
     htmlRef.children('.flex-grow-1').children('.card-body-location-tamplate').children('.card-text-airport').text(`Airport -  ${locationModelInstanc.airport}`);
     htmlRef.children('.flex-grow-1').children('.card-body-location-tamplate').children('.card-text-international').text(`International -  ${locationModelInstanc.international}`);
-    //htmlRef.children('.card-head').children('.card-img-location').attr('src',locationModelInstanc.imageUrl);
     
 
     //TODO - DELETE LOCATION
-    htmlRef.children('.card-head-location-tamplate').children('.btn-outline-danger-location').on('click',async()=>{
+    htmlRef.children('.card-head-location-tamplate').children('.btn-outline-danger-location').on('click',()=>{
         
 
 
@@ -19,33 +18,32 @@ const generateLoctionHTML = (locationModelInstanc) =>{
     //TODO - EDIT LOCATION
     htmlRef.children('.circle-edit-location').on('click',()=>{
         $('#spaceForEditLocation').load(`${views_path}/editLocationTemplate.html`, async () => {
-        let origin = $("#origin-loc").val();
-        let destination = $("#destination-loc").val();
-        let airPort = $("#airport-loc").val();
-        let international = $("#internationalSwitch-loc").prop('checked');
-        console.log(origin);
-        console.log(destination);
-        console.log(airPort);
-        console.log(international);
 
-        const new_location = {origin,destination,airPort,international};
+        $('#save-changes-location-edit').on('click',e =>{
+            let airport = $("#airport-loc").val();
+            let cityName = $("#city-loc").val();
+            let country = $("#country-loc").val();
+            let international = $("#internationalSwitch-loc").prop('checked');
 
-        htmlRef.children('.save-changes-location-edit').on('submit',()=>{
-            
+            const new_location = {airport,cityName,country,international};
+
             //validaition for empty fields
-            if(origin == '' || destination == '' || airPort == ''){
+            if(airport == '' || cityName == '' || country == ''){
                 alert('please fill all the fields');
                 return;
             }
+
             fetch(`${url}/locations/update`,{
                 method:'POST',
                 headers,
-                body:JSON.stringify(locationModelInstanc.cityName , new_location)
+                body:JSON.stringify({airport:locationModelInstanc.airport,
+                                     cityName:locationModelInstanc.cityName,
+                                     country:locationModelInstanc.country,
+                                     data:new_location})
             })
             .then(res=>res.json())
             .then(res=>{
                 if(res == true){
-                    console.log('location updated');
                     loadMainComponent('addLocation');
                 }
                 else{
