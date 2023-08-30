@@ -102,6 +102,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
                     ).catch(err => {
                         console.log(err);
                     })
+                    $("#main-component").html("");
                     loadMainComponent('allFlights');
                 });
             });
