@@ -20,6 +20,9 @@ usersRouter.post('/checkuser',userLogin);
 usersRouter.post('/',createUser);
 usersRouter.get('/isLoggedIn',userIsStillLoggedIn);
 
+//TODO ! 
+//deleteFlightFromCart
+
 //the rest do indeed require authentication and authorization
 usersRouter.post('/checkpassword',requireAuthorization,checkUserPassword);
 usersRouter.post('/getUserData',requireAuthorization,getUserData);

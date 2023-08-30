@@ -41,6 +41,23 @@ const generateCartHTML =  flightModelInstance => {
     headCartTemp.find('.airline-company').text(`Airline: ${flightModelInstance.company}`);
     headCartTemp.find('.flight-price').text(`Price: ${flightModelInstance.price}$`);
     
+    headCartTemp.find('.delete-cart-component').on('click',()=>{
+        fetch(`${url}/users/deleteFlightFromCart`,{
+            method:'POST',
+            headers,
+            body:JSON.stringify({flight_id:flightModelInstance._id})
+        })
+        .then(res=>res.json())
+        .then(res=>{
+            if(res.error){
+                console.log(res.error);
+                return;
+            }
+            loadMainComponent('cart');
+        })
+        .catch(err=>console.log(err));
+    });
+
     return htmlRef;
 }
 
