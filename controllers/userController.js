@@ -4,8 +4,6 @@ const flightDbService = require('../services/flightDbService');
 const utils = require('../services/utils');
 const { emailSyntaxIsValid } = utils;
 const bcrypt = require('bcrypt');
-const userModel = require('../models/userModel');
-const { Flight } = require('facebook-nodejs-business-sdk');
 const salt_rounds = 12;
 const cookieOptions = { httpOnly: true, sameSite: 'strict' };
 

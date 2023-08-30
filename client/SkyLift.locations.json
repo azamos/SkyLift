@@ -1,98 +1,461 @@
-[{
-  "cityName": "New York",
-  "country": "USA",
-  "airport": "JFK",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "New York",
-  "country": "USA",
-  "airport": "Newark Liberty",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "New York",
-  "country": "USA",
-  "airport": "LaGuardia",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Tel Aviv",
-  "country": "Israel",
-  "airport": "Ben Gurion",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Tel Aviv",
-  "country": "Israel",
-  "airport": "Sde Dov",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Be'er Ora",
-  "country": "Israel",
-  "airport": "Ramon",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Bangkok",
-  "country": "Thailand",
-  "airport": "Suvarnabhumi ",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Budapest ",
-  "country": "Hungary",
-  "airport": "Ferenc Liszt",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Rome",
-  "country": "Italy",
-  "airport": "Leonardo da Vinci–Fiumicino ",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Paris",
-  "country": "France",
-  "airport": "Charles de Gaulle",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Heraklion ",
-  "country": "Crete",
-  "airport": "Heraklion ",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Los Angeles",
-  "country": "USA",
-  "airport": "LAX",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "New Delhi",
-  "country": "India",
-  "airport": "Indira Gandhi",
-  "international": true,
-  "__v": 0
-},
-{
-  "cityName": "Tokyo",
-  "country": "Japan",
-  "airport": "Haneda",
-  "international": true,
-  "__v": 0
-}]
+[
+  {
+    "cityName": "Hong Kong",
+    "country": "China",
+    "airport": "Hong Kong International Airport",
+    "latitude_deg": 22.2727,
+    "longitude_deg": 114.1701,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Bangkok",
+    "country": "Thailand",
+    "airport": "Suvarnabhumi Airport",
+    "latitude_deg": 13.7152,
+    "longitude_deg": 100.5334,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "London",
+    "country": "United Kingdom",
+    "airport": "Heathrow Airport",
+    "latitude_deg": 51.4847,
+    "longitude_deg": -0.4238,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Macau",
+    "country": "China",
+    "airport": "Macau International Airport",
+    "latitude_deg": 22.1892,
+    "longitude_deg": 113.5825,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Singapore",
+    "country": "Singapore",
+    "airport": "Changi Airport",
+    "latitude_deg": 1.3578,
+    "longitude_deg": 103.8178,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Paris",
+    "country": "France",
+    "airport": "Charles de Gaulle Airport",
+    "latitude_deg": 49.0038,
+    "longitude_deg": 2.5475,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Dubai",
+    "country": "United Arab Emirates",
+    "airport": "Dubai International Airport",
+    "latitude_deg": 25.2532,
+    "longitude_deg": 55.3098,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Istanbul",
+    "country": "Turkey",
+    "airport": "Istanbul Airport",
+    "latitude_deg": 40.9864,
+    "longitude_deg": 28.9784,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Seoul",
+    "country": "South Korea",
+    "airport": "Incheon International Airport",
+    "latitude_deg": 37.4949,
+    "longitude_deg": 126.7241,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Tokyo",
+    "country": "Japan",
+    "airport": "Tokyo Haneda Airport",
+    "latitude_deg": 35.5002,
+    "longitude_deg": 139.7685,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Rome",
+    "country": "Italy",
+    "airport": "Fiumicino Airport",
+    "latitude_deg": 41.8553,
+    "longitude_deg": 12.2555,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "New York",
+    "country": "United States",
+    "airport": "John F. Kennedy International Airport",
+    "latitude_deg": 40.6397,
+    "longitude_deg": -73.7781,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Los Angeles",
+    "country": "United States",
+    "airport": "Los Angeles International Airport",
+    "latitude_deg": 33.9425,
+    "longitude_deg": -118.4080,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Amsterdam",
+    "country": "Netherlands",
+    "airport": "Amsterdam Airport Schiphol",
+    "latitude_deg": 52.2297,
+    "longitude_deg": 4.8902,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Barcelona",
+    "country": "Spain",
+    "airport": "Barcelona–El Prat Airport",
+    "latitude_deg": 41.3830,
+    "longitude_deg": 2.1113,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Taipei",
+    "country": "Taiwan",
+    "airport": "Taiwan Taoyuan International Airport",
+    "latitude_deg": 25.0169,
+    "longitude_deg": 121.8553,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Phuket",
+    "country": "Thailand",
+    "airport": "Phuket International Airport",
+    "latitude_deg": 7.8744,
+    "longitude_deg": 98.3846,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Cancun",
+    "country": "Mexico",
+    "airport": "Cancun International Airport",
+    "latitude_deg": 21.0069,
+    "longitude_deg": -86.8022,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Miami",
+    "country": "United States",
+    "airport": "Miami International Airport",
+    "latitude_deg": 25.7869,
+    "longitude_deg": -80.2840,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Sydney",
+    "country": "Australia",
+    "airport": "Sydney Kingsford Smith Airport",
+    "latitude_deg": -33.9455,
+    "longitude_deg": 151.1938,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Munich",
+    "country": "Germany",
+    "airport": "Munich Airport",
+    "latitude_deg": 48.3760,
+    "longitude_deg": 11.8550,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Osaka",
+    "country": "Japan",
+    "airport": "Kansai International Airport",
+    "latitude_deg": 34.4102,
+    "longitude_deg": 135.4969,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Vienna",
+    "country": "Austria",
+    "airport": "Vienna International Airport",
+    "latitude_deg": 48.1478,
+    "longitude_deg": 16.9372,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Zurich",
+    "country": "Switzerland",
+    "airport": "Zurich Airport",
+    "latitude_deg": 47.4667,
+    "longitude_deg": 8.5500,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Nashville",
+    "country": "United States",
+    "airport": "Nashville International Airport",
+    "latitude_deg": 36.1220,
+    "longitude_deg": -86.6790,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Lisbon",
+    "country": "Portugal",
+    "airport": "Lisbon Portela Airport",
+    "latitude_deg": 38.7833,
+    "longitude_deg": -9.1433,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Denver",
+    "country": "United States",
+    "airport": "Denver International Airport",
+    "latitude_deg": 39.8489,
+    "longitude_deg": -104.6419,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Las Vegas",
+    "country": "United States",
+    "airport": "Harry Reid International Airport",
+    "latitude_deg": 36.0847,
+    "longitude_deg": -115.1551,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Helsinki",
+    "country": "Finland",
+    "airport": "Helsinki–Vantaa Airport",
+    "latitude_deg": 60.3272,
+    "longitude_deg": 25.0113,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Milan",
+    "country": "Italy",
+    "airport": "Malpensa Airport",
+    "latitude_deg": 45.4642,
+    "longitude_deg": 8.9905,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Edinburgh",
+    "country": "Scotland",
+    "airport": "Edinburgh Airport",
+    "latitude_deg": 55.9453,
+    "longitude_deg": -3.2083,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Rome",
+    "country": "Italy",
+    "airport": "Ciampino–Giovan Battista Pastine Airport",
+    "latitude_deg": 41.7481,
+    "longitude_deg": 12.7273,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Copenhagen",
+    "country": "Denmark",
+    "airport": "Copenhagen Airport",
+    "latitude_deg": 55.6491,
+    "longitude_deg": 12.5632,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Toronto",
+    "country": "Canada",
+    "airport": "Toronto Pearson International Airport",
+    "latitude_deg": 43.6443,
+    "longitude_deg": -79.3893,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Stockholm",
+    "country": "Sweden",
+    "airport": "Stockholm–Arlanda Airport",
+    "latitude_deg": 59.6419,
+    "longitude_deg": 18.0792,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Geneva",
+    "country": "Switzerland",
+    "airport": "Geneva Airport",
+    "latitude_deg": 46.1750,
+    "longitude_deg": 6.0844,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Reykjavik",
+    "country": "Iceland",
+    "airport": "Keflavík International Airport",
+    "latitude_deg": 64.0741,
+    "longitude_deg": -22.5659,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Brussels",
+    "country": "Belgium",
+    "airport": "Brussels Airport",
+    "latitude_deg": 50.8500,
+    "longitude_deg": 4.3500,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Warsaw",
+    "country": "Poland",
+    "airport": "Warsaw Chopin Airport",
+    "latitude_deg": 52.1394,
+    "longitude_deg": 20.9786,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Athens",
+    "country": "Greece",
+    "airport": "Athens International Airport",
+    "latitude_deg": 37.9760,
+    "longitude_deg": 23.7394,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Dublin",
+    "country": "Ireland",
+    "airport": "Dublin Airport",
+    "latitude_deg": 53.2505,
+    "longitude_deg": -6.1715,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Oslo",
+    "country": "Norway",
+    "airport": "Oslo Airport, Gardermoen",
+    "latitude_deg": 59.8667,
+    "longitude_deg": 10.7500,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Manchester",
+    "country": "United Kingdom",
+    "airport": "Manchester Airport",
+    "latitude_deg": 53.4809,
+    "longitude_deg": -2.2445,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Budapest",
+    "country": "Hungary",
+    "airport": "Budapest Ferenc Liszt International Airport",
+    "latitude_deg": 47.4564,
+    "longitude_deg": 19.2564,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "New York",
+    "country": "USA",
+    "airport": "Newark Liberty",
+    "latitude_deg": 40.6925,
+    "longitude_deg": -74.168611,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "New York",
+    "country": "USA",
+    "airport": "LaGuardia",
+    "latitude_deg": 40.774444,
+    "longitude_deg": -73.872778,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Tel Aviv",
+    "country": "Israel",
+    "airport": "Ben Gurion",
+    "latitude_deg": 32.071806,
+    "longitude_deg": 34.893094,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Tel Aviv",
+    "country": "Israel",
+    "airport": "Sde Dov",
+    "latitude_deg": 32.063611,
+    "longitude_deg": 34.833611,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Be'er Ora",
+    "country": "Israel",
+    "airport": "Ramon",
+    "latitude_deg": 29.549167,
+    "longitude_deg": 35.200833,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "Heraklion",
+    "country": "Crete",
+    "airport": "Heraklion",
+    "latitude_deg": 35.346667,
+    "longitude_deg": 25.138333,
+        "international": true,
+    "__v": 0
+  },
+  {
+    "cityName": "New Delhi",
+    "country": "India",
+    "airport": "Indira Gandhi",
+    "latitude_deg": 28.566667,
+    "longitude_deg": 77.196667,
+        "international": true,
+    "__v": 0
+  }
+]

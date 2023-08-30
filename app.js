@@ -32,7 +32,7 @@ app.set('socketio', io);
   try {
     const locationsCounter = await locationModel.countDocuments();
     if (locationsCounter == 0) {
-      const jsonFile = await fs.promises.readFile(path.join(__dirname, '/client/SkyLift.airports.json'), 'utf-8');
+      const jsonFile = await fs.promises.readFile(path.join(__dirname, '/client/SkyLift.locations.json'), 'utf-8');
       const jsonToOBj = JSON.parse(jsonFile);
       await locationModel.insertMany(jsonToOBj);
       console.log('add locations data!');
