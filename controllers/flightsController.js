@@ -51,10 +51,7 @@ const getFlights = async (req, res) => {
 /* again, no need for special authorization to get search results */
 const searchFlight = async (req, res) => {
     const { destination, origin, depart, arrival } = req.body;
-    console.log('inside searchFlight');
-    console.log(req.body);
     if(destination==null||origin==null||destination.trim().length<3 || origin.trim().length < 3){
-        console.log('cond1')
         res.send({msg:"invalid flight search paramaters"});
         return;
     }
@@ -64,7 +61,10 @@ const searchFlight = async (req, res) => {
         depart,
         arrival
     });
+    console.log('baaaa');
+    console.log(filteredFlights);
     if (!filteredFlights || filteredFlights == {}) {
+        console.log('aaaaa');
         res.send({msg:"No flights matching the search paramaters."})
         return;
     }

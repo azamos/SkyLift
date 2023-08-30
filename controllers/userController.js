@@ -343,7 +343,6 @@ const tryToPurchaseAllFlightsInCart = async (req, res) => {
         const { cart, future_flights } = userInstance;
         const flight_instances_array = await flightDbService.getFlightsByIdArr(cart);
         console.log("in userController.tryToPurchaseAllFlightsInCart");
-        console.log(flight_instances_array);
         flight_instances_array.forEach(async flight_instance => {
             let { economyCapacity, economyPassengers, _id } = flight_instance;
             if (economyCapacity > 0 && !economyPassengers.includes(userInstance.email)) {

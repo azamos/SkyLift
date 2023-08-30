@@ -12,7 +12,6 @@ const loadCart = async () => {
         }
         $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
             res.cart.forEach(flightCartModelInstanc => {
-                console.log(flightCartModelInstanc)
                 let htmlRef = generateCartHTML(flightCartModelInstanc);
                 $('#add-here-cart-items').append(htmlRef);
             });
@@ -89,6 +88,7 @@ const loadCheckout = async () => {
                 })
                 .then(res=>res.json())
                 .then(res=>{
+                    console.log(res);
                     if(res.error){
                         return;
                     }

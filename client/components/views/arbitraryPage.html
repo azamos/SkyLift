@@ -1,19 +1,19 @@
-<div>
+<div class="flex-center">
     <header>
         <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Welcome to Our Flight Booking Platform</h1>
-        <nav>
-            <ul>
-                <li>There is already</li>
-                <li>A functioning nav.</li>
-                <li>It is the hamburger menu.</li>
-                <li>This is just a requirement check.</li>
-            </ul>
-        </nav>
     </header>
-
-    <section style="column-count: 2; column-gap: 20px;">
-        <h2 class="i">This is the section element</h2>
-        <img id="spaceship" width="100" height="100" src="./Spaceship-PNG-File.png" alt="spaceship" style="display: none;">
+    <section>
+        <h1>Total Revenue Per Company</h1>
+        <div id="chart"></div>
+    </section>
+    <section>
+        <h1>Number Of Flights Per Company</h1>
+        <div id="chart2"></div>
+    </section>
+    <section style="column-count: 2; column-gap: 20px;" class="flex-center">
+        <h2 class="i">Move the arrow keys for a surprise</h2>
+        <img id="spaceship" width="100" height="100" src="./Spaceship-PNG-File.png" alt="spaceship"
+            style="display: none;">
         <canvas id="myCanvas" width="500" height="500" style="border:1px solid grey;" tabindex='0'></canvas>
         <video controls width="200" style="width: 50vw;" class="ii">
             <source src="../../short.mp4" type="video/mp4" />
@@ -21,11 +21,100 @@
     </section>
 
     <aside class="iii">
-        <h3 style="font-family: Arial, sans-serif;">THIS IS THE ASIDE ELEMENT: Was a nice project to do. Some odd requirements, though.</h3>
+        <h3 style="font-family: Arial, sans-serif;">About us: Amos, Omer, Omri, Shir, Shahar</h3>
     </aside>
 
     <footer>
-        <h4>This is the footer element</h4>
         <p>&copy; 2023 SkyLift. All rights reserved.</p>
     </footer>
 </div>
+<script>
+    fetch('http://localhost:3000/api/flights/totalRevenuePerCompany')
+        .then(res => res.json())
+        .then(data => {
+            const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d._id))
+                .range([0, width])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.totalRevenue)])
+                .nice()
+                .range([height, 0]);
+
+            svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", d => x(d._id))
+                .attr("y", d => y(d.totalRevenue))
+                .attr("width", x.bandwidth())
+                .attr("height", d => height - y(d.totalRevenue));
+
+            svg.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            svg.append("g")
+                .attr("class", "y-axis")
+                .call(d3.axisLeft(y));
+            ;
+        })
+        .catch(err => console.error(err));
+    fetch('http://localhost:3000/api/flights/airelinesTotalFlights')
+        .then(res => res.json())
+        .then(data => {
+            const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = d3.select("#chart2")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand()
+                .domain(data.map(d => d._id))
+                .range([0, width])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.totalFlights)])
+                .nice()
+                .range([height, 0]);
+
+            svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", d => x(d._id))
+                .attr("y", d => y(d.totalFlights))
+                .attr("width", x.bandwidth())
+                .attr("height", d => height - y(d.totalFlights));
+
+            svg.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+
+            svg.append("g")
+                .attr("class", "y-axis")
+                .call(d3.axisLeft(y));
+        })
+        .catch(err => console.error(err));
+
+</script>

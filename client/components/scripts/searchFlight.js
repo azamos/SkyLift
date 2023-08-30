@@ -23,7 +23,6 @@ const searchFlight = async e => {
             $("#main-component-container").html("");
             res.forEach(f => {
                 const flight = generateFlightHTML(f, 0, true);
-                
                 $('#main-component-container').append(flight);
             })
         })

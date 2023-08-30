@@ -38,7 +38,7 @@ const getFlightsByFilter = async (filterOBj = {}) => {
         let filteredFlights;
         depart = new Date(depart);
         arrival = new Date(arrival);
-        //if they are not valid dates, I expect an error to be thrown.TEST THIS.
+
         filteredFlights = await Flight.find({
             origin,
             destination,
