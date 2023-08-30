@@ -9,6 +9,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes');
 const locationModel = require('./models/locationModel');
+const flightsModel = require('./models/flightModel');
 //const {expireToken} = require('./services/tokenDbService');
 
 

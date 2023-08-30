@@ -88,8 +88,11 @@ const loadCheckout = async () => {
                 })
                 .then(res=>res.json())
                 .then(res=>{
+                    console.log("after calling tryToPurchaseAllFlightsInCart")
                     console.log(res);
                     if(res.error){
+                        console.log("failed to purchase flight. REason:");
+                        console.log(res.error);
                         return;
                     }
                     alert('Purchase completed !!');

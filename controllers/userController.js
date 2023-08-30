@@ -342,7 +342,6 @@ const tryToPurchaseAllFlightsInCart = async (req, res) => {
         const userInstance = await userDbService.findUserByMail(find_user_result.email);
         const { cart, future_flights } = userInstance;
         const flight_instances_array = await flightDbService.getFlightsByIdArr(cart);
-        console.log("in userController.tryToPurchaseAllFlightsInCart");
         flight_instances_array.forEach(async flight_instance => {
             let { economyCapacity, economyPassengers, _id } = flight_instance;
             if (economyCapacity > 0 && !economyPassengers.includes(userInstance.email)) {
@@ -365,12 +364,17 @@ const tryToPurchaseAllFlightsInCart = async (req, res) => {
                     return;
                 }
             }
+            else{
+                res.send({msg:"flight already in user's future_flights"});
+                return;
+            }
         })
     }
     catch (err) {
         console.error('something went horribly wrong...');
         console.error(err);
         res.send({ error: 'something went wrong...' })
+        return;
     }
 }
 
