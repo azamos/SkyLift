@@ -119,7 +119,7 @@ async function loadUserData(email_in) {
             }
 
             if (pastFlights.length != 0) {
-                $("#allpastflights-button").attr('style', 'background-color: blue');
+                $("#allpastflights-button").attr('style', 'background-color: #5f9ea0');
                 $("#allpastflights-button").on('click', () => {
                     $('#main-component-container').load(`${views_path}/allFlightsTamp.html`, () => {
                         for (let i = 0; i < pastFlights.length; i++) {
@@ -135,7 +135,7 @@ async function loadUserData(email_in) {
             }
 
             if (res.cart.length != 0) {
-                $("#cart-button-acc").attr('style', 'background-color: blue');
+                $("#cart-button-acc").attr('style', 'background-color: #5f9ea0');
                 $("#cart-button-acc").on('click', () => {
                     loadMainComponent('cart');
                 })
