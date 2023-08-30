@@ -12,6 +12,7 @@ const loadCart = async () => {
         }
         $('#add-here-cart-items').load(`${views_path}/cartComponent.html`,x=>{
             res.cart.forEach(flightCartModelInstanc => {
+                console.log(flightCartModelInstanc)
                 let htmlRef = generateCartHTML(flightCartModelInstanc);
                 $('#add-here-cart-items').append(htmlRef);
             });
@@ -20,11 +21,11 @@ const loadCart = async () => {
     .catch(err=>console.log(err));
 }
 
-const generateCartHTML =  flightModelInstanc => {
+const generateCartHTML =  flightModelInstance => {
     let htmlRef = $("#cart-flight-item-container").clone();
     let headCartTemp = htmlRef.find('.head-cart-temp');
     
-    headCartTemp.find('.fromwhere-to-where').text(`${flightModelInstanc.origin} TO ${flightModelInstanc.destination}`);
+    headCartTemp.find('.fromwhere-to-where').text(`${flightModelInstance.origin} TO ${flightModelInstance.destination}`);
     
     let inputString = flightModelInstance.departTime;
     let outputString = inputString.replace("T00:00:00.000Z", "");
@@ -37,8 +38,8 @@ const generateCartHTML =  flightModelInstanc => {
     outputString = formatDate(outputString);
 
     headCartTemp.find('.date-arriving').text(`ETA: ${outputString}`);
-    headCartTemp.find('.airline-company').text(`Airline: ${flightModelInstanc.company}`);
-    headCartTemp.find('.flight-price').text(`Price: ${flightModelInstanc.price}$`);
+    headCartTemp.find('.airline-company').text(`Airline: ${flightModelInstance.company}`);
+    headCartTemp.find('.flight-price').text(`Price: ${flightModelInstance.price}$`);
     
     return htmlRef;
 }

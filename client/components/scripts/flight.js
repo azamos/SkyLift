@@ -98,10 +98,10 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     else{
         //BUY FLIGHT From Hot Deals
         htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
-            fetch(`${url}/flights/purchase`, {
+            fetch(`${url}/users/addFlightToCart`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({email:state.user,flight_id:flightModelInstance._id , seatType:"economy"})
+                body: JSON.stringify({desired_flight_id:flightModelInstance._id})
             })
             .then(res => res.json())
             .then(res =>{
