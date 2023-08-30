@@ -80,7 +80,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         //EDIT FLIGHT
         htmlRef.children('.card-body').children('.edit-button').on('click',function(){
             //editFlightTemp
-            $('#main-component').load(`${views_path}/editFlightTemp.html`,x=>{
+            $('#main-component-container').load(`${views_path}/editFlightTemp.html`,x=>{
                 $("#edit-flight-btn").on('click',async()=>{
                     const edit_title = $("#edit-flight-title").val();
                     const edit_price = $("#edit-flight-price").val();
@@ -102,7 +102,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
                     ).catch(err => {
                         console.log(err);
                     })
-                    $("#main-component").html("");
+                    $('#main-component-container').html();
                     loadMainComponent('allFlights');
                 });
             });
