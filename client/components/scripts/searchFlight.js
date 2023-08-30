@@ -21,8 +21,9 @@ const searchFlight = async e => {
     }).then(res => res.json())
         .then(res => {
             res.forEach(f => {
-                const flight = generateFlightHTML(f, 0, false);
-                $('#underTheSearchBar').append(flight);
+                const flight = generateFlightHTML(f, 0, true);
+                $("#main-component-container").html("");
+                $('#main-component-container').append(flight);
             })
         })
         .catch(e => { console.error(e); return []; });

@@ -11,7 +11,7 @@ const cookieOptions = { httpOnly: true, sameSite: 'strict' };
     This is the Controller for the Users, which handles ALL requests
     that relate to users.
     Each function here uses different operations, but all of them have similar responsibilites:
-        1. Checks that whoever made a request is allowed to do so(called authorization).Note: not all requests require an authorization.
+        (Moved to a middleware)1. Checks that whoever made a request is allowed to do so(called authorization).Note: not all requests require an authorization.
         2. Makes sure that the requests themselve are valid(for example,
             if a user registers, it will reach the function createUser I wrote bellow. In it, we make sure
             that the email is in a valid format, that the password isn't an empty string)
@@ -26,7 +26,7 @@ const cookieOptions = { httpOnly: true, sameSite: 'strict' };
         The project requirements dictate that for each entitySet/Model, we must provide the following functions:
         1. LIST: return a list of all instances(for example, return a list of all users).This is a READ operation.
         2. SEARCH users by a few paramaters(for example: email, name, some other field...).This is a READ operation.
-        3.DELETE a user(we will go by email for now); This is a DELETE operation
+        3.DELETE a user(we will go by email); This is a DELETE operation
         4.CREATE a user; This is a CREATE operation.
         5.UPDATE a user; This is a UPDATE operation.
 */
@@ -76,7 +76,7 @@ const userLogin = async (req, res) => {
         return;
     }
 
-    /* if there is an authorization header attached, it means that a user
+    /* if there is a cookie attached, it means that a user
     is already logged in, or have an expired token, in the browser.
     Thus I must invalidate the previous token if it is valid, otherwise, nothing? */
     if (req.cookies && req.cookies.token) {
@@ -235,9 +235,8 @@ const updateUser = async (req, res) => {
         }
     })
     keysToRemove.forEach(key=>delete(newData[key]));
-    // console.log('data after removing empty inputs: ',newData);
-    if ('password' in Object.keys(newData)) {
-        let hashed = await bcrypt.hash(newData.password, process.env.SALT_ROUNDS);
+    if (newData.password) {
+        let hashed = await bcrypt.hash(newData.password, salt_rounds);
         newData.password = hashed;
     }
     const user = await userDbService.updateUser(email, newData);

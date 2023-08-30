@@ -54,13 +54,13 @@ const addFlight = async e => {
         generateFlightHTML(newlyAddedFlight, allDeals.length);
         /* next, add it to the list of flights */
         allDeals.push(newlyAddedFlight);
-        let postToFB = await fetch(`${url}/facebook`,{
-            method:'POST',
-            headers,
-            body:JSON.stringify(newlyAddedFlight)
-        });
-        postToFB = await postToFB.json();
-        console.log(postToFB);
+        // let postToFB = await fetch(`${url}/facebook`,{
+        //     method:'POST',
+        //     headers,
+        //     body:JSON.stringify(newlyAddedFlight)
+        // });
+        // postToFB = await postToFB.json();
+        // console.log(postToFB);
     }
     else {
         console.log(`failed to add flight. reason: ${newlyAddedFlight}`);
@@ -82,9 +82,10 @@ const validate_add_flight_form = () => {
         newFlightEstimatedTimeOfArrivalJqueryObj,
         newFlightUploadFlightImageJuqryObj } = add_flight_form_fields;
     const add_flight_button = $("#add-flight-btn");
+    const parsed_price = parseFloat(newFlightPriceJqueryObj.val());
     /* make sure all fields are filled and valid, and if so, allow to submit new flight */
     if (newFlightUploadFlightImageJuqryObj.prop('files').length > 0 &&
-        newFlightTitleJqueryObj.val() != "" && newFlightPriceJqueryObj.val() != "" && newFlightCompanyJqueryObj.val() != ""
+        newFlightTitleJqueryObj.val() != "" && newFlightPriceJqueryObj.val() != "" && parsed_price>0 && newFlightCompanyJqueryObj.val() != ""
         && newFlightOriginJqueryObj.val() != newFlightDestinationJqueryObj.val()
         && newFlightdepartTimeJqueryObj.val() && newFlightEstimatedTimeOfArrivalJqueryObj.val() &&
         new Date(newFlightdepartTimeJqueryObj.val()) < new Date(newFlightEstimatedTimeOfArrivalJqueryObj.val())) {
