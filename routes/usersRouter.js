@@ -27,6 +27,6 @@ usersRouter.get('/usersList',requireAuthorization,getUsersList);
 usersRouter.post('/update',requireAuthorization,updateUser);
 usersRouter.post('/delete',requireAuthorization,deleteUser);
 usersRouter.get('/signout',requireAuthorization,signOut);
-usersRouter.post('/addFlightsToCart',requireAuthorization,addFlightToCart)
+usersRouter.post('/addFlightToCart',requireAuthorization,addFlightToCart)
 usersRouter.post('/tryToPurchaseAllFlightsInCart',requireAuthorization,tryToPurchaseAllFlightsInCart);
 module.exports = usersRouter;

@@ -301,11 +301,11 @@ const addFlightToCart = async (req, res) => {
             res.send({ msg: "no new flights added to cart, only duplications." })
             return;
         }
-        const operation_result = await userDbService.addFlightIDToCart(userInstance, newFlights);
+        const operation_result = await userDbService.addFlightIDToCart(userInstance, desired_flight_id);
         if (operation_result) {
             res.send({
                 msg: 'added flights to cart.',
-                addFlights: newFlights
+                addFlights: desired_flight_id
             });
             return;
         }
