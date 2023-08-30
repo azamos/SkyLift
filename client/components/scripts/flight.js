@@ -63,7 +63,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             fetch(`${url}/users/addFlightToCart`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({desired_flight_id:flightModelInstance._id})
+                body: JSON.stringify({desired_flight_id:flight_id})
             })
             .then(res => res.json())
             .then(res =>{
@@ -75,32 +75,58 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             .catch(err => {
                 console.log(err);
             })
-    });
+        });
 
-    //EDIT FLIGHT
-    // htmlRef.children('.card-body').children('.edit-button').on('click',function(){
-        
-    //     loadMainComponent('addFlight');
-    //     fetch(`${url}/users/update`, {
-    //         method: 'POST',
-    //         headers,
-    //         body: JSON.stringify({id:flightModelInstance._id , newData:})
-    //     }
-    //     ).catch(err => {
-    //         console.log(err);
-    //     })
-    //     loadMainComponent('allFlights');
-    // });
+        //EDIT FLIGHT
+        htmlRef.children('.card-body').children('.edit-button').on('click',function(){
+            //editFlightTemp
+            $('#main-component').load(`${views_path}/editFlightTemp.html`,x=>{
+                $("#edit-flight-btn").on('click',async()=>{
+                    fetch(`${url}/users/update`, {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({id:flight_id })
+                    }
+                    ).catch(err => {
+                        console.log(err);
+                    })
+                    loadMainComponent('allFlights');
+                });
+            });
+        });
+
+        //make it popular 
+        htmlRef.children('.card-body').children('.popular-button').on('click' , async()=>{
+            fetch(`${url}/flights/makePopular`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({desired_flight_id:flight_id})
+            })
+            .then(res => res.json())
+            .then(res =>{
+                if(res.msg){
+                    loadMainComponent('popularDeals');
+                    return;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        });
     }
 
+
+
+
     //functions for all users
+    //popular deals
     else{
         //BUY FLIGHT From Hot Deals
         htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
             fetch(`${url}/users/addFlightToCart`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({desired_flight_id:flightModelInstance._id})
+                body: JSON.stringify({desired_flight_id:flight_id})
             })
             .then(res => res.json())
             .then(res =>{
