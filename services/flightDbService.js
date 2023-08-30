@@ -96,6 +96,19 @@ const totalFlightsPerCompany = async () => {
     return result;
 }
 
+const totalRevenuePerCompany = async () => {
+    const result = await Flight.aggregate([{
+        $group:{
+            _id:'$company',
+            totalRevenue: {
+                $sum: {$multiply:['$price',{$size:'$economyPassengers'}]}
+            }
+        }
+    }]);
+    console.log(result);
+    return result;
+}
+
 module.exports = {
     createFlight,//Create
     getFlights,//Read
@@ -105,5 +118,6 @@ module.exports = {
     updateFlightData,//Update
     deleteFlight,//Delete
     getFlightsByIdArr,//READ
-    totalFlightsPerCompany//GroupBy
+    totalFlightsPerCompany,//GroupBy,
+    totalRevenuePerCompany//GroupBy
 };

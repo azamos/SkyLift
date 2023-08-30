@@ -150,24 +150,24 @@ const purchaseFlightSeat = async (req, res) => {
     }
     let seatAmount = 1;//later, change it
     /* FIRST, CHECK IF USER NOT IN PASSENGER LIST AND IF THERE ARE ENOUGH AVAILABLE SEATS */
-    if (seatType == 'bussiness' && !(flight.bussinessPassengers.includes(userId)) && flight.bussinessCapacity - (seatAmount - 1) > 0) {
-        let { bussinessPassengers, bussinessCapacity } = flight;
-        bussinessPassengers.push(userId);//NOTE: bad name. userId is actualy email, and not user._id
-        bussinessCapacity -= seatAmount;
-        flightDbService.updateFlightData(flight_id, { bussinessCapacity, bussinessPassengers });
-        /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
-        on this specific flight, we also need to add this flight to future_flights in his database entry
-        under the Users collection. And only after that succecds, we let him know it succeeded.
-        If, However, the action failed, we must release the space he took on the plane, and then let him know
-        something has failed, and thus he can try again. */
-        const { future_flights } = user;
-        future_flights.push(flight_id);
-        if (await userDbService.updateUser(user.email, { future_flights })) {
-            res.send({ msg: 'flight added succesfuly' })
-            return;
-        }
-    }
-    if (seatType == 'economy' && !(flight.economyPassengers.includes(userId)) && flight.economyCapacity - (seatAmount - 1) > 0) {
+    // if (seatType == 'bussiness' && !(flight.bussinessPassengers.includes(userId)) && flight.bussinessCapacity - (seatAmount - 1) > 0) {
+    //     let { bussinessPassengers, bussinessCapacity } = flight;
+    //     bussinessPassengers.push(userId);//NOTE: bad name. userId is actualy email, and not user._id
+    //     bussinessCapacity -= seatAmount;
+    //     flightDbService.updateFlightData(flight_id, { bussinessCapacity, bussinessPassengers });
+    //     /* Now that it is registered in the database as a fact that the user(s) have a designated seat(s)
+    //     on this specific flight, we also need to add this flight to future_flights in his database entry
+    //     under the Users collection. And only after that succecds, we let him know it succeeded.
+    //     If, However, the action failed, we must release the space he took on the plane, and then let him know
+    //     something has failed, and thus he can try again. */
+    //     const { future_flights } = user;
+    //     future_flights.push(flight_id);
+    //     if (await userDbService.updateUser(user.email, { future_flights })) {
+    //         res.send({ msg: 'flight added succesfuly' })
+    //         return;
+    //     }
+    // }
+    if (!(flight.economyPassengers.includes(userId)) && flight.economyCapacity - (seatAmount - 1) > 0) {
         let { economyPassengers, economyCapacity } = flight;
         economyPassengers.push(userId);//NOTE: bad name. userId is actualy email, and not user._id
         //However, user's email is better for checking dups, since Mongodb default _id is object,
@@ -186,7 +186,7 @@ const purchaseFlightSeat = async (req, res) => {
             return;
         }
     }
-    res.send({ error: 'something went wrong, flight not purchased. Please try again' });
+    res.send({ error: 'something went wrong, flight not purchased.' });
     return;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,6 +196,7 @@ const getPopularFlights = async (req, res) => {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const companiesFlightAmount = async (req,res) => res.send(await flightDbService.totalFlightsPerCompany());
+const totalRevenuePerCompany = async (req,res)=>res.send(await flightDbService.totalRevenuePerCompany());
 
 module.exports = {
     deleteFlightFromAllUsers,
@@ -207,5 +208,6 @@ module.exports = {
     getPopularFlights,
     searchFlight,
     purchaseFlightSeat,
-    companiesFlightAmount
+    companiesFlightAmount,
+    totalRevenuePerCompany
 };

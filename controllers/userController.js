@@ -375,11 +375,50 @@ const tryToPurchaseAllFlightsInCart = async (req, res) => {
     }
 }
 
+const deleteFlightFromCart = async(req,res)=>{
+    try{
+        const find_user_result = await detectUserMailByToken(req);
+        if (find_user_result.op == 'FAILURE') {
+            res.send({ error: 'did not detect user' });
+            return;
+        }
+        const {flight_id} = req.body;
+        if(!flight_id){
+            res.send({error:'missing body parameter: flight_id'});
+            return;
+        }
+        const userInstance = await userDbService.findUserByMail(find_user_result.email);
+        if(!userInstance){
+            res.send({error:'did not detect user in DB...'});
+            return;
+        }
+        let {cart} = userInstance;
+        let indexOf_Flight = cart.indexOf(flight_id);
+        if(indexOf_Flight<0){
+            res.send({msg:'flight not in cart...'});
+            return;
+        }
+        cart = cart.splice(indexOf_Flight,1);
+        let updateResult = await userDbService.updateUser(find_user_result.email,{cart});
+        if(!updateResult){
+            res.send({error:'failed to update user...'});
+            return;
+        }
+        res.send({msg:'flight removed from users cart!!'});
+        return;
+    }
+    catch(err){
+        console.log(err);
+        res.send({error:'something went wrong. Reason: ',err});
+        return;
+    }
+}
+
 
 module.exports = {
     checkUserPassword, userLogin, createUser, getUserData, getUsersList,
     updateUser, deleteUser, signOut, userIsStillLoggedIn, addFlightToCart,
-    tryToPurchaseAllFlightsInCart
+    tryToPurchaseAllFlightsInCart,deleteFlightFromCart
 };
 
 

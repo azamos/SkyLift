@@ -96,23 +96,23 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
         });
 
         //make it popular 
-        htmlRef.children('.card-body').children('.popular-button').on('click' , async()=>{
-            fetch(`${url}/flights/makePopular`, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({desired_flight_id:flight_id})
-            })
-            .then(res => res.json())
-            .then(res =>{
-                if(res.msg){
-                    loadMainComponent('popularDeals');
-                    return;
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        });
+        // htmlRef.children('.card-body').children('.popular-button').on('click' , async()=>{
+        //     fetch(`${url}/flights/makePopular`, {
+        //         method: 'POST',
+        //         headers,
+        //         body: JSON.stringify({desired_flight_id:flight_id})
+        //     })
+        //     .then(res => res.json())
+        //     .then(res =>{
+        //         if(res.msg){
+        //             loadMainComponent('popularDeals');
+        //             return;
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
+        // });
     }
 
 

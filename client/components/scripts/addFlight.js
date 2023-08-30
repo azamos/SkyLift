@@ -1,4 +1,5 @@
 let add_flight_form_fields = {};
+const valid_extensions = ['jpg','jpeg','png','gif','bmp'];
 async function addFlightInitiaizeFormFields() {
     const newFlightTitleJqueryObj = $("#newFlightTitle");
     const newFlightPriceJqueryObj = $("#newFlightPrice");
@@ -38,6 +39,13 @@ const addFlight = async e => {
         estimatedTimeOfArrival: newFlightEstimatedTimeOfArrivalJqueryObj.val(),
     };
     const formData = new FormData();
+    const fileName = newFlightUploadFlightImageJuqryObj.prop('files')[0].name.toLowerCase();
+    const fileExtension = fileName.split('.').pop();
+    console.log(fileExtension);
+    if(!( valid_extensions.includes(fileExtension))){
+        alert('invalid fileType! only images allowed!');
+        return;
+    }
     Object.keys(data).forEach(field => formData.append(field, data[field]));
     formData.append('image', newFlightUploadFlightImageJuqryObj.prop('files')[0]);
     let newlyAddedFlight = await fetch(`${url}/flights`, {
@@ -89,6 +97,7 @@ const validate_add_flight_form = () => {
         && newFlightOriginJqueryObj.val() != newFlightDestinationJqueryObj.val()
         && newFlightdepartTimeJqueryObj.val() && newFlightEstimatedTimeOfArrivalJqueryObj.val() &&
         new Date(newFlightdepartTimeJqueryObj.val()) < new Date(newFlightEstimatedTimeOfArrivalJqueryObj.val())) {
+    
         add_flight_button.removeAttr('disabled')
     }
     /* if one of the fields is not valid, disable the option to submit */

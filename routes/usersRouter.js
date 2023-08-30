@@ -11,7 +11,8 @@ const {
     checkUserPassword,
     userIsStillLoggedIn,
     addFlightToCart,
-    tryToPurchaseAllFlightsInCart
+    tryToPurchaseAllFlightsInCart,
+    deleteFlightFromCart
  } = require('../controllers/userController');
 
 //these 3 don't need authorization, since users who login/register do so since they
@@ -22,6 +23,8 @@ usersRouter.get('/isLoggedIn',userIsStillLoggedIn);
 
 //TODO ! 
 //deleteFlightFromCart
+usersRouter.post('/deleteFlightFromCart',requireAuthorization,deleteFlightFromCart);
+
 
 //the rest do indeed require authentication and authorization
 usersRouter.post('/checkpassword',requireAuthorization,checkUserPassword);
