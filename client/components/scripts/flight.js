@@ -25,6 +25,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
     const flight_id = flightModelInstance._id;
 
     //functions for admins
+    //all flights
     if(!isPopular){
 
         //DELETE FLIGHT From all flights
@@ -59,8 +60,7 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
 
         //BUY FLIGHT
         htmlRef.children('.card-body').children('.buy-button').on('click' , async()=>{
-            console.log('baa')
-            fetch(`${url}/users/addFlightsToCart`, {
+            fetch(`${url}/users/addFlightToCart`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({desired_flight_id:flightModelInstance._id})
@@ -68,7 +68,6 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             .then(res => res.json())
             .then(res =>{
                 if(res.msg){
-                    console.log(res);
                     loadMainComponent('allFlights');
                     return;
                 }

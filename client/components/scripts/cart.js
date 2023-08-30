@@ -64,7 +64,22 @@ const loadCheckout = async () => {
                 let htmlRef  = checkoutFlightGeneratorHtml(flightCheckoutModelInstanc);
                 $('#here-add-checkout-items-component').append(htmlRef);
         
-                });
+            });
+
+            $('#completePurchase-btn').on('click', ()=>{
+                fetch(`${url}/users/tryToPurchaseAllFlightsInCart`,{
+                    method:'POST'
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res.error){
+                        return;
+                    }
+                    console.log(res);
+                    alert('Purchase completed !!');
+                })
+                .catch(err=>console.log(err));
+            });
         });
     })
     .catch(err=>console.log(err));

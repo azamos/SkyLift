@@ -350,18 +350,20 @@ const tryToPurchaseAllFlightsInCart = async (req, res) => {
                 economyCapacity--;
                 economyPassengers.push(userInstance.email);
                 let result = await flightDbService.updateFlightData(_id, { economyCapacity, economyPassengers });
-                if (result && result._id == _id) {
+                if (result) {
                     future_flights.push(_id);
                     if (await userDbService.updateUser(userInstance.email, { future_flights, cart: [] })) {
                         res.send(userInstance);
                         return;
                     }
                     else {
-                        throw new Error('failed to update user ' + find_user_result.email);
+                        res.send({error:'failed to update user ' + find_user_result.email});
+                        return;
                     }
                 }
                 else {
-                    throw new Error('failed to update flight ' + _id);
+                    res.send({error:'failed to update flight ' + _id});
+                    return;
                 }
             }
         })
