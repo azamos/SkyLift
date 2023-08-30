@@ -67,6 +67,11 @@ async function loadUserData(email_in) {
                                     const phone = $('#phoneNumber-editinfo').val();
                                     let passwordInput = $('#password-editinfo').val();
                                     let confirmPassword = $('#confirmPassword-editinfo').val();
+                                    
+                                    if(!phoneNumberValidation(phone)){
+                                        alert("Phone number is not valid!");
+                                        return;
+                                    }
 
                                     if (passwordInput != confirmPassword) {
                                         console.log("Passwords do not match");
