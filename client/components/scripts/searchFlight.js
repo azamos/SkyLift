@@ -20,9 +20,10 @@ const searchFlight = async e => {
         })
     }).then(res => res.json())
         .then(res => {
+            $("#main-component-container").html("");
             res.forEach(f => {
                 const flight = generateFlightHTML(f, 0, true);
-                $("#main-component-container").html("");
+                
                 $('#main-component-container').append(flight);
             })
         })
