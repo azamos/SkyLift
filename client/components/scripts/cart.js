@@ -92,7 +92,6 @@ const loadCheckout = async () => {
                     if(res.error){
                         return;
                     }
-                    console.log(res);
                     alert('Purchase completed !!');
                 })
                 .catch(err=>console.log(err));

@@ -50,14 +50,14 @@ let watchedFlights = new Map();
 io.on('connection', socket => {
   connections++;
   //console.log('a user opened a sebsocket connection, there are now: ' + connections + ' open connections');
-  io.emit('chat message', `User joined.there are ${connections} users connetcted`)
+  io.emit('chat message', connections)
   socket.on('disconnect', () => {
     connections--;
     //console.log('user disconnected, there are currently only ' + connections + ' connections');
     /* AMOS, TODO:  this is the place to call the method that invalidates tokens(expireToken or some such).
     You will also need to create the ws connection ONLY after signing in. Hmm. Is this the best way?
     Think about it more.*/
-    io.emit('chat message', `User left.there are ${connections} users connetcted`);
+    io.emit('chat message', connections);
   });
   socket.on('watched flights', payload => {
     //console.log(payload);

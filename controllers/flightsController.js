@@ -78,10 +78,21 @@ However, if a customer makes an order, will trigger this function as well, since
 Which reminds me, that we must add checks to make sure there are enough seats available for purchase,
 including multiple seats per purchaser. */
 const updateFlightData = async (req, res) => {//will reach here with a get request, so extract data from req.params
-    const { id, newData } = req.params;
+    const { id, newData } = req.body;
+    console.log("heere")
+    console.log(newData);
+    const newDataKeys = Object.keys(newData);
+    const keysToRemove = [];
+    newDataKeys.forEach(key=>{
+        if(newData[key].trim()==""){
+            keysToRemove.push(key);
+        }
+    })
+    keysToRemove.forEach(key=>delete(newData[key]));
     const flightToBeUpdated = await flightDbService.updateFlightData(id, newData);
     if (!flightToBeUpdated) {
         res.send(`failed to find flight with id = ${id} to be updated.`)
+        return;
     }
     res.json(flightToBeUpdated);
 };

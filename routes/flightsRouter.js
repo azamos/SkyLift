@@ -9,7 +9,8 @@ const {
     purchaseFlightSeat,
     deleteFlightFromAllUsers,
     companiesFlightAmount,
-    totalRevenuePerCompany
+    totalRevenuePerCompany,
+    updateFlightData
 } = require('../controllers/flightsController');
 
 //site visitors should be able to search a flight and to see popular deals anywhere,
@@ -21,6 +22,8 @@ const {
 //But: we may need to change the requireAuthorization middleware.
 flightsRouter.post('/searchFlight', searchFlight);
 flightsRouter.get('/popular', getPopularFlights);
+
+flightsRouter.post('/update',requireAuthorization,updateFlightData);
 
 flightsRouter.post('/',
     requireAuthorization,//authorization middleware - only an admin may create a new flight

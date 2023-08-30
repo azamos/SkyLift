@@ -82,10 +82,22 @@ const generateFlightHTML = (flightModelInstance,i,isPopular = false) => {
             //editFlightTemp
             $('#main-component').load(`${views_path}/editFlightTemp.html`,x=>{
                 $("#edit-flight-btn").on('click',async()=>{
-                    fetch(`${url}/users/update`, {
+                    const edit_title = $("#edit-flight-title").val();
+                    const edit_price = $("#edit-flight-price").val();
+                    const edit_company = $("#edit-flight-company").val();
+                    const edit_origin = $("#edit-flight-origin").val();
+                    const edit_destination = $("#edit-flight-destination").val();
+                    const newData = {
+                        title: edit_title,
+                        price: edit_price,
+                        company: edit_company,
+                        origin: edit_origin,
+                        destination: edit_destination
+                    };
+                    fetch(`${url}/flights/update`, {
                         method: 'POST',
                         headers,
-                        body: JSON.stringify({id:flight_id })
+                        body: JSON.stringify({id:flight_id, newData})
                     }
                     ).catch(err => {
                         console.log(err);

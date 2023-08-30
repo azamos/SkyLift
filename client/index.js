@@ -245,7 +245,9 @@ $(async function () {
     .catch(err => console.log(err));
 
     socket = io();
-    socket.on('chat message', msg => console.log(msg))
+    socket.on('chat message', msg => {
+        $("#numberOfConnectionsSpan").text(`There are ${msg} connections open`);
+    })
     loadMainComponent('popularDeals');
     $('#newsContainer').load(`${views_path}/articlesComponent.html`);
 
