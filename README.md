@@ -37,5 +37,6 @@ in your folder of choise, open a terminal and:
 * **Omer Maoz** - *Team member* - [omerone](https://github.com/omerone)
 * **Omri Finegold** - *Team member* - [omrifinegold11](https://github.com/omrifinegold11)
 * **Shir Michaelis** - *Team member* - [shirmichaelis](https://github.com/shirmichaelis)
+* **Shahar Wissbecker** - *Team member* - [ShaharWiss](https://github.com/ShaharWiss)
 
 See also the list of [contributors](https://github.com/azamos/SkyLift/contributors) who participated in this project.
